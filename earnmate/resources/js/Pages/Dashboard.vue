@@ -2,6 +2,66 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import MyLayout from "@/Layouts/MyLayout.vue";
 import { Head } from "@inertiajs/vue3";
+import { ref, onMounted } from "vue";
+
+onMounted(() => {
+    chartData.value = setChartData();
+    chartOptions.value = setChartOptions();
+});
+
+const chartData = ref();
+const chartOptions = ref();
+
+const setChartData = () => {
+    return {
+        labels: ['Q1', 'Q2', 'Q3', 'Q4','Q5','Q6','Q6','Q6','Q6'],
+        datasets: [
+            {
+                label: 'earnings',
+                data: [540, 325, 702, 620,900, 230, 230, 230,230,10],
+                borderWidth: 1,
+                tension: 0.4,
+                
+            }
+        ]
+    };
+};
+const setChartOptions = () => {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--p-text-color');
+    const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+    const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+
+    return {
+        plugins: {
+            legend: {
+                labels: {
+                    color: textColor
+                }
+            }
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: textColorSecondary
+                },
+                grid: {
+                    color: surfaceBorder
+                }
+            },
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    color: textColorSecondary
+                },
+                grid: {
+                    color: surfaceBorder
+                }
+            }
+        }
+    };
+}
+import Chart from "primevue/chart";
 </script>
 
 <template>
@@ -50,11 +110,14 @@ import { Head } from "@inertiajs/vue3";
                 <p class="text-green-400 text-2xl"> <i class="pi hover:-translate-y-2 duration-200 pi-arrow-up"></i>
                     30DA</p>
             </div>
-            <div class="col-span-2 row-span-3 ">
-
+            <div class="col-span-2 row-span-3 flex space-y-6 flex-col  ">
+                <div class="w-full  border-2 rounded-xl h-full">
+                    <img src="/imgs/ad.png" class="h-full rounded-xl" alt="">
+                </div>
+                <Chart type="line" :data="chartData" :options="chartOptions" class="w-full p-6 border-2 rounded-xl" />
             </div>
             <div class="h-full col-span-2 pb-6 pt-2 border-2 rounded-xl row-span-3">
-                <p class="text-xl mt-2 ml-6 font-semibold">Traffic Distribution</p>
+                <p class="text-xl mt-1 mb-1 ml-6 font-semibold">Traffic Distribution</p>
                 <div class=" h-full grid gap-6 px-6 pb-8  grid-cols-2 grid-rows-3  ">
                     <div class=" rounded-lg border flex flex-col justify-center items-center">
                         <img src="/svgs/games.svg"  class="h-10" alt="">

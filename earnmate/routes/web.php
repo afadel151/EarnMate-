@@ -29,5 +29,8 @@ Route::get('/landing', function(){
 Route::get('sidebar', function(){
     return Inertia::render('Sidebar');
 });
+Route::get('statistics', function(){
+    return Inertia::render('Statistics');
+});
 
 require __DIR__.'/auth.php';

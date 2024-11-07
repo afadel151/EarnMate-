@@ -21,6 +21,7 @@
     "dependencies": {
         "@primevue/forms": "^4.2.1",
         "@primevue/themes": "^4.2.1",
+        "chart.js": "^4.4.6",
         "jquery": "^3.7.1",
         "primeicons": "^7.0.0",
         "primevue": "^4.2.1"
