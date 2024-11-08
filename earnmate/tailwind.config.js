@@ -17,6 +17,7 @@ export default {
             },
             backgroundImage: {
                 'home-bg': "url('/imgs/home-bg.png')",
+                'home2-bg': "url('/imgs/achievements-bg.png')",
             },
         },
     },
