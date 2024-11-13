@@ -32,5 +32,7 @@ Route::get('sidebar', function(){
 Route::get('statistics', function(){
     return Inertia::render('Statistics');
 });
-
+Route::get('deposit', function(){
+    return Inertia::render('Deposit');
+});
 require __DIR__.'/auth.php';

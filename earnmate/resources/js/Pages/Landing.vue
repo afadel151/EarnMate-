@@ -1,34 +1,6 @@
 <script setup>
-import { Button, Menubar, SplitButton, Toast } from 'primevue';
-import { useToast } from "primevue/usetoast";
-const toast = useToast();
-const items = [
-    {
-        label: 'Update',
-        command: () => {
-            this.$toast.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated', life: 3000 });
-        }
-    },
-    {
-        label: 'Delete',
-        command: () => {
-            this.$toast.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000 });
-        }
-    },
-    {
-        separator: true
-    },
-    {
-        label: 'Quit',
-        command: () => {
-            window.location.href = 'https://vuejs.org/';
-        }
-    }
-];
-
-const save = () => {
-    toast.add({ severity: 'success', summary: 'Success', detail: 'Data Saved', life: 3000 });
-};
+import { Button } from 'primevue';
+import Acheivments from '@/Components/Acheivments.vue';
 </script>
 
 <template>
@@ -37,7 +9,6 @@ const save = () => {
             <div class="w-screen h-28 flex justify-between items-center px-16  ">
                 <img src="/svgs/logo.svg" width="200" alt="">
                 <div class="flex justify-center items-center gap-3">
-                    <Toast />
                     <Button variant="text" label="Advertise" severity="secondary" />
                     <Button variant="text" label="Advertise" severity="secondary" />
                     <Button variant="text" label="Advertise" severity="secondary" />
@@ -106,10 +77,9 @@ const save = () => {
                 </div>
             </div>
         </div>
+        <Acheivments />
     </div>
-    <div class="w-screen pt-24    bg-home2-bg bg-no-repeat bg-cover bg-[#dddeff] ">
-        <p class="text-5xl font-light text-center ">Achievments</p>
-    </div>
+    
 </template>
 
 <style scoped>
@@ -119,6 +89,8 @@ const save = () => {
     font-weight: 800;
     font-style: normal;
 }
+
+
 </style>
 
 <style>

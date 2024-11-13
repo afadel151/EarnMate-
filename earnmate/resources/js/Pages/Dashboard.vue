@@ -62,6 +62,8 @@ const setChartOptions = () => {
     };
 }
 import Chart from "primevue/chart";
+import Withdraw from "@/Components/Withdraw.vue";
+import InvieDialog from "@/Components/InviteDialog.vue"
 </script>
 
 <template>
@@ -70,17 +72,19 @@ import Chart from "primevue/chart";
 
     <MyLayout>
         <div class="w-full h-full grid grid-cols-4 gap-6 pt-6 pb-6  pl-6 pr-24 grid-rows-4 ">
-            <div class="rounded-xl pl-5 space-y-3 shadow-md flex flex-col justify-center items-start">
+            <div class="rounded-xl relative  bg-white border-2  pl-5 space-y-3 shadow-md flex flex-col justify-center items-start">
                 <div class="flex gap-2 justify-center items-center">
                     <img src="/svgs/withdraw-dollar-sign-svgrepo-com.svg" width="30" height="30" alt="" />
                     <h1>Total earnings</h1>
                 </div>
-
                 <p class="text-3xl font-bold">2800DA</p>
                 <p class="text-green-400 text-2xl"> <i class="pi hover:-translate-y-2 duration-200 pi-arrow-up"></i> 150
                 </p>
+                <div class=" absolute top-6 right-8">
+                    <Withdraw />
+                </div>
             </div>
-            <div class="rounded-xl pl-5 space-y-3 shadow-md flex flex-col justify-center items-start ">
+            <div class="rounded-xl  bg-white border-2 pl-5 space-y-3 shadow-md flex flex-col justify-center items-start ">
                 <div class="flex gap-2 justify-center items-center">
                     <img src="/svgs/winner-svgrepo-com.svg" width="30" height="30" alt="" />
                     <h1>Current level</h1>
@@ -91,7 +95,7 @@ import Chart from "primevue/chart";
                         class="pi pi-arrow-right mr-5 text-red-400 hover:translate-x-2 duration-200"></i> See other
                     levels</p>
             </div>
-            <div class="rounded-xl pl-5 space-y-3 shadow-md flex flex-col justify-center items-start ">
+            <div class="rounded-xl relative bg-white border-2 pl-5 space-y-3 shadow-md flex flex-col justify-center items-start ">
                 <div class="flex gap-2 justify-center items-center">
                     <img src="/svgs/add-friend-svgrepo-com.svg" width="30" height="30" alt="" />
                     <h1>Invited Friends</h1>
@@ -100,8 +104,11 @@ import Chart from "primevue/chart";
                 <p class="text-3xl font-bold">13 FRIENDS</p>
                 <p class="text-green-400  text-2xl"> <i class="pi hover:-translate-y-2 duration-200 pi-arrow-up"></i> 1
                     Friend</p>
+                    <div class=" absolute top-6 right-8">
+                    <InvieDialog />
+                </div>
             </div>
-            <div class="rounded-xl pl-5 space-y-3 shadow-md flex flex-col justify-center items-start">
+            <div class="rounded-xl bg-white border-2 pl-5 space-y-3 shadow-md flex flex-col justify-center items-start">
                 <div class="flex gap-2 justify-center items-center">
                     <img src="/svgs/reward-symbol-in-a-circle-svgrepo-com.svg" width="30" height="30" alt="" />
                     <h1>Total bonus</h1>
@@ -114,9 +121,9 @@ import Chart from "primevue/chart";
                 <div class="w-full  border-2 rounded-xl h-full">
                     <img src="/imgs/ad.png" class="h-full rounded-xl" alt="">
                 </div>
-                <Chart type="line" :data="chartData" :options="chartOptions" class="w-full p-6 border-2 rounded-xl" />
+                <Chart type="line" :data="chartData" :options="chartOptions" class="w-full bg-white border-2 p-6 border-2 rounded-xl" />
             </div>
-            <div class="h-full col-span-2 pb-6 pt-2 border-2 rounded-xl row-span-3">
+            <div class="h-full bg-white border-2 col-span-2 pb-6 pt-2 border-2 rounded-xl row-span-3">
                 <p class="text-xl mt-1 mb-1 ml-6 font-semibold">Traffic Distribution</p>
                 <div class=" h-full grid gap-6 px-6 pb-8  grid-cols-2 grid-rows-3  ">
                     <div class=" rounded-lg border flex flex-col justify-center items-center">

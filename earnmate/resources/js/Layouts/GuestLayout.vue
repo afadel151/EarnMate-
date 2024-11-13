@@ -1,22 +1,35 @@
 <script setup>
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import { Link } from '@inertiajs/vue3';
+import { Button } from 'primevue';
+import Footer from '@/Components/Footer.vue';
 </script>
 
 <template>
-    <div
-        class="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0"
-    >
-        <div>
-            <Link href="/">
-                <ApplicationLogo class="h-20 w-20 fill-current text-gray-500" />
-            </Link>
+    <div class="h-screen w-screen">
+        <div class="w-screen h-[15%] flex justify-between items-center px-16  ">
+            <img src="/svgs/Group.svg" width="200" alt="">
+            <div class="flex justify-center items-center gap-3">
+                <Button variant="text" size="large" label="Advertise" severity="contrast" />
+                <Button variant="text" size="large" label="Advertise" severity="contrast" />
+                <Button variant="text" size="large" label="Advertise" severity="contrast" />
+                <Button variant="text" size="large" label="Advertise" severity="contrast" />
+                <Button rounded label="Log in" size="large" severity="help" />
+                <Button rounded label="Register" size="large" severity="contrast" outlined />
+            </div>
         </div>
-
-        <div
-            class="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg"
-        >
-            <slot />
+        <div class="flex w-screen  h-[80%]  gap-36 justify-center items-center bg-gray-100  ">
+            
+                <slot />
+            
+        </div>
+        <div class="w-screen h-[30%] ">
+            <Footer />
         </div>
     </div>
 </template>
+<style>
+::-webkit-scrollbar {
+    display: none;
+}
+</style>

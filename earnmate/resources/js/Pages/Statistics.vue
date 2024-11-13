@@ -8,7 +8,7 @@ import History from '@/Components/History.vue';
 <template>
     <MyLayout>
         <div class="grid  grid-cols-6 grid-rows-6 gap-4 h-full w-full pr-24 p-6 ">
-            <div class="border border-gray-200   shadow-md rounded-xl col-span-2 row-span-2 p-4">
+            <div class="border border-gray-200 bg-white   shadow-md rounded-xl col-span-2 row-span-2 p-4">
                 <div class="h-full flex justify-start space-x-10 items-center w-full ">
                     <div class="flex justify-center items-center  w-48 h-48 bg-[#bb69ff] rounded-full">
                         <p class="text-5xl text-gray-50">A</p>
@@ -28,7 +28,7 @@ import History from '@/Components/History.vue';
                     </div>
                 </div>
             </div>
-            <div class="border border-gray-200  shadow-md col-span-2 rounded-xl row-span-2 p-6 col-start-3">
+            <div class="border border-gray-200 bg-white  shadow-md col-span-2 rounded-xl row-span-2 p-6 col-start-3">
                 <div class="w-full h-full rounded-xl  grid p-2 gap-2 grid-cols-2 grid-rows-2">
                     <div class=" border border-gray-200  shadow-md rounded-lg grid grid-cols-2 p-6 grid-rows-2">
                         <img src="/imgs/withdrawal.png" class="pi pi-wallet h-10 w-10 row-span-2">
@@ -52,7 +52,7 @@ import History from '@/Components/History.vue';
                     </div>
                 </div>
             </div>
-            <div class="border border-gray-200  shadow-md col-span-2 rounded-xl row-span-6 p-6 col-start-5">
+            <div class="border border-gray-200 bg-white   shadow-md col-span-2 rounded-xl row-span-6 p-6 col-start-5">
 
                 <div class="flex flex-col  p-6 justify-start gap-4 items-center h-full w-full rounded-xl  ">
                     <div class="w-full">
@@ -61,7 +61,7 @@ import History from '@/Components/History.vue';
                     <Levels />
                 </div>
             </div>
-            <div class="border border-gray-200  shadow-md col-span-4 row-span-4 rounded-xl p-4 row-start-3">
+            <div class="border border-gray-200 bg-white   shadow-md col-span-4 row-span-4 rounded-xl p-4 row-start-3">
                 <History />
             </div>
         </div>

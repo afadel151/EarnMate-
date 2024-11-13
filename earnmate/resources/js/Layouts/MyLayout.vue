@@ -33,7 +33,7 @@ let i=0;
                 <Withdrawal />
                 <Withdrawal />
             </div>
-            <div class="h-full  w-full ">
+            <div class="h-full bg-slate-100  w-full ">
                 <slot />
             </div>
         </div>

@@ -17,8 +17,12 @@ export default {
             },
             backgroundImage: {
                 'home-bg': "url('/imgs/home-bg.png')",
+                'footer-bg': "url('/imgs/footer-bg.png')",
                 'home2-bg': "url('/imgs/achievements-bg.png')",
             },
+            boxShadow: {
+                'custom-purple': '0px 0px 40px 0px rgba(136, 4, 255, 0.36)',
+            }
         },
     },
 
