@@ -1,16 +1,17 @@
 <script setup>
-import { Button } from 'primevue';
-import { Dialog, InputNumber } from 'primevue';
+import { Button, InputNumber,Dialog } from 'primevue';
 import { ref } from "vue";
 const visible = ref(false);
+const props = defineProps({
+    user: Object
+})
 </script>
 
 
 <template>
-    <Button @click="visible = true" variant="outlined" v-tooltip="'Withdraw'" class=" !border-2">
-        <img src="/svgs/withdraw-svgrepo-com.svg" width="30" alt="">
 
-    </Button>
+    <Button @click="visible = true" :disabled="props.user.balance < 500.00" severity="secondary" label="Withdraw" size="large" icon="pi 
+pi-arrow-down" />
     <Dialog v-model:visible="visible" modal header="Withdraw your money" :style="{ width: '25rem' }">
         <div class="flex items-center gap-4 mb-8">
             <label for="email" class="font-semibold w-24">Amount</label>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -14,25 +15,19 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/statistics',[UserController::class, 'statistics'] )->name('statistics');
+    Route::get('/deposit', [UserController::class, 'deposit'])->name('deposit');
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 });
 Route::get('/landing', function(){
     return Inertia::render('Landing');
 });
-Route::get('sidebar', function(){
-    return Inertia::render('Sidebar');
-});
-Route::get('statistics', function(){
-    return Inertia::render('Statistics');
-});
-Route::get('deposit', function(){
-    return Inertia::render('Deposit');
-});
+
+
+
 require __DIR__.'/auth.php';

@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('deposits', function (Blueprint $table) {
+        Schema::create('levels', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('level_number')->unique();
+            $table->decimal('deposit_required');
+            $table->unsignedInteger('friends_requierd');
+            $table->decimal('reward');
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('deposits');
+        Schema::dropIfExists('levels');
     }
 };

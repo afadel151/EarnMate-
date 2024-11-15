@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->unsignedBigInteger('admin_id')->default(0);
+            $table->enum('sender',['admin','user']);
+            $table->string('message');
+            $table->string('image')->default(null);
             $table->timestamps();
         });
     }

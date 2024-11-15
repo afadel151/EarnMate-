@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Reference;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -18,9 +19,10 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): Response
+    public function create(Request $request): Response
     {
-        return Inertia::render('Auth/Register');
+        $code = $request->query('code','');
+        return Inertia::render('Auth/Register',['code'=>$code]);
     }
 
     /**
@@ -28,6 +30,28 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    public function generateUniqueCode()
+{
+
+    $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersNumber = strlen($characters);
+    $codeLength = 6;
+
+    $code = '';
+
+    while (strlen($code) < 8) {
+        $position = rand(0, $charactersNumber - 1);
+        $character = $characters[$position];
+        $code = $code.$character;
+    }
+
+    if (User::where('code', $code)->exists()) {
+        $this->generateUniqueCode();
+    }
+
+    return $code;
+
+}
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
@@ -35,13 +59,21 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'code' => $this->generateUniqueCode(),
+            'balance' => 0
         ]);
-
+        if ($request->code != '') {
+            $referer_id = User::where('code',$request->code)->get('id');
+            Reference::create([
+                'referrer_id'=>$referer_id,
+                'referenced_id' => $user->id
+            ]);
+        };
         event(new Registered($user));
 
         Auth::login($user);

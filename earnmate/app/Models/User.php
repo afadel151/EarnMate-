@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -21,6 +23,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'code',
+        'google_id',
+        'balance'
     ];
 
     /**
@@ -44,5 +49,27 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function withdrawals() : HasMany
+    {
+        return $this->hasMany(Withdrawal::class);
+    }
+
+    public function tasks() : HasMany
+    {
+        return $this->hasMany(DoneTask::class);
+    }
+    public function admin() : HasOne
+    {
+        return $this->hasOne(Admin::class);
+    }
+    public function subscriptions() : HasMany
+    {
+        return $this->hasMany(Subscription::class);
+    }
+    public function friends(): HasMany 
+    {
+        return $this->hasMany(Reference::class, 'referrer_id');
     }
 }

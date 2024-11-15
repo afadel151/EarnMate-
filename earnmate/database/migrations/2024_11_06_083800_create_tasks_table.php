@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('platform');//youtube, telegram, instagram ...
+            $table->enum('type',['subscription','watch','like','comment']);
+            $table->string('link');
             $table->timestamps();
         });
     }

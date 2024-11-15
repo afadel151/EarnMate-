@@ -1,16 +1,19 @@
 <script setup>
+const props = defineProps({
+    code: String
+})
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Link, useForm, usePage } from '@inertiajs/vue3';
 import { Button } from 'primevue';
 const form = useForm({
     name: '',
     email: '',
     password: '',
     password_confirmation: '',
+    code: props.code
 });
 
 const submit = () => {
@@ -18,6 +21,7 @@ const submit = () => {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
+
 </script>
 
 <template>
@@ -79,7 +83,7 @@ const submit = () => {
                     Already registered?
                     </Link>
 
-                    <Button class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
+                    <Button type="submit" class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
                         label="Register" severity="help" size="large" />
 
                 </div>
