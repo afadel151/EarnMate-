@@ -30,7 +30,7 @@ Route::get('/landing', function(){
     return Inertia::render('Landing');
 });
 Route::prefix('/admin')->group(function (){
-    Route::get('/dashboard', [AdminController::class, 'dashboard']);
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 }); 
 Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect']);
 Route::get('/auth/{provider}/callback', [SocialController::class, 'callback']);

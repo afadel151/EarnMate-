@@ -4,6 +4,9 @@ import { Link } from "@inertiajs/vue3";
 </script>
 
 <template>
+    <span>
+
+    
     <div
         class="md:hidden z-10 flex px-4 justify-around items-center space-x-1 bg-slate-50 fixed h-20 bottom-0 w-screen"
     >
@@ -101,4 +104,5 @@ import { Link } from "@inertiajs/vue3";
         </Link>
         
     </div>
+</span>
 </template>
