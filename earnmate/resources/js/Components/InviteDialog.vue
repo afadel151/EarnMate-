@@ -17,10 +17,8 @@ async function copyURL() {
 </script>
 
 <template>
-    <Button @click="visible = true" variant="outlined"  severity="info" class=" !border-2">
-        <img src="/svgs/team-svgrepo.svg" width="30" alt="">
-
-    </Button>
+    <Button @click="visible = true" variant="text" size="large"  severity="info" icon="pi pi-share-alt"/>
+        
     <Dialog v-model:visible="visible" modal header="Withdraw your money" :style="{ width: '25rem' }">
         <div class="flex items-center gap-4 mb-8">
             <label for="email" class="font-semibold ">Invite a Friend via your Link :</label>

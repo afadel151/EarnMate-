@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/landing', function(){
     return Inertia::render('Landing');
 });
-Route::prefix('/admin')->group(function (){
+Route::middleware( \App\Http\Middleware\AdminMiddleware::class)->prefix('/admin')->group(function (){
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 }); 
 Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect']);

@@ -30,7 +30,7 @@ import { Link } from "@inertiajs/vue3";
         </button>
     </div>
     <div
-        class="hidden p-10 h-screen md:flex flex-col items-center px-4 py-4 space-y-4"
+        class="hidden p-10 bg-gray-50 h-screen md:flex flex-col items-center px-4 py-4 space-y-4"
     >
         <img src="/svgs/logo2.svg" class="my-10" alt="" />
         <div class="flex-grow flex flex-col items-center space-y-4">

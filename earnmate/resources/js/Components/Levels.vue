@@ -14,7 +14,7 @@ onMounted(() => {
 })
 </script>
 <template>
-    <div class="flex  bg-slate-100 rounded-xl flex-col space-y-6 justify-around w-full h-full items-center">
+    <div class="flex   rounded-xl flex-col space-y-3 justify-around w-full h-full items-center">
        <Level :level="8" />
        <Level :level="7" />
        <Level :level="6" />
