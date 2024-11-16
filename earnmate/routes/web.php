@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +29,10 @@ Route::middleware('auth')->group(function () {
 Route::get('/landing', function(){
     return Inertia::render('Landing');
 });
-
-
+Route::prefix('/admin')->group(function (){
+    Route::get('/dashboard', [AdminController::class, 'dashboard']);
+}); 
+Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect']);
+Route::get('/auth/{provider}/callback', [SocialController::class, 'callback']);
 
 require __DIR__.'/auth.php';

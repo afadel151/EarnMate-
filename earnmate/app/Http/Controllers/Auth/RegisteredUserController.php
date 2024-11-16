@@ -30,7 +30,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function generateUniqueCode()
+    public  function generateUniqueCode()
 {
 
     $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';

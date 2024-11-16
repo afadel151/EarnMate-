@@ -26,22 +26,25 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <div class="w-full h-[70%] flex justify-center items-center space-x-36 px-[400px] ">
-            <div class="flex flex-col w-[60%] text-[#6a38ff] justify-center  h-full">
+        <div class="w-full h-[75%] flex justify-center items-center space-x-36 px-[400px] ">
+            <div class="flex flex-col w-[70%] text-[#6a38ff] justify-center  h-full">
                 <p class="font-bold text-lg text-black">Register</p>
-                <p class="text-6xl">Register and enjoy</p>
-                <p class="text-7xl font-black">all the benefits our platform has to offer.</p>
+                <p class="text-7xl">Register and enjoy</p>
+                <p class="text-8xl font-black">all the benefits our platform has to offer.</p>
                 <p></p>
             </div>
-
+            
             <form @submit.prevent="submit"
-                class="w-[50%] shadow-custom-purple border-2 rounded-2xl flex flex-col justify-around py-20 items-center  h-full">
-                <div class="flex justify-between w-full px-10">
+                class="w-[50%] shadow-custom-purple border-2 py-10 rounded-2xl flex flex-col justify-around pb-20 items-center  h-full">
+                <!-- <div class="flex justify-between w-full mt-10 px-10">
                     <p class="text-4xl font-bold">Register</p>
                     <p class="text-xl font-semibold "> Already registered ? <br><span
                             class="underline text-end text-indigo-500">Log in</span></p>
-                </div>
-                <div class="w-full px-10">
+                </div> -->
+                <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full mt-5 " icon="pi pi-google" label="continue with Google"  severity="help" /></a>
+                <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full mt-5 " icon="pi pi-facebook" label="continue with Facebook"  severity="info" /></a>
+
+                <div class="w-full mt-5 px-10">
                     <InputLabel for="name" value="Name" />
 
                     <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus
@@ -87,6 +90,7 @@ const submit = () => {
                         label="Register" severity="help" size="large" />
 
                 </div>
+                
             </form>
         </div>
     </GuestLayout>

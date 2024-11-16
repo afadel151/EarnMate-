@@ -35,18 +35,21 @@ const submit = () => {
         <Head title="Log in" />
 
       
-        <div class="w-full h-[70%] flex justify-center items-center space-x-36 px-[400px] ">
-            <div class="flex flex-col w-[60%] text-[#6a38ff] justify-center  h-full">
+        <div class="w-full h-[75%] flex justify-center items-center space-x-36 px-[400px] ">
+            <div class="flex flex-col w-[70%] text-[#6a38ff] justify-center  h-full">
                 <p class="font-bold text-lg text-black">Log in</p>
-                <p class="text-6xl">Acess your account</p>
-                <p class="text-7xl font-black">and explore our service</p>
+                <p class="text-7xl">Acess your account</p>
+                <p class="text-8xl font-black">and explore our service</p>
                 <p></p>
             </div>
-            <form @submit.prevent="submit" class="w-[50%] shadow-custom-purple border-2 rounded-2xl flex flex-col justify-around py-20 items-center  h-full">
-                <div class="flex justify-between w-full px-10">
+            <form @submit.prevent="submit" class="w-[50%] shadow-custom-purple border-2 rounded-2xl flex flex-col justify-around py-10 items-center pb-20  h-full">
+                <!-- <div class="flex justify-between w-full px-10">
                     <p class="text-4xl font-bold">Log in</p>
                     <p class="text-xl font-semibold "> New here ? <br><span class="underline text-end text-indigo-500">Register</span></p>
-                </div>
+                </div> -->
+                <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full mt-5 " icon="pi pi-google" label="continue with Google"  severity="help" /></a>
+                <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full  " icon="pi pi-facebook" label="continue with Facebook"  severity="info" /></a>
+
                 <div class="w-full px-10">
                     <InputLabel for="email" class="text-xl" value="Your e-mail" />
 
@@ -56,7 +59,7 @@ const submit = () => {
                     <InputError class="mt-2" :message="form.errors.email" />
                 </div>
 
-                <div class="mt-4 w-full px-10">
+                <div class=" w-full px-10">
                     <InputLabel for="password" class="text-xl" value="password" />
 
                     <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required
@@ -65,9 +68,9 @@ const submit = () => {
                     <InputError class="mt-2" :message="form.errors.password" />
                 </div>
 
-                <div class="mt-4 block w-full px-10">
+                <div class=" block w-full px-10">
                     <label class="flex items-center">
-                        <Checkbox name="remember" v-model:checked="form.remember" />
+                        <Checkbox name="remember" :checked="form.remember" />
                         <span class="ms-2 text-sm text-gray-600">Remember me</span>
                     </label>
                 </div>
