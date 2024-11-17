@@ -14,7 +14,7 @@ const user = usePage().props.auth.user;
         <div
             class="grid grid-cols-1 p-10 font-['GeneralSans-Medium'] md:grid-cols-6 md:grid-rows-5 gap-5 h-full w-full">
             <div
-                class="backdrop-blur-md flex py-1 flex-col justify-around items-center bg-white/70 shadow-sm rounded-xl md:col-span-2 md:row-span-2">
+                class="backdrop-blur-md flex py-1 flex-col justify-center items-center bg-white/70 shadow-sm rounded-xl md:col-span-2 md:row-span-2">
                 <div class="flex justify-center  items-center w-36 h-36 bg-[#bb69ff] rounded-full">
                     <p class="text-5xl text-gray-50">A</p>
                 </div>
@@ -59,7 +59,7 @@ const user = usePage().props.auth.user;
                 <History />
             </div>
             <div
-                class="backdrop-blur-md bg-white/3 md:h-full bg-white/70 shadow-sm md:col-span-2 rounded-xl md:row-span-6 p-6 md:col-start-5">
+                class="backdrop-blur-md bg-white/3  bg-white/70 shadow-sm md:col-span-2 rounded-xl md:row-span-4 md:row-start-2 p-6 md:col-start-5">
                 <div class="flex flex-col h-full p-6 justify-start gap-4 items-center w-full rounded-xl">
                     <div class="w-full">
                         <p class="text-4xl text-center ">

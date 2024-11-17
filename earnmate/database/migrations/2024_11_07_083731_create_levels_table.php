@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('level_number')->unique();
             $table->decimal('deposit_required');
-            $table->unsignedInteger('friends_requierd');
+            $table->unsignedInteger('friends_required');
             $table->decimal('reward');
             $table->timestamps();
         });

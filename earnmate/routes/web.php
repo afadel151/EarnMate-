@@ -36,3 +36,4 @@ Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect']);
 Route::get('/auth/{provider}/callback', [SocialController::class, 'callback']);
 
 require __DIR__.'/auth.php';
+require __DIR__.'/api.php';
