@@ -1,6 +1,7 @@
 import '../css/app.css';
 import './bootstrap';
 import  '../css/general-sans.css'
+import 'boxicons/dist/boxicons'
 import 'primeicons/primeicons.css'
 import { definePreset } from '@primevue/themes';
 import { createInertiaApp } from '@inertiajs/vue3';
@@ -8,6 +9,8 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import ToastService from 'primevue/toastservice';
+import { createPinia } from 'pinia'
+const pinia = createPinia()
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
@@ -38,6 +41,7 @@ createInertiaApp({
         ),
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
+            .use(pinia)
             .use(plugin)
             .use(ZiggyVue)
             .use(PrimeVue, {

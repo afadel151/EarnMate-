@@ -27,7 +27,7 @@ import { Link } from "@inertiajs/vue3";
         </button>
     </div>
     <div
-        class="hidden p-10 h-screen md:flex flex-col items-center px-4 py-4 space-y-4"
+        class="hidden backdrop-blur-sm  bg-white/70 p-10 h-screen md:flex flex-col items-center px-4 py-4 space-y-4"
     >
         <img src="/svgs/logo2.svg" class="my-10" alt="" />
         <div class="flex-grow flex flex-col items-center space-y-4">
@@ -88,7 +88,7 @@ import { Link } from "@inertiajs/vue3";
         </div>
         <Link :href="route('profile.edit')">
             <div
-                class="h-fit flex justify-between bg-white/30 rounded-xl items-center w-full backdrop-blur-sm justify-self-end"
+                class="h-fit flex justify-between rounded-xl items-center w-full  justify-self-end"
             >
                 <img src="/imgs/user-1.jpg" class="w-14 rounded-full" alt="" />
                 <div

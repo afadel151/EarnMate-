@@ -41,7 +41,7 @@ import { Link } from "@inertiajs/vue3";
                     v-tooltip="'Dashboard'"
                     icon="pi pi-home"
                     :severity="
-                        route().current('dashboard') ? 'primary' : 'secondary'
+                        route().current('admin.dashboard') ? 'primary' : 'secondary'
                     "
                 />
             </Link>

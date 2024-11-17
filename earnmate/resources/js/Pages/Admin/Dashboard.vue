@@ -1,5 +1,15 @@
 <script setup>
 import AdminLayout from '@/Layouts/AdminLayout.vue';
+import { usePage } from '@inertiajs/vue3';
+import Balance from '@/Components/Admin/Balance.vue';
+import RevenueChart from '@/Components/Admin/RevenueChart.vue';
+import Sent from '@/Components/Admin/Sent.vue';
+import Received from '@/Components/Admin/Received.vue';
+import Invitations from '@/Components/Admin/Invitations.vue';
+import Users from '@/Components/Admin/Users.vue';
+import UsersByLevels from '@/Components/Admin/UsersByLevels.vue';
+import OtherAdmins from '@/Components/Admin/OtherAdmins.vue';
+
 </script>
 
 <template>
@@ -7,17 +17,34 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 
 
 
-        <div class="grid grid-cols-6 grid-rows-5 gap-4  p-10 px-[16rem]">
-            <div class="col-span-4 bg-slate-300">
+        <div class="grid grid-cols-6 grid-rows-5 gap-4  p-10 px-[13rem]">
+            <div class="col-span-4 bg-white rounded-md shadow-sm  flex justify-between  items-end">
 
-                1
+                <div class="w-[60%] h-full p-10  ">
+                    <p class="text-4xl font-semibold text-violet-500">Hello {{ usePage().props.auth.user.name  }}</p>
+                    <p class="text-2xl text-gray-500">Welcome again !</p>
+                </div>
+                <img src="/imgs/admin/man-with-laptop.png" class="w-56 mr-10" alt="">
             </div>
-            <div class="col-start-5 bg-red-400 h-[200px]">2</div>
-            <div class="col-start-6 bg-green-400">3</div>
-            <div class="col-start-5 row-start-2 bg-blue-300">4</div>
-            <div class="col-start-6 row-start-2 bg-rose-400">5</div>
-            <div class="col-span-2 col-start-5 row-start-3 bg-indigo-500">6</div>
-            <div class="col-span-4 row-span-2 col-start-1 row-start-2 bg-yellow-100">7</div>
+            <div class="col-start-5  h-[200px]">
+                <Balance />
+            </div>
+            <div class="col-start-6 ">
+                <Received />
+            </div>
+            <div class="col-start-5 row-start-2 ">
+                <Sent />
+            </div>
+            <div class="col-start-6 row-start-2 ">
+                <Invitations />
+            </div>
+            <div class="col-span-2 col-start-5 row-start-3 ">
+                <Users />
+                       
+             </div>
+            <div class="col-span-4 row-span-2 col-start-1 row-start-2 bg-yellow-100">
+                      
+            </div>
             <div class="col-span-2 row-span-2 col-start-5 row-start-4 bg-violet-500">8</div>
             <div class="col-span-2 row-span-2 col-start-1 row-start-4 bg-orange-400">9</div>
             <div class="col-span-2 row-span-2 col-start-3 row-start-4 bg-cyan-300">10</div>

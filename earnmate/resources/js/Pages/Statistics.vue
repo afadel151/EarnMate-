@@ -6,13 +6,22 @@ import History from "@/Components/History.vue";
 import { usePage } from "@inertiajs/vue3";
 import Withdraw from "@/Components/Withdraw.vue";
 import Deposit from "@/Components/Deposit.vue";
+import { onMounted, ref } from "vue";
+import axios from "axios";
+import { usePriceStore } from '@/stores/priceStore';
+const exchangeRates = ref();
+const priceStore = usePriceStore();
 const user = usePage().props.auth.user;
+const dinar = ref(0)
+onMounted(() => {
+  priceStore.fetchPrice();
+});
 </script>
 
 <template>
     <MyLayout>
         <div
-            class="grid grid-cols-1 p-10 font-['GeneralSans-Medium'] md:grid-cols-6 md:grid-rows-5 gap-5 h-full w-full">
+            class="grid grid-cols-1 p-10 px-[12rem] font-['GeneralSans-Medium'] md:grid-cols-6 md:grid-rows-5 gap-5 h-full w-full">
             <div
                 class="backdrop-blur-md flex py-1 flex-col justify-center items-center bg-white/70 shadow-sm rounded-xl md:col-span-2 md:row-span-2">
                 <div class="flex justify-center  items-center w-36 h-36 bg-[#bb69ff] rounded-full">
@@ -55,7 +64,7 @@ const user = usePage().props.auth.user;
                     </div>
                 </div>
             </div>
-            <div class="bg-white z-10 shadow-sm md:col-span-4 row-span-4 rounded-xl p-4 md:row-start-3">
+            <div class="bg-white z-10 shadow-sm md:col-span-4 row-span-3 rounded-xl p-4 md:row-start-3">
                 <History />
             </div>
             <div
@@ -68,6 +77,11 @@ const user = usePage().props.auth.user;
                     </div>
                     <Levels />
                 </div>
+            </div>
+            <div
+            class="backdrop-blur-md bg-white/3  bg-white/70 shadow-sm md:col-span-2 rounded-xl md:row-span-1 md:row-start-1 p-6 md:col-start-5">
+                <p class="text-3xl">DZD price today:</p>
+                <p class="text-2xl text-black"> Current Price: {{ priceStore.price }} DZD</p>
             </div>
         </div>
     </MyLayout>

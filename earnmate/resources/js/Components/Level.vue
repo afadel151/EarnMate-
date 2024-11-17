@@ -26,6 +26,9 @@ const visible = ref(false)
 </script>
 
 <template>
+    <div class="w-full">
+
+    
     <button @click="visible = true"  class=" w-full h-14 border-violet-400 transition-all duration-200 hover:border-transparent hover:bg-yellow-300 hover:text-gray-900 text-gray-500  rounded-3xl bg-violet-100 border-2">
         <p class="text-2xl  ">Level {{props.level}}</p>
     </button>
@@ -46,4 +49,5 @@ const visible = ref(false)
             <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
         </div>
     </Dialog>
+</div>
 </template>
