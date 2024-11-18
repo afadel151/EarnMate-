@@ -3,6 +3,7 @@ import './bootstrap';
 import  '../css/general-sans.css'
 import 'boxicons/dist/boxicons'
 import 'primeicons/primeicons.css'
+import 'boxicons/css/boxicons.min.css';
 import { definePreset } from '@primevue/themes';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';

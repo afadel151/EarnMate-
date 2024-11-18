@@ -34,7 +34,7 @@ import { Link } from "@inertiajs/vue3";
     >
         <img src="/svgs/logo2.svg" class="my-10" alt="" />
         <div class="flex-grow flex flex-col items-center space-y-4">
-            <Link :href="route('dashboard')">
+            <Link :href="route('admin.dashboard')">
                 <Button
                     variant="text"
                     label="Dashboard"
@@ -89,7 +89,7 @@ import { Link } from "@inertiajs/vue3";
                 severity="secondary"
             />
         </div>
-        <Link :href="route('profile.edit')">
+        <Link :href="route('admin.profile')">
             <div
                 class="h-fit flex justify-between bg-white/30 rounded-xl items-center w-full backdrop-blur-sm justify-self-end"
             >

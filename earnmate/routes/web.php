@@ -29,11 +29,10 @@ Route::middleware('auth')->group(function () {
 Route::get('/landing', function(){
     return Inertia::render('Landing');
 });
-Route::middleware( \App\Http\Middleware\AdminMiddleware::class)->prefix('/admin')->group(function (){
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-}); 
+ 
 Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect']);
 Route::get('/auth/{provider}/callback', [SocialController::class, 'callback']);
 
 require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';
 require __DIR__.'/api.php';

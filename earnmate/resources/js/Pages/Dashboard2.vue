@@ -147,6 +147,7 @@ const setChartOptions = () => {
     return {
         plugins: {
             legend: {
+                display: false,
                 labels: {
                     color: textColor
                 }
