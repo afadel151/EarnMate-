@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Models\Admin;
 use App\Models\Social;
 use App\Models\User;
 use Hash;
@@ -77,7 +78,11 @@ class SocialController extends Controller
                 'provider_avatar' => $SocialUser->getAvatar(),
             ]);
         }   
+
         Auth::login($user,true);
+        if (Admin::where('user_id',Auth::user()->id)->exists()) {
+            return redirect()->intended(route('admin.dashboard',absolute:false));
+        }
         return redirect()->route('dashboard');
     }
 }

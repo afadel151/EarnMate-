@@ -9,8 +9,8 @@ import { Button } from 'primevue';
             <div class="h-12 flex justify-start items-center  space-x-2">
                 <span class="avatar-initial rounded bg-[#f3dd702d] w-14  h-14 flex justify-center items-center">
                 <box-icon name='offer' type='solid' color='#fbed53' size="md" ></box-icon>
-            </span>
-            <p class="text-2xl text-gray-600">Created Offers</p>
+                </span>
+                <p class="text-2xl text-gray-600">Created Offers</p>
             </div>
             <Button label="more" variant="text"  severity="secondary"/>
         </div>

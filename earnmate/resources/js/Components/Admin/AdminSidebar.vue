@@ -33,10 +33,10 @@ import { Link } from "@inertiajs/vue3";
         class="hidden p-10 bg-gray-50 h-screen md:flex flex-col items-center px-4 py-4 space-y-4"
     >
         <img src="/svgs/logo2.svg" class="my-10" alt="" />
-        <div class="flex-grow flex flex-col items-center space-y-4">
+        <div class="flex-grow flex w-[80%]  flex-col items-stretch space-y-4">
             <Link :href="route('admin.dashboard')">
                 <Button
-                    variant="text"
+                    :variant="route().current('admin.dashboard') ? '' : 'text'"
                     label="Dashboard"
                     v-tooltip="'Dashboard'"
                     icon="pi pi-home"
@@ -45,49 +45,53 @@ import { Link } from "@inertiajs/vue3";
                     "
                 />
             </Link>
-            <Link :href="route('statistics')">
-                <Button
-                    variant="text"
-                    icon="pi pi-dollar"
-                    label="Statistics"
-                    v-tooltip="'Statistics'"
-                    :severity="
-                        route().current('statistics') ? 'primary' : 'secondary'
-                    "
-                />
-            </Link>
-
-            <Button
+            
+            
+           <Link> <Button
                 variant="text"
-                label="Statistics"
+                label="Tasks"
                 icon="pi pi-credit-card"
                 severity="secondary"
-            />
-            <Button
+            /> </Link>
+           <Link> <Button
                 variant="text"
-                label="Statistics"
+                label="Deposits"
                 icon="pi pi-crown"
                 severity="secondary"
-            />
-            <Button
+            /> </Link>
+           <Link> <Button
                 variant="text"
-                label="Statistics"
+                label="Withdrawals"
                 icon="pi pi-gift"
                 severity="secondary"
-            />
-            <Button
+            /> </Link>
+           <Link> <Button
                 variant="text"
-                label="Statistics"
+                label="Offers"
                 icon="pi pi-user"
                 severity="secondary"
-            />
-            <Button
+            /> </Link>
+           <Link> <Button
                 variant="text"
-                label="Statistics"
-                class="mb-4"
+                label="Leaderboard"
+                
                 icon="pi pi-cog"
                 severity="secondary"
-            />
+            /> </Link>
+           <Link> <Button
+                variant="text"
+                label="Admins"
+                
+                icon="pi pi-cog"
+                severity="secondary"
+            /> </Link>
+           <Link> <Button
+                variant="text"
+                label="Messages"
+                
+                icon="pi pi-envelope"
+                severity="secondary"
+            /> </Link>
         </div>
         <Link :href="route('admin.profile')">
             <div

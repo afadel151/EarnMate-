@@ -17,11 +17,9 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // return $next($request);
         if (Auth::check() && Admin::where('user_id',Auth::user()->id)->exists()) {
             return $next($request);
         }
-        // Redirect non-admin users
         return redirect('/')->with('error', 'You do not have access to this page.');
     }
 }

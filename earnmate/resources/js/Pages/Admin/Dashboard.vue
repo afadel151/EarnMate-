@@ -9,6 +9,7 @@ import Invitations from '@/Components/Admin/Invitations.vue';
 import Users from '@/Components/Admin/Users.vue';
 import UsersByLevels from '@/Components/Admin/UsersByLevels.vue';
 import OtherAdmins from '@/Components/Admin/OtherAdmins.vue';
+import UsersByMethods from '@/Components/Admin/UsersByMethods.vue';
 
 </script>
 
@@ -26,7 +27,7 @@ import OtherAdmins from '@/Components/Admin/OtherAdmins.vue';
                 </div>
                 <img src="/imgs/admin/man-with-laptop.png" class="w-56 mr-10" alt="">
             </div>
-            <div class="col-start-5  h-[200px]">
+            <div class="col-start-5 ">
                 <Balance />
             </div>
             <div class="col-start-6 ">
@@ -42,12 +43,18 @@ import OtherAdmins from '@/Components/Admin/OtherAdmins.vue';
                 <Users />
                        
              </div>
-            <div class="col-span-4 row-span-2 col-start-1 row-start-2 bg-yellow-100">
+            <div class="col-span-4 row-span-2 col-start-1 row-start-2 bg-white">
                       
             </div>
-            <div class="col-span-2 row-span-2 col-start-5 row-start-4 bg-violet-500">8</div>
-            <div class="col-span-2 row-span-2 col-start-1 row-start-4 bg-orange-400">9</div>
-            <div class="col-span-2 row-span-2 col-start-3 row-start-4 bg-cyan-300">10</div>
+            <div class="col-span-2 row-span-2 col-start-5 row-start-4 ">
+                <UsersByLevels />
+            </div>
+            <div class="col-span-2 row-span-2 col-start-1 row-start-4 ">
+                <OtherAdmins />
+            </div>
+            <div class="col-span-2 row-span-2 col-start-3 row-start-4 ">
+                <UsersByMethods />
+            </div>
         </div>
 
     </AdminLayout>

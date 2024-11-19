@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class AdminController extends Controller
@@ -33,6 +35,9 @@ class AdminController extends Controller
         
     }
     public function show($id){
-        return Inertia::render('Admin/Show',['admin'=>User::find($id)->load('admin')]);
+        if (Admin::where('user_id',$id)->exists()) {
+            return Inertia::render('Admin/Show',['admin'=>User::find($id)->load('admin')]);
+        }
+        
     }
 }
