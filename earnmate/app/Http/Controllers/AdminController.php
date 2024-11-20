@@ -20,19 +20,34 @@ class AdminController extends Controller
         ]);
     }
     public function deposits() {
-
+        return Inertia::render('Admin/Deposits');
     }
     public function withdrawals() {
+        return Inertia::render('Admin/Withdrawals');
 
     }
     public function tasks(){
+        return Inertia::render('Admin/Tasks');
 
     }
     public function offers(){
-        
+        return Inertia::render('Admin/Offers');
+
     }
     public function messages(){
-        
+        return Inertia::render('Admin/Messages');
+
+    }
+    public function leaderboard(){
+        return Inertia::render('Admin/LeaderBoard');
+    }
+    public function admins()
+    {
+        return Inertia::render('Admin/Admins');
+    }
+    public function users()
+    {
+        return Inertia::render('Admin/Users');
     }
     public function show($id){
         if (Admin::where('user_id',$id)->exists()) {

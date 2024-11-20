@@ -1,6 +1,7 @@
 <script setup>
 import { Button } from "primevue";
 import { Link } from "@inertiajs/vue3";
+import SidebarButton from "../SidebarButton.vue";
 </script>
 
 <template>
@@ -34,64 +35,15 @@ import { Link } from "@inertiajs/vue3";
     >
         <img src="/svgs/logo2.svg" class="my-10" alt="" />
         <div class="flex-grow flex w-[80%]  flex-col items-stretch space-y-4">
-            <Link :href="route('admin.dashboard')">
-                <Button
-                    :variant="route().current('admin.dashboard') ? '' : 'text'"
-                    label="Dashboard"
-                    v-tooltip="'Dashboard'"
-                    icon="pi pi-home"
-                    :severity="
-                        route().current('admin.dashboard') ? 'primary' : 'secondary'
-                    "
-                />
-            </Link>
-            
-            
-           <Link> <Button
-                variant="text"
-                label="Tasks"
-                icon="pi pi-credit-card"
-                severity="secondary"
-            /> </Link>
-           <Link> <Button
-                variant="text"
-                label="Deposits"
-                icon="pi pi-crown"
-                severity="secondary"
-            /> </Link>
-           <Link> <Button
-                variant="text"
-                label="Withdrawals"
-                icon="pi pi-gift"
-                severity="secondary"
-            /> </Link>
-           <Link> <Button
-                variant="text"
-                label="Offers"
-                icon="pi pi-user"
-                severity="secondary"
-            /> </Link>
-           <Link> <Button
-                variant="text"
-                label="Leaderboard"
-                
-                icon="pi pi-cog"
-                severity="secondary"
-            /> </Link>
-           <Link> <Button
-                variant="text"
-                label="Admins"
-                
-                icon="pi pi-cog"
-                severity="secondary"
-            /> </Link>
-           <Link> <Button
-                variant="text"
-                label="Messages"
-                
-                icon="pi pi-envelope"
-                severity="secondary"
-            /> </Link>
+            <SidebarButton :href="'admin.dashboard'" :label="'Dashboard'" :icon="'home'" />
+            <SidebarButton :href="'admin.tasks'" :label="'Tasks'" :icon="'credit-card'" />
+            <SidebarButton :href="'admin.deposits'" :label="'Deposits'" :icon="'crown'" />
+            <SidebarButton :href="'admin.withdrawals'" :label="'Withdrawals'" :icon="'offers'" />
+            <SidebarButton :href="'admin.leaderboard'" :label="'Leaderboard'" :icon="'cog'" />
+            <SidebarButton :href="'admin.admins'" :label="'Admins'" :icon="'cog'" />
+            <SidebarButton :href="'admin.users'" :label="'Users'" :icon="'cog'" />
+            <SidebarButton :href="'admin.messages'" :label="'Messages'" :icon="'envelope'" />
+          
         </div>
         <Link :href="route('admin.profile')">
             <div
