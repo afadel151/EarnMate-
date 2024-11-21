@@ -10,7 +10,7 @@ Route::prefix('/api')->group(function (){
         Route::get('/get-level', [LevelController::class, 'info'])->name('level.info');
     });
     Route::prefix('/admin')->group(function () {
-        Route::get('/tasks', [TaskController::class, 'getasks']);
+        Route::get('/tasks', [TaskController::class, 'gettasks']);
     });
 
 });

@@ -11,11 +11,10 @@ class TaskController extends Controller
 {
     public function gettasks(Request $request)
     {
-        return response()->json('hello');
-        // if (Admin::where('user_id',Auth::user()->id)->exists()) {
-        //     return response()->json(Task::all()->toArray());
-        // }else {
-        //     return response('error',400);
-        // }
+        if (Admin::where('user_id',Auth::user()->id)->exists()) {
+            return response()->json(Task::all()->toArray());
+        }else {
+            return response('error',400);
+        }
     }
 }
