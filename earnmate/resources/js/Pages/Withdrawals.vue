@@ -45,7 +45,7 @@ const filters = ref({
 function getSeverity(status) {
     if (status == 'pending') {
         return 'info'
-    } else if (status == 'confirmed') {
+    } else if (status == 'completed') {
         return 'success'
     } else {
         return 'danger'

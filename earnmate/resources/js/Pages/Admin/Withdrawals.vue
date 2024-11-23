@@ -1,4 +1,5 @@
 <script setup>
+import WithdrawalStatusEdit from "@/Components/Admin/WithdrawalStatusEdit.vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { FilterMatchMode, FilterOperator } from "@primevue/core/api";
 import axios from "axios";
@@ -12,14 +13,16 @@ import { ref, onMounted } from "vue";
 const withdrawals = ref([]);
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    user: {
         name: {
             operator: FilterOperator.AND,
             constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
         },
-        email: {
-            operator: FilterOperator.AND,
-            constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
-        },
+        email:{
+                operator: FilterOperator.AND,
+                constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
+            }
+    },
     destination: {
         operator: FilterOperator.AND,
         constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
@@ -59,16 +62,17 @@ const clearFilter = () => {
 const initFilters = () => {
     filters.value = {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-    
+
+        user: {
             name: {
                 operator: FilterOperator.AND,
                 constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
             },
-            email: {
+            email:{
                 operator: FilterOperator.AND,
                 constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
-            },
-    
+            }
+        },
         destination: {
             operator: FilterOperator.AND,
             constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
@@ -90,11 +94,11 @@ const initFilters = () => {
 </script>
 <template>
     <AdminLayout>
-        <div class="p-10 w-full flex flex-col justify-center items-center">
+        <div class="p-10 pt-32 w-full flex flex-col justify-center items-center">
             <DataTable v-model:filters="filters" v-model:selection="selectedWithdrawals" :value="withdrawals" paginator
                 :rows="10" dataKey="id" filterDisplay="menu" :globalFilterFields="[
-                    'email',
-                    'name',
+                    'user.email',
+                    'user.name',
                     'amount',
                     'destiation',
                     'method',
@@ -114,21 +118,17 @@ const initFilters = () => {
                 </template>
                 <template #empty> No customers found. </template>
                 <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-                <Column field="email" header="Email" sortable style="min-width: 14rem">
+                <Column field="user.email" header="Email" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.user.email }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by email" />
-                    </template>
+                    
                 </Column>
-                <Column field="name" header="Name" sortable style="min-width: 14rem">
+                <Column field="user.name" header="Name" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.user.name }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by name" />
-                    </template>
+                   
                 </Column>
                 <Column field="amount" header="Amount" sortable style="min-width: 14rem">
                     <template #body="{ data }">
@@ -162,9 +162,9 @@ const initFilters = () => {
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Date" />
                     </template>
                 </Column>
-                <Column field="status" header="Destination" sortable style="min-width: 14rem">
+                <Column field="status" header="Status" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.status }}
+                        <WithdrawalStatusEdit :withdrawal="data" />
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Rip/Adress" />

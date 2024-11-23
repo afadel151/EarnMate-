@@ -46,4 +46,12 @@ class WithdrawalController extends Controller
         return response()->json('failed');
 
     }
+    public function edit_status(Request $request)
+    {
+        $withdrawal = Withdrawal::find($request->id);
+        $withdrawal->update([
+            'status' => $request->status
+        ]);
+        return response()->json($withdrawal);   
+    }
 }

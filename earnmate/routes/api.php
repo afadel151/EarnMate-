@@ -26,7 +26,7 @@ Route::prefix('/api')->group(function (){
         });
         Route::prefix('/withdrawals')->group(function(){
             Route::get('/', [WithdrawalController::class, 'get']);
-            Route::post('/edit', [WithdrawalController::class, 'edit']);
+            Route::post('/edit_status', [WithdrawalController::class, 'edit_status']);
         });
         Route::prefix('/deposits')->group(function(){
             Route::get('/', [DepositController::class, 'get']);

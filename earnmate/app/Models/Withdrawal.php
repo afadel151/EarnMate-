@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Withdrawal extends Model
 {
+    protected $fillable = [
+        'user_id',
+        'admin_id',
+        'destination',
+        'method',
+        'processed_at',
+        'amount',
+        'status'
+    ];
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class);
