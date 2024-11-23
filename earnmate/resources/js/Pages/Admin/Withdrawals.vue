@@ -1,5 +1,5 @@
 <script setup>
-import AdminLayout from '@/Layouts/AdminLayout.vue';
+import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { FilterMatchMode, FilterOperator } from "@primevue/core/api";
 import axios from "axios";
 import { DataTable } from "primevue";
@@ -12,21 +12,26 @@ import { ref, onMounted } from "vue";
 const withdrawals = ref([]);
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-    amount: {
-        operator: FilterOperator.AND,
-        constraints: [
-            { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        ],
-    },
-    user: {
-        rip: {
+        name: {
             operator: FilterOperator.AND,
-            constraints: [
-                { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-            ],
-        }
+            constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
+        },
+        email: {
+            operator: FilterOperator.AND,
+            constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
+        },
+    destination: {
+        operator: FilterOperator.AND,
+        constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
     },
-    
+    method: {
+        operator: FilterOperator.AND,
+        constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
+    },
+    amount: {
+        operator: FilterOperator.OR,
+        constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
+    },
     created_at: {
         operator: FilterOperator.OR,
         constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }],
@@ -34,20 +39,18 @@ const filters = ref({
 });
 function extractDate(datetime) {
     const date = new Date(datetime);
-    return date.toISOString().split('T')[0];
+    return date.toISOString().split("T")[0];
 }
 onMounted(async () => {
     try {
         const response = await axios.get("/api/admin/withdrawals/");
         withdrawals.value = response.data;
         console.log(response.data);
-        
     } catch (error) {
         console.log(error);
     }
     initFilters();
 });
-
 
 const clearFilter = () => {
     initFilters();
@@ -56,24 +59,25 @@ const clearFilter = () => {
 const initFilters = () => {
     filters.value = {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        name: {
+    
+            name: {
+                operator: FilterOperator.AND,
+                constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
+            },
+            email: {
+                operator: FilterOperator.AND,
+                constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
+            },
+    
+        destination: {
             operator: FilterOperator.AND,
-            constraints: [
-                { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-            ],
+            constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
         },
-        platform: {
-            operator: FilterOperator.AND,
-            constraints: [
-                { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-            ],
-        },
-
-        type: {
+        method: {
             operator: FilterOperator.AND,
             constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
         },
-        link: {
+        amount: {
             operator: FilterOperator.OR,
             constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
         },
@@ -83,17 +87,19 @@ const initFilters = () => {
         },
     };
 };
-
 </script>
 <template>
     <AdminLayout>
-        <div class="p-10 w-full   flex flex-col justify-center items-center">
-        <DataTable v-model:filters="filters" v-model:selection="selectedWithdrawals" :value="withdrawals" paginator :rows="10"
-                dataKey="id" filterDisplay="menu" :globalFilterFields="[
-                    'user.email',
+        <div class="p-10 w-full flex flex-col justify-center items-center">
+            <DataTable v-model:filters="filters" v-model:selection="selectedWithdrawals" :value="withdrawals" paginator
+                :rows="10" dataKey="id" filterDisplay="menu" :globalFilterFields="[
+                    'email',
+                    'name',
                     'amount',
-                    'admin.user.name',
-                    'created_at'
+                    'destiation',
+                    'method',
+                    'status',
+                    'created_at',
                 ]">
                 <template #header>
                     <div class="flex justify-between">
@@ -108,7 +114,7 @@ const initFilters = () => {
                 </template>
                 <template #empty> No customers found. </template>
                 <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-                <Column field="user.email" header="Name" sortable style="min-width: 14rem">
+                <Column field="email" header="Email" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.user.email }}
                     </template>
@@ -116,7 +122,7 @@ const initFilters = () => {
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by email" />
                     </template>
                 </Column>
-                <Column field="user.name" header="Name" sortable style="min-width: 14rem">
+                <Column field="name" header="Name" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.user.name }}
                     </template>
@@ -124,7 +130,7 @@ const initFilters = () => {
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by name" />
                     </template>
                 </Column>
-                <Column field="amount" header="Platform" sortable style="min-width: 14rem">
+                <Column field="amount" header="Amount" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.amount }}
                     </template>
@@ -132,14 +138,20 @@ const initFilters = () => {
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by amount" />
                     </template>
                 </Column>
-               
-                
-                <Column field="admin.user.name" header="Admin" sortable style="min-width: 14rem">
+                <Column field="method" header="Method" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.admin.user.name }}
+                        {{ data.method }}
                     </template>
                     <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
+                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Method" />
+                    </template>
+                </Column>
+                <Column field="destination" header="Destination" sortable style="min-width: 14rem">
+                    <template #body="{ data }">
+                        {{ data.destination }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Rip/Adress" />
                     </template>
                 </Column>
                 <Column field="created_at" header="Created" sortable style="min-width: 14rem">
@@ -149,11 +161,16 @@ const initFilters = () => {
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Date" />
                     </template>
-                   
                 </Column>
-
+                <Column field="status" header="Destination" sortable style="min-width: 14rem">
+                    <template #body="{ data }">
+                        {{ data.status }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Rip/Adress" />
+                    </template>
+                </Column>
             </DataTable>
-            
-            </div>
+        </div>
     </AdminLayout>
 </template>

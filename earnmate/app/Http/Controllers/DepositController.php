@@ -50,4 +50,12 @@ class DepositController extends Controller
         $deposit->save();
         return response()->json($deposit);
     }
+    public function edit_status(Request $request)
+    {
+        $deposit = Deposit::find($request->id);
+        $deposit->update([
+            'status' => $request->status
+        ]);
+        return response()->json($deposit);   
+    }
 }

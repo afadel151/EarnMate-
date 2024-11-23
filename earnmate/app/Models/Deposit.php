@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Deposit extends Model
 {
+    protected $fillable =[
+        'user_id',
+        'admin_id',
+        'amount',
+        'status',
+        'method'
+    ];
     public function admin() : BelongsTo
     {
         return $this->belongsTo(Admin::class);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Deposit;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,8 @@ class AdminController extends Controller
         ]);
     }
     public function deposits() {
-        return Inertia::render('Admin/Deposits');
+        $deposits = Deposit::where('admin_id',Admin::where('user_id',Auth::user()->id)->first()->id)->orderBy('created_at')->get();
+        return Inertia::render('Admin/Deposits', ['deposits'=>$deposits]);
     }
     public function withdrawals() {
         return Inertia::render('Admin/Withdrawals');

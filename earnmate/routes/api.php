@@ -15,6 +15,10 @@ Route::prefix('/api')->group(function (){
         Route::get('/getrip',[DepositController::class, 'getrip']);
         Route::post('/baridi', [DepositController::class, 'baridi']);
     });
+    Route::prefix('/withdrawals')->group(function (){
+        Route::post('/withdraw_baridi', [WithdrawalController::class, 'withdraw_baridi']);
+    });
+    // withdraw_baridi
     Route::middleware(\App\Http\Middleware\AdminMiddleware::class)->prefix('/admin')->group(function () {
         Route::prefix('/tasks')->group(function(){
             Route::get('/', [TaskController::class, 'gettasks']);
@@ -23,6 +27,10 @@ Route::prefix('/api')->group(function (){
         Route::prefix('/withdrawals')->group(function(){
             Route::get('/', [WithdrawalController::class, 'get']);
             Route::post('/edit', [WithdrawalController::class, 'edit']);
+        });
+        Route::prefix('/deposits')->group(function(){
+            Route::get('/', [DepositController::class, 'get']);
+            Route::post('/edit_status', [DepositController::class, 'edit_status']);
         });
     });
 
