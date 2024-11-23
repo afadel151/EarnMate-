@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('screenshot');
             $table->string('transaction_code');
             $table->decimal('amount');
+            $table->enum('method',['baridi','binance','bybit','redotpay'])->default('baridi');
             $table->enum('status',['pending','confirmed','declined'])->default('pending');
             $table->timestamps();
         });

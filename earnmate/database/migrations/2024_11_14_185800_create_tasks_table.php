@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('platform');//youtube, telegram, instagram ...
             $table->enum('type',['subscription','watch','like','comment']);
             $table->string('link');
+            $table->foreignId('admin_id')->constrained('admins');
             $table->timestamps();
         });
     }

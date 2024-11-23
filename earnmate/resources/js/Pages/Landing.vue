@@ -1,27 +1,47 @@
 <script setup>
 import { Button } from 'primevue';
 import Acheivments from '@/Components/Acheivments.vue';
+import { Head, Link, usePage } from '@inertiajs/vue3';
+
+defineProps({
+    canLogin: {
+        type: Boolean,
+    },
+    canRegister: {
+        type: Boolean,
+    },
+    laravelVersion: {
+        type: String,
+        required: true,
+    },
+    phpVersion: {
+        type: String,
+        required: true,
+    },
+});
 </script>
 
 <template>
     <div id="app" class="w-screen   bg-home-bg bg-no-repeat bg-cover bg-[#0a1f59]">
         <div class="h-fit mb-10   w-full">
-            <div class="w-screen md:border-b-0 border-b-2 border-indigo-500    h-28 flex justify-between items-center px-16  ">
+            <div
+                class="w-screen md:border-b-0 border-b-2 border-indigo-500    h-28 flex justify-between items-center px-16  ">
                 <img src="/svgs/logo.svg" width="200" alt="">
                 <div class="md:hidden block">
 
-                    <Button icon="pi pi-align-justify" size="l/arge"  variant="text" />
+                    <Button icon="pi pi-align-justify" size="l/arge" variant="text" />
                 </div>
-                <div class="md:flex justify-center hidden items-center gap-3">
-                    <Button variant="text" label="Advertise" severity="secondary" />
-                    <Button variant="text" label="Advertise" severity="secondary" />
-                    <Button variant="text" label="Advertise" severity="secondary" />
-                    <Button variant="text" label="Advertise" severity="secondary" />
-                    <Button rounded label="Log in" severity="success" />
-                    <Button rounded label="Register" severity="success" outlined />
+                <div class="md:flex justify-center  hidden items-center gap-3">
+                    <Button variant="text" size="large" label="Advertise" severity="secondary" />
+                    <Button variant="text" size="large" label="Advertise" severity="secondary" />
+                    <Button variant="text" size="large" label="Advertise" severity="secondary" />
+                    <Button variant="text" size="large" label="Advertise" severity="secondary" />
+               
                 </div>
+
             </div>
-            <div class="w-screen md:mt-0 mt-20 px-10 md:flex-row flex-col space-y-3 flex justify-center items-center md:px-72 md:h-[800px]  ">
+            <div
+                class="w-screen md:mt-0 mt-20 px-10 md:flex-row flex-col space-y-3 flex justify-center items-center md:px-72 md:h-[800px]  ">
                 <div class="landing md:w-[50%]">
                     <h1
                         class="md:text-[80px] text-[60px]  head_title font-normal leading-[120%] bg-gradient-to-r from-white to-[#c886ff] bg-clip-text text-transparent mt-0 mb-4">
@@ -32,11 +52,31 @@ import Acheivments from '@/Components/Acheivments.vue';
                         At Torox, we believe in connecting people from around the world. We work with apps, games, and
                         websites to enhance brands, provide monetization opportunities and expose users to great
                         content.</p>
-                    <div class="w-full md:mt-0 mt-20 flex justify-start gap-3 items-center">
-                        <button class="bg-[#b7f763] transition-all duration-200 hover:text-white hover:bg-violet-600 text-black font-['GeneralSans-Medium']  text-xl p-4 rounded-full" > Get Started </button>
-                        <button class="border-[#b7f763] border-2 transition-all duration-200 hover:border-transparent  text-[#b7f763] hover:text-white hover:bg-violet-600 font-['GeneralSans-Medium']  text-xl p-4 rounded-full" > Get Started </button>
-                        <!-- <Button size="large" rounded label="Register" severity="secondary" outlined /> -->
+                    <div v-if="canLogin" class="w-full md:mt-0 mt-20 flex justify-start gap-3 items-center">
+                        <Link v-if="usePage().props.auth.user" :href="route('dashboard')">
+                        <button
+                            class="bg-[#b7f763] transition-all duration-200 hover:text-white hover:bg-violet-600 text-black font-['GeneralSans-Medium']  text-xl p-4 rounded-full">
+                            Dashboard </button>
+                        </Link>
+                        <template v-else>
+                            <Link :href="route('login')">
+                            <button
+                                class="bg-[#b7f763] transition-all duration-200 hover:text-white hover:bg-violet-600 text-black font-['GeneralSans-Medium']  text-xl p-4 rounded-full">
+                                Get Started  </button>
+                            </Link>
+                            <Link v-if="canRegister" :href="route('register')">
+
+                            <button
+                                class="border-[#b7f763] border-2 transition-all duration-200 hover:border-transparent  text-[#b7f763] hover:text-white hover:bg-violet-600 font-['GeneralSans-Medium']  text-xl p-4 rounded-full">
+                                Register </button>
+                            </Link>
+                        </template>
+
                     </div>
+                    <div v-else class="w-full md:mt-0 mt-20 flex justify-start gap-3 items-center">
+
+                    </div>
+
                 </div>
                 <video autoplay muted loop
                     class="object-contain overflow-cli brightness-110 md:h-[80%] md:w-[50%] p m-0 p-0 rounded-xl">
@@ -84,7 +124,7 @@ import Acheivments from '@/Components/Acheivments.vue';
         </div>
         <Acheivments />
     </div>
-    
+
 </template>
 
 <style scoped>
@@ -94,8 +134,6 @@ import Acheivments from '@/Components/Acheivments.vue';
     font-weight: 800;
     font-style: normal;
 }
-
-
 </style>
 
 <style>

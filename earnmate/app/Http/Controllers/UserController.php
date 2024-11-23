@@ -24,13 +24,19 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function deposit()
+    public function deposits()
     {
-            return Inertia::render('Deposit');
+        $deposits = Auth::user()->deposits;
+        return Inertia::render('Deposits', ['deposits'=>$deposits]);
     }
     public function statistics()
     {
             return Inertia::render('Statistics');
+    }
+    public function withdrawals()
+    {
+        $withdrawals = Auth::user()->withdrawals;
+        return Inertia::render('Withdrawals', ['withdrawals'=>$withdrawals]);
     }
     /**
      * Store a newly created resource in storage.

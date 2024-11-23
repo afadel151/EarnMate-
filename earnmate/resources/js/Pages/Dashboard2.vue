@@ -83,16 +83,19 @@
                         <p class="text-3xl text-gray-500">On going Tasks</p>
                     </div>
 
-                    <div class="w-full h-28 flex justify-center items-center bg-gray-100 rounded-md">
+                    <div class="w-full h-20 flex justify-center items-center bg-gray-100 rounded-md">
                         <p class="text-3xl text-gray-500">Journaling</p>
                     </div>
-                    <div class="w-full h-28 flex justify-center items-center bg-gray-100 rounded-md">
+                    <div class="w-full h-20 flex justify-center items-center bg-gray-100 rounded-md">
                         <p class="text-3xl text-gray-500">Journaling</p>
                     </div>
-                    <div class="w-full h-28 flex justify-center items-center bg-gray-100 rounded-md">
+                    <div class="w-full h-20 flex justify-center items-center bg-gray-100 rounded-md">
                         <p class="text-3xl text-gray-500">Journaling</p>
                     </div>
-                    <div class="w-full h-28 flex justify-center items-center bg-gray-100 rounded-md">
+                    <div class="w-full h-20 flex justify-center items-center bg-gray-100 rounded-md">
+                        <p class="text-3xl text-gray-500">Journaling</p>
+                    </div>
+                    <div class="w-full h-20 flex justify-center items-center bg-gray-100 rounded-md">
                         <p class="text-3xl text-gray-500">Journaling</p>
                     </div>
                 </div>

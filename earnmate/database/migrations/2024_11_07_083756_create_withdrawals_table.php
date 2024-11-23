@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->decimal('amount');
+            $table->enum('method',['baridi','binance','bybit'])->default('baridi');
             $table->foreignId('admin_id')->constrained('admins');
             $table->timestamp('processed_at')->default(null);
             $table->enum('status',['pending','completed','declined'])->default('pending');

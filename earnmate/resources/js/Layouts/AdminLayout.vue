@@ -11,7 +11,7 @@ import AdminSidebar from '@/Components/Admin/AdminSidebar.vue';
             <AdminSidebar class="w-full " />
         </div>
 
-        <div class="  w-full   ">
+        <div class="w-full">
             <slot />
         </div>
     </div>

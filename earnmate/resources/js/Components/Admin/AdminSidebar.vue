@@ -38,7 +38,7 @@ import SidebarButton from "../SidebarButton.vue";
             <SidebarButton :href="'admin.dashboard'" :label="'Dashboard'" :icon="'home'" />
             <SidebarButton :href="'admin.tasks'" :label="'Tasks'" :icon="'credit-card'" />
             <SidebarButton :href="'admin.deposits'" :label="'Deposits'" :icon="'crown'" />
-            <SidebarButton :href="'admin.withdrawals'" :label="'Withdrawals'" :icon="'offers'" />
+            <SidebarButton :href="'admin.withdrawals'" :label="'Withdrawals'" :icon="'cog'" />
             <SidebarButton :href="'admin.leaderboard'" :label="'Leaderboard'" :icon="'cog'" />
             <SidebarButton :href="'admin.admins'" :label="'Admins'" :icon="'cog'" />
             <SidebarButton :href="'admin.users'" :label="'Users'" :icon="'cog'" />

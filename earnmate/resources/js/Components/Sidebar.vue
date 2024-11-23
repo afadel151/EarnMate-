@@ -53,19 +53,26 @@ import { Link } from "@inertiajs/vue3";
                     "
                 />
             </Link>
-
+            <Link :href="route('deposits')">
             <Button
                 variant="text"
-                label="Statistics"
+                label="Deposits"
                 icon="pi pi-credit-card"
-                severity="secondary"
+                :severity="
+                        route().current('deposits') ? 'primary' : 'secondary'
+                    "
             />
+        </Link>
+        <Link :href="route('withdrawals')">
             <Button
                 variant="text"
-                label="Statistics"
+                label="Withdrawals"
                 icon="pi pi-crown"
-                severity="secondary"
+                :severity="
+                        route().current('withdrawals') ? 'primary' : 'secondary'
+                    "
             />
+            </Link>
             <Button
                 variant="text"
                 label="Statistics"
