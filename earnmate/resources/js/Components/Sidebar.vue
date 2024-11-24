@@ -39,41 +39,10 @@ import SidebarButton from "./SidebarButton.vue";
             <SidebarButton :href="'withdrawals'" :label="'Withdrawals'" :icon="'dollar'"  />
             <SidebarButton :href="'leaderboard'" :label="'Leaderboard'" :icon="'crown'"  />
             <SidebarButton :href="'tasks'" :label="'Tasks'" :icon="'list-check'"  />
-            
-            <Button
-                variant="text"
-                label="Tasks"
-                icon="pi pi-user"
-                severity="secondary"
-            />
-            <Button
-                variant="text"
-                label="Bonuses"
-                class="mb-4"
-                icon="pi pi-cog"
-                severity="secondary"
-            />
-            <Button
-                variant="text"
-                label="Profile"
-                class="mb-4"
-                icon="pi pi-cog"
-                severity="secondary"
-            />
+            <SidebarButton :href="'bonuses'" :label="'Bonuses'" :icon="'gift'"  />
+            <SidebarButton :href="'profile.edit'" :label="'Profile'" :icon="'cog'"  />
         </div>
-        <Link :href="route('profile.edit')">
-            <div
-                class="h-fit flex justify-between rounded-xl items-center w-full  justify-self-end"
-            >
-                <img src="/imgs/user-1.jpg" class="w-14 rounded-full" alt="" />
-                <div
-                    class="h-full text-gray-600 overflow-x-hidden flex flex-col justify-center items-start py-4 ml-1"
-                >
-                    <p class="text-lg">Fadel Akram</p>
-                    <p>af8356207@gmail.com</p>
-                </div>
-            </div>
-        </Link>
+       
         
     </div>
 </template>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DoneTask extends Model
 {
+    protected $table = 'done_tasks';
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);

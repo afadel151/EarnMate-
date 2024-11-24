@@ -54,8 +54,8 @@ function getSeverity(status) {
 </script>
 <template>
     <MyLayout>
-        <div class="p-10 w-full  pt-40  flex flex-col justify-center items-center">
-            <DataTable v-model:filters="filters" :value="props.deposits" paginator :rows="10" dataKey="id"
+        <div class="p-20 w-full  pt-40  flex flex-col justify-center items-center">
+            <DataTable v-model:filters="filters" class="w-[100%]" :value="props.deposits" paginator :rows="10" dataKey="id"
                 filterDisplay="menu" :globalFilterFields="[
                     'user.email',
                     'amount',

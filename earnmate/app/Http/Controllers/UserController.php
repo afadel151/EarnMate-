@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DoneTask;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +17,11 @@ class UserController extends Controller
     public function dashboard()
     {
         $invitedFriends = Auth::user()->friends();
-        
+        $donetasks = Auth::user()->tasks()->pluck('task_id')->toArray();
+        $remainedtasks = Task::whereNotIn('id',$donetasks)->get();
         return Inertia::render('Dashboard2',[
-            'friends' => $invitedFriends->count()
+            'friends' => $invitedFriends->count(),
+            'tasks' => $remainedtasks
         ]);
     }
 
@@ -43,9 +47,15 @@ class UserController extends Controller
      */
     public function leaderboard()
     {
-        //
+        return Inertia::render('LeaderBoard');
     }
     public function tasks()
+    {
+        $donetasks = Auth::user()->tasks()->pluck('task_id')->toArray();
+        $tasks = Task::whereIn('id',$donetasks)->get();
+        return Inertia::render('Tasks',['tasks'=>$tasks]);
+    }
+    public function bonuses()
     {
         //
     }

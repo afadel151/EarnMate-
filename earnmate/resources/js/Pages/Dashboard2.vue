@@ -1,4 +1,102 @@
+<script setup>
+import MyLayout from "@/Layouts/MyLayout.vue";
+import { ref, onMounted, computed } from "vue";
+const props = defineProps({
+    friends: Number,
+    tasks : Array
+})
+onMounted(() => {
+    chartData.value = setChartData();
+    chartOptions.value = setChartOptions();
+});
+
+const chartData = ref();
+const chartOptions = ref();
+
+const setChartData = () => {
+    return {
+        labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q6', 'Q6', 'Q6'],
+        datasets: [
+            {
+                label: 'earnings',
+                data: [325, 702, 620, 900, 230, 230, 230, 230, 10],
+                borderWidth: 1,
+                tension: 0.4,
+
+            }
+        ]
+    };
+};
+const setChartOptions = () => {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--p-text-color');
+    const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+    const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+
+    return {
+        plugins: {
+            legend: {
+                display: false,
+                labels: {
+                    color: textColor
+                }
+            }
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: textColorSecondary
+                },
+                grid: {
+                    color: surfaceBorder,
+                }
+            },
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    color: textColorSecondary
+                },
+                grid: {
+                    color: surfaceBorder
+                }
+            }
+        }
+    };
+}
+const visibleTasks = computed(() => tasks.value.slice(0, 5));
+const completeTask = (taskId) => {
+    // Find and remove the task by ID
+    const taskIndex = tasks.value.findIndex((task) => task.id === taskId);
+    if (taskIndex !== -1) {
+        tasks.value.splice(taskIndex, 1); // Remove the task
+    }
+};
+
+const tasks = ref(props.tasks);
+import Chart from "primevue/chart";
+import Withdraw from "@/Components/Withdraw.vue";
+import InvieDialog from "@/Components/InviteDialog.vue"
+import { Button } from "primevue";
+function getPlatformColor(platform){
+    if (platform == 'youtube') {
+        return '#ff0033';
+    }else if (platform == 'telegram') {
+        return '#3491ed';
+    }
+    else if (platform == 'facebook') {
+        return '#0a68ff';
+    }
+    else if (platform == 'twitter') {
+        return '#46a5e0';
+    }
+    else if (platform == 'discord') {
+        return '#4e61ed';
+   
+    }
+}
+</script>
 <template>
+
     <MyLayout>
         <div
             class="grid grid-cols-4 grid-rows-[0.5fr_1fr_1fr_1fr_1fr_1fr]  gap-4 min-h-screen py-10 px-[12rem] h-screen ">
@@ -98,8 +196,8 @@
             </div>
                 <div
                     class="col-span-2  backdrop-blur-sm rounded-md  bg-white/80 shadow-sm  row-span-6  col-start-1 row-start-3">
-                    <div class="flex  flex-col h-full p-6 items-stretch space-y-2 justify-between">
-                        <div class="h-12 mt-4 p-4 flex justify-start items-center w-full  space-x-2">
+                    <div class="flex  flex-col h-full px-10 p-6 items-stretch space-y-10 justify-start ">
+                        <div class="h-12 mt-4  flex justify-start items-center w-full  space-x-2">
                             <span
                                 class="avatar-initial rounded bg-[#f5918829] w-14  h-14 flex justify-center items-center">
                                 <!-- <box-icon type='solid' name='star' ></box-icon> -->
@@ -107,22 +205,22 @@
                             </span>
                             <p class="text-2xl text-gray-500">On going Tasks</p>
                         </div>
-
-                        <div class="w-full h-20 flex justify-center items-center bg-gray-100 rounded-md">
-                            <p class="text-3xl text-gray-500">Journaling</p>
+                        <div v-if="visibleTasks.length == 0" class="h-full w-full flex justify-center items-center">
+                            <p class="text-2xl text-gray-500 ">No available tasks for now</p>
                         </div>
-                        <div class="w-full h-20 flex justify-center items-center bg-gray-100 rounded-md">
-                            <p class="text-3xl text-gray-500">Journaling</p>
+                        <div v-else v-for="task in visibleTasks" :key="task.id" class="w-full border-b h-20 flex justify-between     items-center  rounded-md">
+                            <span
+                                    class="avatar-initial rounded bg-[#75727211] w-14  h-14 flex justify-center items-center">
+                            <box-icon :name="`${task.platform}`" :color="getPlatformColor(task.platform)" type='logo' ></box-icon>
+                            </span>
+                           <div class="w-[50%] flex justify-between ">
+                            <p class="text-3xl text-gray-500 w-[50%]">{{task.name}}</p> 
+                            <p class="text-3xl text-gray-500 w-[50%]">{{task.type}}</p>
+                           </div>
+                            <Button label="Process" icon="pi pi-angle-double-right" @click="completeTask(task.id)" /> 
+                            
                         </div>
-                        <div class="w-full h-20 flex justify-center items-center bg-gray-100 rounded-md">
-                            <p class="text-3xl text-gray-500">Journaling</p>
-                        </div>
-                        <div class="w-full h-20 flex justify-center items-center bg-gray-100 rounded-md">
-                            <p class="text-3xl text-gray-500">Journaling</p>
-                        </div>
-                        <div class="w-full h-20 flex justify-center items-center bg-gray-100 rounded-md">
-                            <p class="text-3xl text-gray-500">Journaling</p>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="col-span-2 row-span-3 col-start-3 row-start-6">
@@ -138,71 +236,3 @@
             </div>
     </MyLayout>
 </template>
-<script setup>
-import MyLayout from "@/Layouts/MyLayout.vue";
-import { ref, onMounted } from "vue";
-const props = defineProps({
-    friends: Number
-})
-onMounted(() => {
-    chartData.value = setChartData();
-    chartOptions.value = setChartOptions();
-});
-
-const chartData = ref();
-const chartOptions = ref();
-
-const setChartData = () => {
-    return {
-        labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q6', 'Q6', 'Q6'],
-        datasets: [
-            {
-                label: 'earnings',
-                data: [325, 702, 620, 900, 230, 230, 230, 230, 10],
-                borderWidth: 1,
-                tension: 0.4,
-
-            }
-        ]
-    };
-};
-const setChartOptions = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-    const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
-    return {
-        plugins: {
-            legend: {
-                display: false,
-                labels: {
-                    color: textColor
-                }
-            }
-        },
-        scales: {
-            x: {
-                ticks: {
-                    color: textColorSecondary
-                },
-                grid: {
-                    color: surfaceBorder,
-                }
-            },
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    color: textColorSecondary
-                },
-                grid: {
-                    color: surfaceBorder
-                }
-            }
-        }
-    };
-}
-import Chart from "primevue/chart";
-import Withdraw from "@/Components/Withdraw.vue";
-import InvieDialog from "@/Components/InviteDialog.vue"
-</script>

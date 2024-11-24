@@ -34,6 +34,9 @@ Route::middleware('auth')->group(function () {
     Route::prefix('tasks')->group(function (){
         Route::get('/', [UserController::class, 'tasks'] )->name('tasks');
     });
+    Route::prefix('bonuses')->group(function (){
+        Route::get('/', [UserController::class, 'bonuses'] )->name('bonuses');
+    });
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
     Route::get('/leaderboard', [UserController::class, 'leaderboard'])->name('leaderboard');
 });
