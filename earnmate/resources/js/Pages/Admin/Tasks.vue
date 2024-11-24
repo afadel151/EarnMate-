@@ -4,7 +4,7 @@
             <div class="w-full flex my-10 justify-center items-center">
                 <AddTask  @addtask="AddNewTask" />
             </div>
-            <DataTable v-model:filters="filters" v-model:selection="selectedTasks" :value="tasks" paginator :rows="10"
+            <DataTable v-model:filters="filters" class="max-w-[100%]" v-model:selection="selectedTasks" :value="tasks" paginator :rows="10"
                 dataKey="id" filterDisplay="menu" :globalFilterFields="[
                     'name',
                     'type',

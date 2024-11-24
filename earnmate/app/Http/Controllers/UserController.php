@@ -41,11 +41,14 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function leaderboard()
     {
         //
     }
-
+    public function tasks()
+    {
+        //
+    }
     /**
      * Display the specified resource.
      */

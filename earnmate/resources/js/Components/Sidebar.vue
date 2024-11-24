@@ -1,6 +1,8 @@
 <script setup>
 import { Button } from "primevue";
 import { Link } from "@inertiajs/vue3";
+import SidebarButton from "./SidebarButton.vue";
+
 </script>
 
 <template>
@@ -30,64 +32,30 @@ import { Link } from "@inertiajs/vue3";
         class="hidden backdrop-blur-sm  bg-white/70 p-10 h-screen md:flex flex-col items-center px-4 py-4 space-y-4"
     >
         <img src="/svgs/logo2.svg" class="my-10" alt="" />
-        <div class="flex-grow flex flex-col items-center space-y-4">
-            <Link :href="route('dashboard')">
-                <Button
-                    variant="text"
-                    label="Dashboard"
-                    v-tooltip="'Dashboard'"
-                    icon="pi pi-home"
-                    :severity="
-                        route().current('dashboard') ? 'primary' : 'secondary'
-                    "
-                />
-            </Link>
-            <Link :href="route('statistics')">
-                <Button
-                    variant="text"
-                    icon="pi pi-dollar"
-                    label="Statistics"
-                    v-tooltip="'Statistics'"
-                    :severity="
-                        route().current('statistics') ? 'primary' : 'secondary'
-                    "
-                />
-            </Link>
-            <Link :href="route('deposits')">
+        <div class="flex-grow flex flex-col  items-stretch  space-y-4">
+            <SidebarButton :href="'dashboard'" :label="'Dashboard'" :icon="'home'"  />
+            <SidebarButton :href="'statistics'" :label="'Statistics'" :icon="'home'"  />
+            <SidebarButton :href="'deposits'" :label="'Deposits'" :icon="'credit-card'"  />
+            <SidebarButton :href="'withdrawals'" :label="'Withdrawals'" :icon="'dollar'"  />
+            <SidebarButton :href="'leaderboard'" :label="'Leaderboard'" :icon="'crown'"  />
+            <SidebarButton :href="'tasks'" :label="'Tasks'" :icon="'list-check'"  />
+            
             <Button
                 variant="text"
-                label="Deposits"
-                icon="pi pi-credit-card"
-                :severity="
-                        route().current('deposits') ? 'primary' : 'secondary'
-                    "
-            />
-        </Link>
-        <Link :href="route('withdrawals')">
-            <Button
-                variant="text"
-                label="Withdrawals"
-                icon="pi pi-crown"
-                :severity="
-                        route().current('withdrawals') ? 'primary' : 'secondary'
-                    "
-            />
-            </Link>
-            <Button
-                variant="text"
-                label="Statistics"
-                icon="pi pi-gift"
-                severity="secondary"
-            />
-            <Button
-                variant="text"
-                label="Statistics"
+                label="Tasks"
                 icon="pi pi-user"
                 severity="secondary"
             />
             <Button
                 variant="text"
-                label="Statistics"
+                label="Bonuses"
+                class="mb-4"
+                icon="pi pi-cog"
+                severity="secondary"
+            />
+            <Button
+                variant="text"
+                label="Profile"
                 class="mb-4"
                 icon="pi pi-cog"
                 severity="secondary"

@@ -31,7 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::prefix('withdrawals')->group(function (){
         Route::get('/', [UserController::class, 'withdrawals'] )->name('withdrawals');
     });
+    Route::prefix('tasks')->group(function (){
+        Route::get('/', [UserController::class, 'tasks'] )->name('tasks');
+    });
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+    Route::get('/leaderboard', [UserController::class, 'leaderboard'])->name('leaderboard');
 });
 Route::get('/landing', function(){
     return Inertia::render('Landing');

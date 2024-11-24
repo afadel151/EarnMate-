@@ -5,7 +5,7 @@ import { Rating, Tag } from 'primevue';
 import { Button } from 'primevue';
 import Column from 'primevue/column';
 const p = [
-    {
+{
         'name' : 'Phone',
         'price' : 300,
         'inventoryStatus' : 'INSTOCK',
@@ -69,7 +69,7 @@ const p = [
         'category' : 'electronics',
 
     },
-]
+];
 const products = ref(p);
 
 const formatCurrency = (value) => {
@@ -92,11 +92,16 @@ const getSeverity = (product) => {
 };
 </script>
 <template>
-    <DataTable  paginator :rows="5"  :rowsPerPageOptions="[5, 10, 20, 50]" :value="products" >
+    <DataTable   paginator :rows="5"  :rowsPerPageOptions="[5, 10, 20, 50]" :value="products" >
         <template #header>
             <div class="flex flex-wrap items-center justify-between gap-2">
                 <span class="text-xl font-bold">History</span>
                 <Button icon="pi pi-refresh" rounded raised />
+            </div>
+        </template>
+        <template #empty>
+            <div class="h-full w-full bg-gray-500">
+
             </div>
         </template>
         <Column field="name" header="Name"></Column>

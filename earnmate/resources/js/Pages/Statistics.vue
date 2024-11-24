@@ -41,13 +41,13 @@ const setChartData = () => {
                 borderWidth: 2,
                 tension: 0.4,
                 borderColor: 'lightgreen'
-                
+
 
             }
         ],
-        
-        
-        
+
+
+
     };
 };
 
@@ -63,12 +63,12 @@ const setChartOptions = () => {
             legend: {
                 display: false,
                 labels: {
-                    
+
                     color: textColor
                 },
-                
+
             },
-           
+
         },
         scales: {
             x: {
@@ -92,8 +92,8 @@ const setChartOptions = () => {
             }
         },
         pointStyle: false,
-        
-        
+
+
     };
 }
 </script>
@@ -103,68 +103,94 @@ const setChartOptions = () => {
         <div
             class="grid grid-cols-1 p-10 px-[12rem] font-['GeneralSans-Medium'] md:grid-cols-6 md:grid-rows-5 gap-5 h-full w-full">
             <div
-                class="backdrop-blur-md flex py-1 flex-col justify-center space-y-2 items-center bg-white/70 shadow-sm rounded-md md:col-span-2 md:row-span-2">
-                <div class="flex justify-center  items-center w-32 h-32 bg-[#bb69ff] rounded-full">
-                    <p class="text-5xl text-gray-50">A</p>
+                class="backdrop-blur-md p-7 flex flex-col justify-around space-y-2 items-start bg-white/70 shadow-sm rounded-md md:col-span-2 md:row-span-2">
+                <div class="h-12  flex justify-start items-center w-full  space-x-2">
+                    <span class="avatar-initial rounded bg-[#d7f6fc] w-14  h-14 flex justify-center items-center">
+                        <box-icon type='solid' name='user-circle' color='#02bee8' size="md"></box-icon>
+                    </span>
+                    <p class="text-2xl text-gray-500">User</p>
                 </div>
 
-                <p class="text-4xl font-bold">{{ user.name }}</p>
-                <p>joined 20days ago</p>
+                <p class="text-5xl text-gray-600 font-bold">{{ user.name }}</p>
+                <p class="text-lg text-gray-700  ">joined 20days ago</p>
 
-                <p class="text-2xl font-bold text-gray-600">level 1</p>
+                <p class="text-2xl font-bold text-gray-600">Current level : level 1</p>
                 <div class="w-[80%]">
 
                     <ProgressBar :value="15" severity="secondary"></ProgressBar>
                 </div>
-                <p>2000DZD to next level</p>
+                <p class="text-gray-500 font-bold"> 2 more days to get rewarded</p>
 
 
 
             </div>
             <div
-                class="backdrop-blur-md bg-white/70 shadow-sm md:col-span-2 rounded-md md:row-span-1 p-4 md:p-6 md:col-start-3">
+                class="backdrop-blur-md bg-white/70 shadow-sm md:col-span-2 rounded-md md:row-span-1 p-5 md:col-start-3">
                 <div class="w-full h-full rounded-md p-2 ">
-                    <div
-                        class="col-span-2  rounded-lg flex flex-col space-y-2 justify-center h-full w-full items-start px-6">
-                        <p class="text-3xl text-gray-500">Balance :</p>
-                            <p class="text-3xl text-violet-600 font-bold">
-                                {{ user.balance }} DZD
-                            </p>
+                    <div class="col-span-2  rounded-lg flex flex-col  justify-around h-full w-full items-start ">
+                        <!-- <p class="text-3xl text-gray-500">Balance :</p> -->
+                        <div class="h-12 flex justify-start items-center w-full  space-x-2">
+                            <span
+                                class="avatar-initial rounded bg-[#eafae1] w-14  h-14 flex justify-center items-center">
+                                <box-icon name='wallet' type='solid' color='#72de37' size="md"></box-icon>
+                            </span>
+                            <p class="text-2xl text-gray-500">Balance</p>
+                        </div>
+                        <p class="text-3xl text-violet-600 font-bold">
+                            {{ user.balance }} DZD
+                        </p>
                     </div>
                 </div>
             </div>
-            <div class="col-start-3 row-start-2 col-span-2  backdrop-blur-md bg-white/70 shadow-sm rounded-md">
-                <div class="flex justify-around w-full px-5 h-full   items-center">
+            <div
+                class="col-start-3 p-5 flex flex-col justify-around items-center row-start-2 col-span-2  backdrop-blur-md bg-white/70 shadow-sm rounded-md">
+                <div class="h-12 flex justify-start items-center w-full  space-x-2">
+                    <span class="avatar-initial rounded bg-orange-100 w-14  h-14 flex justify-center items-center">
+                        <box-icon name='dollar' type='solid' color='#ffa600' size="md"></box-icon>
+                    </span>
+                    <p class="text-2xl text-gray-500">Operations</p>
+                </div>
+                <div class="flex justify-start space-x-4 w-full     items-center">
+
                     <Deposit />
-             
+
                     <Withdraw :user="user" />
                 </div>
             </div>
-            <div class="bg-white z-10 shadow-sm md:col-span-4 row-span-3 rounded-md p-4 md:row-start-3">
+            <div class="bg-white z-10  shadow-sm md:col-span-4 row-span-3 rounded-md p-4 md:row-start-3">
+                <div class="h-12 mt-4 p-4 flex justify-start items-center w-full  space-x-2">
+                    <span class="avatar-initial rounded bg-[#f5918829] w-14  h-14 flex justify-center items-center">
+                        <!-- <box-icon type='solid' name='star' ></box-icon> -->
+                        <box-icon name='task' color='red' size="md" ></box-icon>
+                    </span>
+                    <p class="text-2xl text-gray-500">Task History</p>
+                </div>
                 <History />
             </div>
             <div
-                class="backdrop-blur-md bg-white/3  bg-white/70 shadow-sm md:col-span-2 rounded-md md:row-span-4 md:row-start-2 p-6 md:col-start-5">
-                <div class="flex flex-col h-full p-6 justify-start gap-4 items-center w-full rounded-md">
-                    <div class="w-full">
-                        <p class="text-4xl text-center text-gray-500 font-bold ">
-                            Levels Ladder
-                        </p>
+                class="backdrop-blur-md bg-white/3  bg-white/70 shadow-sm md:col-span-2 rounded-md md:row-span-4 md:row-start-2 p-8 md:col-start-5">
+                <div class="flex flex-col h-full  justify-start gap-4 items-center w-full rounded-md">
+                    <div class="h-12 flex justify-start items-center w-full  space-x-2">
+                        <span class="avatar-initial rounded bg-[#f5e38829] w-14  h-14 flex justify-center items-center">
+                            <box-icon type='solid' name='star' color='#fbed53' size="md"></box-icon>
+                        </span>
+                        <p class="text-2xl text-gray-500">Levels Ladder</p>
                     </div>
                     <Levels />
                 </div>
             </div>
             <div
                 class="backdrop-blur-md bg-white/3   bg-white/70 shadow-sm md:col-span-2 rounded-md md:row-span-1 md:row-start-1 p-6 md:col-start-5">
-              
+
                 <p class="text-xl text-gray-500 mb-8">{{ formattedDate }}</p>
                 <div class="w-full flex justify-between items-center">
-                     <img src="/imgs/admin/usdt-logo.png" class="w-10" alt="">
-                     <p class="text-xl text-gray-500">1 USDT</p>
-                     <Chart type="line" :data="chartData" :options="chartOptions" class=" w-[30%]" />
-                     <p class=" text-gray-500"> <span class="font-black text-violet-600">  {{ Math.floor(priceStore.price) }} DZDM</span></p>
+                    <img src="/imgs/admin/usdt-logo.png" class="w-10" alt="">
+                    <p class="text-xl text-gray-500">1 USDT</p>
+                    <Chart type="line" :data="chartData" :options="chartOptions" class=" w-[30%]" />
+                    <p class=" text-gray-500"> <span class="font-black text-violet-600"> {{ Math.floor(priceStore.price)
+                            }} DZDM</span></p>
 
-                 </div>
+                </div>
             </div>
         </div>
     </MyLayout>

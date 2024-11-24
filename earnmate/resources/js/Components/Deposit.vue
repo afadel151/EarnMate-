@@ -56,7 +56,7 @@ import axios from "axios";
 </script>
 
 <template>
-    <Button @click="visible = true" label="Deposit" size="large" icon="pi pi-arrow-up" />
+    <Button @click="visible = true" label="Deposit" outlined icon="pi pi-arrow-up" />
 
     <Dialog v-model:visible="visible" modal header="Deposit" :style="{ width: '32rem' }">
         <Tabs value="0" class="w-full">

@@ -37,7 +37,7 @@ async function withdrawBaridi() {
 
 <template>
 
-    <Button @click="visible = true" :disabled="props.user.balance < 500"  severity="secondary" label="Withdraw" size="large" icon="pi 
+    <Button @click="visible = true" :disabled="props.user.balance < 500"  severity="secondary" label="Withdraw"  icon="pi 
 pi-arrow-down" />
 <Dialog v-model:visible="visible" modal header="Deposit" :style="{ width: '32rem' }">
         <Tabs value="0" class="w-full">
