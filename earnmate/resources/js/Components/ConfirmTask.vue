@@ -5,6 +5,7 @@ import { ref } from 'vue';
 const props = defineProps({
     task_id : Number
 })
+
 </script>
 
 <template>
