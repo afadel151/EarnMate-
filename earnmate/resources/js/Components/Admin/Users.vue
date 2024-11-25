@@ -70,8 +70,6 @@ const setChartOptions = () => {
             }
         },
         pointStyle: false,
-        
-        
     };
 }
 </script>

@@ -78,4 +78,8 @@ class User extends Authenticatable
     public function bonuses(): HasMany{
         return $this->hasMany(Bonus::class);
     }
+    public function current_level()
+    {
+        return $this->subscriptions()->where('completed', false)->first();
+    }
 }

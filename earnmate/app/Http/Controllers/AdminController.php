@@ -51,7 +51,13 @@ class AdminController extends Controller
     }
     public function users()
     {
-        return Inertia::render('Admin/Users');
+        $users = User::with(['tasks', 'friends', 'bonuses', 'subscriptions'])->get();
+        // $users = User::all()->load(['tasks','friends','bonuses','subscriptions', 'current_level']);
+        foreach ($users as $user) {
+            $user->current_level = $user->current_level();
+            $user->current_level ? $user->current_level->load('level') : $user->current_level; // Assign method output to a temporary attribute
+        }
+        return Inertia::render('Admin/Users', ['users'=>$users]);
     }
     public function show($id){
         if (Admin::where('user_id',$id)->exists()) {

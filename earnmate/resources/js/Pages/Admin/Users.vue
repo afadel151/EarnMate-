@@ -1,4 +1,5 @@
 <script setup>
+import Level from '@/Components/Level.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { FilterMatchMode, FilterOperator } from "@primevue/core/api";
 import axios from "axios";
@@ -46,12 +47,11 @@ const filters = ref({
             <div class="w-full mb-8 flex justify-center items-center">
                 <AddAdmin @addadmin="add_admin" />
             </div>
-            <DataTable v-model:filters="filters" class="w-[100%]" :value="admins" paginator :rows="10" dataKey="id"
+            <DataTable v-model:filters="filters" class="w-[100%]" :value="users" paginator :rows="10" dataKey="id"
                 filterDisplay="menu" :globalFilterFields="[
-                    'user.email',
-                    'user.name',
+                    'email',
+                    'name',
                     'balance',
-                    'RIP',
                     'created_at'
                 ]">
                 <template #header>
@@ -74,19 +74,19 @@ const filters = ref({
                     </template>
 
                 </Column>
-                <Column field="user.name" header="Name" sortable style="min-width: 14rem">
+                <Column field="name" header="Name" sortable style="min-width: 14rem">
                     <template #body="{ data }">
 
-                        {{ data.user.name }}
+                        {{ data.name }}
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Task" />
                     </template>
                 </Column>
 
-                <Column field="user.email" header="Email" sortable style="min-width: 14rem">
+                <Column field="email" header="Email" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.user.email }}
+                        {{ data.email }}
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Enail" />
@@ -100,18 +100,21 @@ const filters = ref({
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Enail" />
                     </template>
                 </Column>
-                <Column field="RIP" header="RIP" sortable style="min-width: 14rem">
+                <Column  header="Friends" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.RIP }}
-                    </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Enail" />
+                        {{ data.friends.length }}
                     </template>
                 </Column>
-
-                
-                
-
+                <Column  header="Level" sortable style="min-width: 14rem">
+                    <template #body="{ data }">
+                        {{ data.current_level ? data.current_level.level.level_number : 'Not subscibed' }}
+                    </template>
+                </Column>
+                <Column  header="Bonus" sortable style="min-width: 14rem">
+                    <template #body="{ data }">
+                        {{ Math.floor(data.bonuses.reduce((sum, item) => sum + (item.amount || 0), 0)) }}
+                    </template>
+                </Column>
             </DataTable>
         
             </div>
