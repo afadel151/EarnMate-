@@ -217,8 +217,10 @@ function getPlatformColor(platform){
                             <p class="text-3xl text-gray-500 w-[50%]">{{task.name}}</p> 
                             <p class="text-3xl text-gray-500 w-[50%]">{{task.type}}</p>
                            </div>
-                            <Button label="Process" icon="pi pi-angle-double-right" @click="completeTask(task.id)" /> 
-                            
+                            <div class="items-center flex space-x-2">
+                                <Button  label="Go" icon="pi pi-angle-double-right" @click="completeTask(task.id)" /> 
+                                <Button icon="pi pi-check-square"   severity="info" />
+                            </div>
                         </div>
                         
                     </div>

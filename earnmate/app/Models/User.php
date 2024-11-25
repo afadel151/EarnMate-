@@ -75,4 +75,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reference::class, 'referrer_id');
     }
+    public function bonuses(): HasMany{
+        return $this->hasMany(Bonus::class);
+    }
 }

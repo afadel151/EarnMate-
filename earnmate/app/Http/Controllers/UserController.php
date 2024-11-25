@@ -35,7 +35,8 @@ class UserController extends Controller
     }
     public function statistics()
     {
-            return Inertia::render('Statistics');
+        $tasks = Auth::user()->tasks->load(['task']);
+        return Inertia::render('Statistics', ['tasks'=>$tasks]);
     }
     public function withdrawals()
     {
@@ -57,7 +58,8 @@ class UserController extends Controller
     }
     public function bonuses()
     {
-        //
+        $bonuses = Auth::user()->bonuses->load('friend');
+        return Inertia::render('Bonuses',['bonuses'=>$bonuses]);
     }
     /**
      * Display the specified resource.

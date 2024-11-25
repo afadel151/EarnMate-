@@ -12,10 +12,10 @@ import { usePriceStore } from '@/stores/priceStore';
 const exchangeRates = ref();
 const priceStore = usePriceStore();
 const user = usePage().props.auth.user;
-const dinar = ref(0)
-onMounted(() => {
-    priceStore.fetchPrice();
-});
+const props = defineProps({
+    tasks : Array
+})
+
 const today = new Date();
 const year = today.getFullYear();
 const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
@@ -24,6 +24,7 @@ const day = String(today.getDate()).padStart(2, '0');
 const formattedDate = `${year}-${month}-${day}`;
 import Chart from "primevue/chart";
 onMounted(() => {
+    priceStore.fetchPrice();
     chartData.value = setChartData();
     chartOptions.value = setChartOptions();
 });
@@ -165,7 +166,7 @@ const setChartOptions = () => {
                     </span>
                     <p class="text-2xl text-gray-500">Task History</p>
                 </div>
-                <History />
+                <History :tasks="props.tasks" />
             </div>
             <div
                 class="backdrop-blur-md bg-white/3  bg-white/70 shadow-sm md:col-span-2 rounded-md md:row-span-4 md:row-start-2 p-8 md:col-start-5">

@@ -4,77 +4,15 @@ import DataTable from 'primevue/datatable';
 import { Rating, Tag } from 'primevue';
 import { Button } from 'primevue';
 import Column from 'primevue/column';
-const p = [
-{
-        'name' : 'Phone',
-        'price' : 300,
-        'inventoryStatus' : 'INSTOCK',
-        'rating' : 4,
-        'category' : 'electronics',
+const props = defineProps({
+    tasks: {
+        type: Array,
+        required: true
+    }
+});
 
-    },
-    {
-        'name' : 'Phone',
-        'price' : 300,
-        'inventoryStatus' : 'INSTOCK',
-        'rating' : 4,
-        'category' : 'electronics',
 
-    },
-    {
-        'name' : 'Phone',
-        'price' : 300,
-        'inventoryStatus' : 'INSTOCK',
-        'rating' : 4,
-        'category' : 'electronics',
 
-    },
-    {
-        'name' : 'Phone',
-        'price' : 300,
-        'inventoryStatus' : 'INSTOCK',
-        'rating' : 4,
-        'category' : 'electronics',
-
-    },
-    {
-        'name' : 'Phone',
-        'price' : 300,
-        'inventoryStatus' : 'INSTOCK',
-        'rating' : 4,
-        'category' : 'electronics',
-
-    },
-    {
-        'name' : 'Phone',
-        'price' : 300,
-        'inventoryStatus' : 'INSTOCK',
-        'rating' : 4,
-        'category' : 'electronics',
-
-    },
-    {
-        'name' : 'Phone',
-        'price' : 300,
-        'inventoryStatus' : 'INSTOCK',
-        'rating' : 4,
-        'category' : 'electronics',
-
-    },
-    {
-        'name' : 'Phone',
-        'price' : 300,
-        'inventoryStatus' : 'INSTOCK',
-        'rating' : 4,
-        'category' : 'electronics',
-
-    },
-];
-const products = ref(p);
-
-const formatCurrency = (value) => {
-    return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-};
 const getSeverity = (product) => {
     switch (product.inventoryStatus) {
         case 'INSTOCK':
@@ -90,9 +28,10 @@ const getSeverity = (product) => {
             return null;
     }
 };
+
 </script>
 <template>
-    <DataTable   paginator :rows="5"  :rowsPerPageOptions="[5, 10, 20, 50]" :value="products" >
+    <DataTable   paginator :rows="5"   :rowsPerPageOptions="[5, 10, 20, 50]" :value="props.tasks" >
         <template #header>
             <div class="flex flex-wrap items-center justify-between gap-2">
                 <span class="text-xl font-bold">History</span>
@@ -101,26 +40,30 @@ const getSeverity = (product) => {
         </template>
         <template #empty>
             <div class="h-full w-full bg-gray-500">
-
+                no data
             </div>
         </template>
-        <Column field="name" header="Name"></Column>
-        <Column field="price" header="Price">
+        <Column class="w-[20%]" field="name" header="Name">
             <template #body="slotProps">
-                {{ formatCurrency(slotProps.data.price) }}
+                {{ slotProps.data.task.name }}
             </template>
         </Column>
-        <Column field="category" header="Category"></Column>
-        <Column field="rating" header="Reviews">
+        <Column class="w-[20%]" field="platform" header="Platform">
             <template #body="slotProps">
-                <Rating :modelValue="slotProps.data.rating" readonly />
+                {{ slotProps.data.task.platform }}
             </template>
         </Column>
-        <Column header="Status">
+        
+        <Column class="w-[20%]" field="link" header="Link">
             <template #body="slotProps">
-                <Tag :value="slotProps.data.inventoryStatus" :severity="getSeverity(slotProps.data)" />
+                 {{ slotProps.data.task.link }}
             </template>
         </Column>
-        <template #footer> In total there are {{ products ? products.length : 0 }} products. </template>
+        <Column class="w-[20%]" field="status" header="Status">
+            <template #body="slotProps">
+                <Tag :value="slotProps.data.status" />
+            </template>
+        </Column>
+        <template #footer> In total there are {{ props.tasks ? props.tasks.length : 0 }} products. </template>
     </DataTable>
 </template>
