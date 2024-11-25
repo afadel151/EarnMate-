@@ -21,6 +21,10 @@ Route::middleware( \App\Http\Middleware\AdminMiddleware::class)->prefix('/admin'
         Route::get('/', [AdminController::class, 'tasks'])->name('admin.tasks');
 
     });
+    Route::prefix('/done_tasks')->group(function () {
+        Route::get('/', [AdminController::class, 'done_tasks'])->name('admin.done_tasks');
+
+    });
     Route::prefix('/offers')->group(function () {
         Route::get('/', [AdminController::class, 'offers'])->name('admin.offers');
  

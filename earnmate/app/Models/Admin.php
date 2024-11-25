@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Admin extends Model
 {
+    protected $fillable = [
+        'RIP',
+        'user_id',
+        'balance'
+    ];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -24,5 +29,9 @@ class Admin extends Model
     public function tasks() : HasMany 
     {
         return $this->hasMany(Task::class);
+    }
+    public function done_tasks() : HasMany
+    {
+        return $this->hasMany(DoneTask::class);
     }
 }

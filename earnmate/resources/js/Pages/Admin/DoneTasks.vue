@@ -1,5 +1,4 @@
 <script setup>
-import AddAdmin from '@/Components/Admin/AddAdmin.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { FilterMatchMode, FilterOperator } from "@primevue/core/api";
 import axios from "axios";
@@ -11,60 +10,71 @@ import { Column } from "primevue";
 import { InputText } from "primevue";
 import { ref, onMounted } from "vue";
 
+const statuses = ref(['pending', 'confirmed', 'declined']);
 const props = defineProps({
-    admins: Array
+    tasks: Array
 })
-const admins = ref(props.admins);
 function extractDate(datetime) {
     const date = new Date(datetime);
     return date.toISOString().split('T')[0];
 }
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-    RIP: {
-        operator: FilterOperator.OR,
-        constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }],
-    },
-    balance: {
-        operator: FilterOperator.OR,
-        constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }],
-    },
     user: {
+        email: {
+            operator: FilterOperator.AND,
+            constraints: [
+                { value: null, matchMode: FilterMatchMode.CONTAINS },
+            ],
+        }
+    },
+    task: {
         name: {
             operator: FilterOperator.AND,
             constraints: [
                 { value: null, matchMode: FilterMatchMode.CONTAINS },
             ],
         },
-        email: {
+        platform: {
             operator: FilterOperator.AND,
             constraints: [
                 { value: null, matchMode: FilterMatchMode.CONTAINS },
             ],
         },
-        
+        link: {
+            operator: FilterOperator.AND,
+            constraints: [
+                { value: null, matchMode: FilterMatchMode.CONTAINS },
+            ],
+        },
     },
     created_at: {
         operator: FilterOperator.OR,
         constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }],
     },
+    status: { value: null, matchMode: FilterMatchMode.EQUALS },
 });
-function add_admin(admin) {
-    admins.value.push(admin);
+function getSeverity(status) {
+    if (status == 'pending') {
+        return 'info'
+    } else if (status == 'confirmed') {
+        return 'success'
+    } else {
+        return 'danger'
+    }
 }
+
 </script>
+
 <template>
     <AdminLayout>
         <div class="p-20 w-full  pt-40  flex flex-col justify-center items-center">
-            <div class="w-full mb-8 flex justify-center items-center">
-                <AddAdmin @addadmin="add_admin" />
-            </div>
-            <DataTable v-model:filters="filters" class="w-[100%]" :value="admins" paginator :rows="10" dataKey="id"
+            <DataTable v-model:filters="filters" class="w-[100%]" :value="props.tasks" paginator :rows="10" dataKey="id"
                 filterDisplay="menu" :globalFilterFields="[
                     'user.email',
-                    'user.name',
-                    'balance',
-                    'RIP',
+                    'task.name',
+                    'task.platform',
+                    'task.link',
                     'created_at'
                 ]">
                 <template #header>
@@ -87,17 +97,8 @@ function add_admin(admin) {
                     </template>
 
                 </Column>
-                <Column field="user.name" header="Name" sortable style="min-width: 14rem">
-                    <template #body="{ data }">
 
-                        {{ data.user.name }}
-                    </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Task" />
-                    </template>
-                </Column>
-
-                <Column field="user.email" header="Email" sortable style="min-width: 14rem">
+                <Column field="user.email" header="User" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.user.email }}
                     </template>
@@ -105,28 +106,66 @@ function add_admin(admin) {
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Enail" />
                     </template>
                 </Column>
-                <Column field="balance" header="Balance" sortable style="min-width: 14rem">
+
+
+                <Column field="task.name" header="Name" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.balance }}
+
+                        {{ data.task.name }}
                     </template>
                     <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Enail" />
+                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Task" />
                     </template>
                 </Column>
-                <Column field="RIP" header="RIP" sortable style="min-width: 14rem">
+                <Column field="task.platform" header="Platform" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.RIP }}
+
+                        {{ data.task.platform }}
                     </template>
                     <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Enail" />
+                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Platform" />
+                    </template>
+                </Column>
+                <Column field="task.link" header="Link" sortable style="min-width: 14rem">
+                    <template #body="{ data }">
+
+                        {{ data.task.link }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
+                    </template>
+                </Column>
+                <Column header="Screenshot" sortable style="min-width: 14rem">
+                    <template #body="{ data }">
+
+                        {{ data.image }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
                     </template>
                 </Column>
 
-                
-                
+
+                <Column field="status" header="Status" sortable style="min-width: 14rem">
+                    <template #body="{ data }">
+
+                        <Tag :value="data.status" :severity="getSeverity(data.status)"></Tag>
+                    </template>
+                    <!-- <template #filter="{ filterModel }">
+                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Status" />
+                    </template> -->
+                    <template #filter="{ filterModel, filterCallback }">
+                        <Select v-model="filterModel.value" :options="statuses" @change="filterCallback()"
+                            placeholder="Select One" style="min-width: 12rem" :showClear="true">
+                            <template #option="slotProps">
+                                <Tag :value="slotProps.option" :severity="getSeverity(slotProps.option)" />
+                            </template>
+                        </Select>
+                    </template>
+                </Column>
 
             </DataTable>
-        
-            </div>
+        </div>
+
     </AdminLayout>
 </template>

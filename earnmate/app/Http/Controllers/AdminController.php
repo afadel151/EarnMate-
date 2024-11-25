@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Deposit;
+use App\Models\DoneTask;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +46,8 @@ class AdminController extends Controller
     }
     public function admins()
     {
-        return Inertia::render('Admin/Admins');
+        $admins = Admin::all()->load('user');
+        return Inertia::render('Admin/Admins', ['admins' => $admins]);
     }
     public function users()
     {
@@ -55,6 +57,23 @@ class AdminController extends Controller
         if (Admin::where('user_id',$id)->exists()) {
             return Inertia::render('Admin/Show',['admin'=>User::find($id)->load('admin')]);
         }
-        
+    }
+    public function done_tasks()
+    {
+        $tasks = Auth::user()->admin->done_tasks->load(['task', 'user']);
+        return Inertia::render('Admin/DoneTasks', ['tasks'=> $tasks]);
+    }
+    public function add(Request $request)
+    {
+        $email = $request->email;
+        $RIP = $request->RIP;
+        $user_id = User::where('email', $email)->first()->id;
+        $admin = Admin::create([
+            'user_id'=> $user_id,
+            'RIP' => $RIP,
+            'balance' => 0.00
+        ]);
+        $admin->load('user');
+        return response()->json($admin);
     }
 }

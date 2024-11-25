@@ -1,6 +1,7 @@
 <?php 
 
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DepositController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\TaskController;
@@ -31,6 +32,9 @@ Route::prefix('/api')->group(function (){
         Route::prefix('/deposits')->group(function(){
             Route::get('/', [DepositController::class, 'get']);
             Route::post('/edit_status', [DepositController::class, 'edit_status']);
+        });
+        Route::prefix('/admins')->group(function (){
+            Route::post('/add', [AdminController::class, 'add'])->name('admims.add');
         });
     });
 
