@@ -5,15 +5,13 @@ const props = defineProps({
     friends: Number,
     tasks: Array
 })
-import Popover from 'primevue/popover';
+
+
 onMounted(() => {
     chartData.value = setChartData();
     chartOptions.value = setChartOptions();
 });
-const op = ref(false);
-const toggle = (event) => {
-    op.value.toggle(event);
-}
+
 const chartData = ref();
 const chartOptions = ref();
 
@@ -81,6 +79,7 @@ import Chart from "primevue/chart";
 import Withdraw from "@/Components/Withdraw.vue";
 import InvieDialog from "@/Components/InviteDialog.vue"
 import { Button } from "primevue";
+import ConfirmTask from "@/Components/ConfirmTask.vue";
 function getPlatformColor(platform) {
     if (platform == 'youtube') {
         return '#ff0033';
@@ -221,16 +220,8 @@ function getPlatformColor(platform) {
                         </div>
                         <div class="items-center flex space-x-2">
                             <Button label="Go" icon="pi pi-angle-double-right" @click="completeTask(task.id)" />
-                            <Button icon="pi pi-check-square" severity="info" @click="toggle" />
-                            <Popover ref="op">
-                                <div class="flex flex-col gap-4 w-[25rem]">
-                                    
-                                    <div>
-                                        <span class="font-medium block mb-2">Team Members</span>
-                                       
-                                    </div>
-                                </div>
-                            </Popover>
+                            <ConfirmTask />
+                            
                         </div>
                     </div>
 
