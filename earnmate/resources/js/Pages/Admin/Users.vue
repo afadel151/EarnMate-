@@ -65,7 +65,7 @@ const filters = ref({
                     </div>
                 </template>
                 <template #empty> No customers found. </template>
-                <Column field="created_at" header="Date" sortable style="min-width: 14rem">
+                <Column field="created_at" header="Date" sortable >
                     <template #body="{ data }">
                         {{ extractDate(data.created_at) }}
                     </template>
@@ -74,7 +74,7 @@ const filters = ref({
                     </template>
 
                 </Column>
-                <Column field="name" header="Name" sortable style="min-width: 14rem">
+                <Column field="name" header="Name" sortable >
                     <template #body="{ data }">
 
                         {{ data.name }}
@@ -84,7 +84,7 @@ const filters = ref({
                     </template>
                 </Column>
 
-                <Column field="email" header="Email" sortable style="min-width: 14rem">
+                <Column field="email" header="Email" sortable >
                     <template #body="{ data }">
                         {{ data.email }}
                     </template>
@@ -92,7 +92,7 @@ const filters = ref({
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Enail" />
                     </template>
                 </Column>
-                <Column field="balance" header="Balance" sortable style="min-width: 14rem">
+                <Column field="balance" header="Balance" sortable >
                     <template #body="{ data }">
                         {{ data.balance }}
                     </template>
@@ -100,17 +100,17 @@ const filters = ref({
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Enail" />
                     </template>
                 </Column>
-                <Column  header="Friends" sortable style="min-width: 14rem">
+                <Column  header="Friends" sortable >
                     <template #body="{ data }">
                         {{ data.friends.length }}
                     </template>
                 </Column>
-                <Column  header="Level" sortable style="min-width: 14rem">
+                <Column  header="Level" sortable >
                     <template #body="{ data }">
                         {{ data.current_level ? data.current_level.level.level_number : 'Not subscibed' }}
                     </template>
                 </Column>
-                <Column  header="Bonus" sortable style="min-width: 14rem">
+                <Column  header="Bonus" sortable >
                     <template #body="{ data }">
                         {{ Math.floor(data.bonuses.reduce((sum, item) => sum + (item.amount || 0), 0)) }}
                     </template>

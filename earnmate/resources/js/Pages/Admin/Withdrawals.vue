@@ -95,7 +95,7 @@ const initFilters = () => {
 <template>
     <AdminLayout>
         <div class="p-10 pt-32 w-full flex flex-col justify-center items-center">
-            <DataTable v-model:filters="filters" v-model:selection="selectedWithdrawals" :value="withdrawals" paginator
+            <DataTable v-model:filters="filters" class="w-[100%]" v-model:selection="selectedWithdrawals" :value="withdrawals" paginator
                 :rows="10" dataKey="id" filterDisplay="menu" :globalFilterFields="[
                     'user.email',
                     'user.name',
@@ -118,19 +118,19 @@ const initFilters = () => {
                 </template>
                 <template #empty> No customers found. </template>
                 <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-                <Column field="user.email" header="Email" sortable style="min-width: 14rem">
+                <Column field="user.email" header="Email" sortable >
                     <template #body="{ data }">
                         {{ data.user.email }}
                     </template>
                     
                 </Column>
-                <Column field="user.name" header="Name" sortable style="min-width: 14rem">
+                <Column field="user.name" header="Name" sortable >
                     <template #body="{ data }">
                         {{ data.user.name }}
                     </template>
                    
                 </Column>
-                <Column field="amount" header="Amount" sortable style="min-width: 14rem">
+                <Column field="amount" header="Amount" sortable >
                     <template #body="{ data }">
                         {{ data.amount }}
                     </template>
@@ -138,7 +138,7 @@ const initFilters = () => {
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by amount" />
                     </template>
                 </Column>
-                <Column field="method" header="Method" sortable style="min-width: 14rem">
+                <Column field="method" header="Method" sortable >
                     <template #body="{ data }">
                         {{ data.method }}
                     </template>
@@ -146,7 +146,7 @@ const initFilters = () => {
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Method" />
                     </template>
                 </Column>
-                <Column field="destination" header="Destination" sortable style="min-width: 14rem">
+                <Column field="destination" header="Destination" sortable >
                     <template #body="{ data }">
                         {{ data.destination }}
                     </template>
@@ -154,7 +154,7 @@ const initFilters = () => {
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Rip/Adress" />
                     </template>
                 </Column>
-                <Column field="created_at" header="Created" sortable style="min-width: 14rem">
+                <Column field="created_at" header="Created" sortable >
                     <template #body="{ data }">
                         {{ extractDate(data.created_at) }}
                     </template>
@@ -162,7 +162,7 @@ const initFilters = () => {
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Date" />
                     </template>
                 </Column>
-                <Column field="status" header="Status" sortable style="min-width: 14rem">
+                <Column field="status" header="Status" sortable >
                     <template #body="{ data }">
                         <WithdrawalStatusEdit :withdrawal="data" />
                     </template>

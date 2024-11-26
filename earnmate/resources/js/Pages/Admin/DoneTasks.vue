@@ -88,7 +88,7 @@ function getSeverity(status) {
                     </div>
                 </template>
                 <template #empty> No customers found. </template>
-                <Column field="created_at" header="Date" sortable style="min-width: 14rem">
+                <Column field="created_at" header="Date" sortable >
                     <template #body="{ data }">
                         {{ extractDate(data.created_at) }}
                     </template>
@@ -98,7 +98,7 @@ function getSeverity(status) {
 
                 </Column>
 
-                <Column field="user.email" header="User" sortable style="min-width: 14rem">
+                <Column field="user.email" header="User" sortable >
                     <template #body="{ data }">
                         {{ data.user.email }}
                     </template>
@@ -108,7 +108,7 @@ function getSeverity(status) {
                 </Column>
 
 
-                <Column field="task.name" header="Name" sortable style="min-width: 14rem">
+                <Column field="task.name" header="Name" sortable >
                     <template #body="{ data }">
 
                         {{ data.task.name }}
@@ -117,7 +117,7 @@ function getSeverity(status) {
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Task" />
                     </template>
                 </Column>
-                <Column field="task.platform" header="Platform" sortable style="min-width: 14rem">
+                <Column field="task.platform" header="Platform" sortable >
                     <template #body="{ data }">
 
                         {{ data.task.platform }}
@@ -126,7 +126,7 @@ function getSeverity(status) {
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Platform" />
                     </template>
                 </Column>
-                <Column field="task.link" header="Link" sortable style="min-width: 14rem">
+                <Column field="task.link" header="Link" sortable >
                     <template #body="{ data }">
 
                         {{ data.task.link }}
@@ -135,7 +135,7 @@ function getSeverity(status) {
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
                     </template>
                 </Column>
-                <Column header="Screenshot" sortable style="min-width: 14rem">
+                <Column header="Screenshot" sortable >
                     <template #body="{ data }">
 
                         {{ data.image }}
@@ -146,7 +146,7 @@ function getSeverity(status) {
                 </Column>
 
 
-                <Column field="status" header="Status" sortable style="min-width: 14rem">
+                <Column field="status" header="Status" sortable >
                     <template #body="{ data }">
 
                         <Tag :value="data.status" :severity="getSeverity(data.status)"></Tag>
