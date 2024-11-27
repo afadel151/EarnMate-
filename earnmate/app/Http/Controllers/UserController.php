@@ -52,9 +52,9 @@ class UserController extends Controller
     }
     public function tasks()
     {
-        $donetasks = Auth::user()->tasks()->pluck('task_id')->toArray();
-        $tasks = Task::whereIn('id',$donetasks)->get();
-        return Inertia::render('Tasks',['tasks'=>$tasks]);
+        $donetasks = Auth::user()->tasks;
+        $donetasks->load('task');
+        return Inertia::render('Tasks',['tasks'=>$donetasks]);
     }
     public function bonuses()
     {

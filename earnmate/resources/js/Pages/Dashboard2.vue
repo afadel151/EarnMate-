@@ -67,10 +67,9 @@ const setChartOptions = () => {
 }
 const visibleTasks = computed(() => tasks.value.slice(0, 5));
 const completeTask = (taskId) => {
-    // Find and remove the task by ID
     const taskIndex = tasks.value.findIndex((task) => task.id === taskId);
     if (taskIndex !== -1) {
-        tasks.value.splice(taskIndex, 1); // Remove the task
+        tasks.value.splice(taskIndex, 1); 
     }
 };
 
@@ -212,16 +211,14 @@ function getPlatformColor(platform) {
                         class="w-full border-b h-20 flex justify-between     items-center  rounded-md">
                         <span class="avatar-initial rounded bg-[#75727211] w-14  h-14 flex justify-center items-center">
                             <box-icon :name="`${task.platform}`" :color="getPlatformColor(task.platform)"
-                                type='logo'></box-icon>
+                                type='logo' size="lg"></box-icon>
                         </span>
                         <div class="w-[50%] flex justify-between ">
-                            <p class="text-3xl text-gray-500 w-[50%]">{{ task.name }}</p>
-                            <p class="text-3xl text-gray-500 w-[50%]">{{ task.type }}</p>
+                            <p class="text-2xl text-gray-500 w-[50%]">{{ task.type }}</p>
                         </div>
                         <div class="items-center flex space-x-2">
-                            <Button label="Go" icon="pi pi-angle-double-right" @click="completeTask(task.id)" />
-                            <ConfirmTask />
-                            
+                            <Button label="Go" as="a" :href="task.link" target="_blank" rel="noopener"  icon="pi pi-angle-double-right"  />
+                            <ConfirmTask :task_id="task.id" @task_confirmed="completeTask(task.id)" />
                         </div>
                     </div>
 

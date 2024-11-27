@@ -1,4 +1,5 @@
 <script setup>
+import ViewScreenshot from '@/Components/Admin/ViewScreenshot.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { FilterMatchMode, FilterOperator } from "@primevue/core/api";
 import axios from "axios";
@@ -8,8 +9,9 @@ import { InputIcon } from "primevue";
 import { Button } from "primevue";
 import { Column } from "primevue";
 import { InputText } from "primevue";
-import { ref, onMounted } from "vue";
-
+import { ref } from "vue";
+import Popover from 'primevue/popover';
+import DoneTaskStatusEdit from '@/Components/Admin/DoneTaskStatusEdit.vue';
 const statuses = ref(['pending', 'confirmed', 'declined']);
 const props = defineProps({
     tasks: Array
@@ -68,7 +70,7 @@ function getSeverity(status) {
 
 <template>
     <AdminLayout>
-        <div class="p-20 w-full  pt-40  flex flex-col justify-center items-center">
+        <div class="p-10 pt-32 w-full flex flex-col justify-center items-center">
             <DataTable v-model:filters="filters" class="w-[100%]" :value="props.tasks" paginator :rows="10" dataKey="id"
                 filterDisplay="menu" :globalFilterFields="[
                     'user.email',
@@ -138,7 +140,7 @@ function getSeverity(status) {
                 <Column header="Screenshot" sortable >
                     <template #body="{ data }">
 
-                        {{ data.image }}
+                        <ViewScreenshot :src="data.image" />
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
@@ -149,11 +151,9 @@ function getSeverity(status) {
                 <Column field="status" header="Status" sortable >
                     <template #body="{ data }">
 
-                        <Tag :value="data.status" :severity="getSeverity(data.status)"></Tag>
+                        <DoneTaskStatusEdit :task="data" />
                     </template>
-                    <!-- <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Status" />
-                    </template> -->
+                    
                     <template #filter="{ filterModel, filterCallback }">
                         <Select v-model="filterModel.value" :options="statuses" @change="filterCallback()"
                             placeholder="Select One" style="min-width: 12rem" :showClear="true">

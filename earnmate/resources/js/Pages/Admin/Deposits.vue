@@ -138,7 +138,6 @@ function extractDate(datetime) {
                             placeholder="Select One" style="min-width: 12rem" :showClear="true">
                             <template #option="slotProps">
                                 <Tag :value="slotProps.option" :severity="getSeverity(slotProps.option)" />
-                              
                             </template>
                         </Select>
                     </template>

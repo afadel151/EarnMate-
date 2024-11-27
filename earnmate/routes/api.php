@@ -9,6 +9,7 @@ use App\Http\Controllers\WithdrawalController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/api')->group(function (){
+    
     Route::prefix('/levels')->group(function (){
         Route::get('/get-level', [LevelController::class, 'info'])->name('level.info');
     });
@@ -19,11 +20,15 @@ Route::prefix('/api')->group(function (){
     Route::prefix('/withdrawals')->group(function (){
         Route::post('/withdraw_baridi', [WithdrawalController::class, 'withdraw_baridi']);
     });
+    Route::prefix('/tasks')->group(function(){
+        Route::post('/confirm', [TaskController::class, 'confirm']);
+    });
     // withdraw_baridi
     Route::middleware(\App\Http\Middleware\AdminMiddleware::class)->prefix('/admin')->group(function () {
         Route::prefix('/tasks')->group(function(){
             Route::get('/', [TaskController::class, 'gettasks']);
             Route::post('/add', [TaskController::class, 'add']);
+            Route::post('/edit_status',[TaskController::class,'edit_status']);
         });
         Route::prefix('/withdrawals')->group(function(){
             Route::get('/', [WithdrawalController::class, 'get']);
@@ -38,4 +43,4 @@ Route::prefix('/api')->group(function (){
         });
     });
 
-});
+})->middleware(['auth:sanctum']);

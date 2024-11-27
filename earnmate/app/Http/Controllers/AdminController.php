@@ -52,7 +52,6 @@ class AdminController extends Controller
     public function users()
     {
         $users = User::with(['tasks', 'friends', 'bonuses', 'subscriptions'])->get();
-        // $users = User::all()->load(['tasks','friends','bonuses','subscriptions', 'current_level']);
         foreach ($users as $user) {
             $user->current_level = $user->current_level();
             $user->current_level ? $user->current_level->load('level') : $user->current_level; // Assign method output to a temporary attribute

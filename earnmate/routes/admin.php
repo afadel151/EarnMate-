@@ -3,7 +3,7 @@
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware( \App\Http\Middleware\AdminMiddleware::class)->prefix('/admin')->group(function (){
+Route::middleware( [\App\Http\Middleware\AdminMiddleware::class,'auth:sanctum'])->prefix('/admin')->group(function (){
     Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/profile',[AdminController::class, 'profile'])->name('admin.profile');
     Route::prefix('/deposits')->group(function () {

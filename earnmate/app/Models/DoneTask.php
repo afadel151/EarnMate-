@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class DoneTask extends Model
 {
     protected $table = 'done_tasks';
+    protected $fillable = [
+        'user_id',
+        'task_id',
+        'image',
+        'status'
+    ];
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);

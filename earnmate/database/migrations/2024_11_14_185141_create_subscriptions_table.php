@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('level_id')->constrained('levels');
+            $table->string('method')->default('regular');
             $table->boolean('completed')->default(false);
             $table->timestamps();
         });

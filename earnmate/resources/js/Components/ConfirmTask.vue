@@ -1,33 +1,43 @@
 <script setup>
-import axios from 'axios';
+import axiosClient from '@/axios';
 import { Button, Dialog, InputText } from 'primevue';
 import { ref } from 'vue';
 const visible = ref(false)
+const Screenshot = ref(null);
+
 const props = defineProps({
-    task_id : Number,
+    task_id: Number,
 })
-async function confirmTask()
-{
+async function confirmTask() {
+    let fd = new FormData();
+    fd.append("screenshot", Screenshot.value);
+    fd.append("task_id", props.task_id);
+    try {
+        let response = await axiosClient.post('/tasks/confirm', fd);
+        console.log(response.data);
+        visible.value = false;
+    } catch (error) {
+        console.log(error);
+    }
 
 }
 const emit = defineEmits(['task_confirmed']);
+function onChange(e) {
+    Screenshot.value = e.target.files[0];
+}
 </script>
 
 <template>
- <div>
-        <Button icon="pi pi-check-square" label="confirm" @click="visible = true" />
+    <div>
+        <Button icon="pi pi-check-square" severity="info" @click="visible = true" />
         <Dialog v-model:visible="visible" modal header="Confirm task" :style="{ width: '40rem' }">
-            <div class="flex items-center gap-4 mb-4">
-                <label for="name" class="font-semibold w-32">Email :</label>
-                <InputText id="name"   class="flex-auto" autocomplete="off" />
-            </div>
             <div class="flex items-center gap-4 mb-8">
-                <label for="link" class="font-semibold w-32">RIP :</label>
-                <InputText id="link"  class="flex-auto" autocomplete="off" />
+                <label for="email" class="font-semibold w-24">Screenshot: </label>
+                <input name="file" type="file" class="w-full" @change="onChange" />
             </div>
             <div class="flex justify-end gap-2">
                 <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-                <Button type="button" label="Save" ></Button>
+                <Button type="button" label="Send" @click="confirmTask"></Button>
             </div>
         </Dialog>
     </div>

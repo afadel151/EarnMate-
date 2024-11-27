@@ -22,7 +22,7 @@
                 <template #empty> No customers found. </template>
                 <Column field="name" header="Name" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.name }}
+                        {{ data.task.name }}
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by name" />
@@ -30,7 +30,7 @@
                 </Column>
                 <Column field="platform" header="Platform" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.platform }}
+                        {{ data.task.platform }}
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by platform" />
@@ -38,7 +38,7 @@
                 </Column>
                 <Column field="type" header="Type" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.type }}
+                        {{ data.task.type }}
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Type" />
@@ -46,7 +46,7 @@
                 </Column>
                 <Column field="link" header="Link" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.link }}
+                        {{ data.task.link }}
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
@@ -61,6 +61,12 @@
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Date" />
                     </template>
                 </Column>
+                <Column field="status" header="Link" sortable style="min-width: 14rem">
+                    <template #body="{ data }">
+                        <Tag :value="data.status" :severity="getSeverity(data.status)" />
+                    </template>
+                    
+                </Column>
 
             </DataTable>
         </div>
@@ -69,7 +75,7 @@
 <script setup>
 import MyLayout from "@/Layouts/MyLayout.vue";
 import { FilterMatchMode, FilterOperator } from "@primevue/core/api";
-import { DataTable } from "primevue";
+import { DataTable, Tag } from "primevue";
 import { IconField } from "primevue";
 import { InputIcon } from "primevue";
 import { Button } from "primevue";
@@ -78,6 +84,15 @@ import { InputText } from "primevue";
 const props= defineProps({
     tasks  : Array
 })
+function getSeverity(status) {
+    if (status == 'pending') {
+        return 'info'
+    } else if (status == 'confirmed') {
+        return 'success'
+    } else {
+        return 'danger'
+    }
+}
 import { ref } from "vue";
 const tasks = ref(props.tasks);
 const filters = ref({

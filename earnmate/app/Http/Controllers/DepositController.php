@@ -56,6 +56,10 @@ class DepositController extends Controller
         $deposit->update([
             'status' => $request->status
         ]);
+        Storage::disk('local')->delete($deposit->screenshot);
+        $deposit->update([
+            'screenshot'  => 'no_screenshot'
+        ]);
         return response()->json($deposit);   
     }
 }
