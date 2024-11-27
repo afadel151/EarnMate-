@@ -3,7 +3,9 @@ import MyLayout from "@/Layouts/MyLayout.vue";
 import { ref, onMounted, computed } from "vue";
 const props = defineProps({
     friends: Number,
-    tasks: Array
+    tasks: Array,
+    bonus:Number,
+    user:Object
 })
 
 
@@ -98,8 +100,8 @@ function getPlatformColor(platform) {
 }
 </script>
 <template>
-
     <MyLayout>
+        
         <div
             class="grid grid-cols-4 grid-rows-[0.5fr_1fr_1fr_1fr_1fr_1fr]  gap-4 min-h-screen py-10 px-[12rem] h-screen ">
             <div class="col-span-4   ">

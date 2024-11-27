@@ -16,12 +16,19 @@ class UserController extends Controller
      */
     public function dashboard()
     {
+        $user = Auth::user()->load('deposits');
+        $user->current_level = $user->current_level();
+        $user->current_level ? $user->current_level->load('level') : $user->current_level;
+
         $invitedFriends = Auth::user()->friends();
+        $bonus = $user->bonuses()->sum('amount');
         $donetasks = Auth::user()->tasks()->pluck('task_id')->toArray();
         $remainedtasks = Task::whereNotIn('id',$donetasks)->get();
         return Inertia::render('Dashboard2',[
             'friends' => $invitedFriends->count(),
-            'tasks' => $remainedtasks
+            'tasks' => $remainedtasks,
+            'user' => $user,
+            'bonus' => $bonus
         ]);
     }
 

@@ -5,16 +5,52 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Deposit;
 use App\Models\DoneTask;
+use App\Models\Level;
+use App\Models\Reference;
 use App\Models\User;
+use App\Models\Withdrawal;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class AdminController extends Controller
 {
     public function dashboard() {
-        return Inertia::render('Admin/Dashboard');
-    }
+        $admin = Admin::where('user_id', Auth::user()->id)->first();
+        $admins = Admin::all()->take(6);
+        $levels = Level::all();
+        foreach ($levels as $level) {
+            $level->users_count = $level->subscriptions()->where('completed',false)->count();
+        }
+        $users_count = User::all()->count();
+        $users_today = User::where('created_at','=',Carbon::today())->count();
+        $invitations_count = Reference::all()->count();
+        $invitations_today = Reference::whereDate('created_at','=',Carbon::today())->count();
+        $deposits_sum = $admin->deposits()->where('status', 'confirmed')->sum('amount');
+        $today_deposits_sum = Deposit::whereDate('created_at', '=', Carbon::today())->sum('amount');
+        $withdrawals_sum = $admin->withdrawals()->where('status', 'completed')->sum('amount');
+        $today_withdrawals_sum = Withdrawal::whereDate('created_at', '=', Carbon::today())->sum('amount');
+        $users_by_methods = Deposit::select('method', DB::raw('COUNT(DISTINCT user_id) as user_count'))
+                            ->groupBy('method')
+                            ->get();
+
+        return Inertia::render('Admin/Dashboard', [
+                    'admin' => $admin,
+                    'admins' => $admins,
+                    'levels' => $levels,
+                    'users_count' => $users_count,
+                    'users_today'=> $users_today,
+                    'invitations_count' => $invitations_count,
+                    'invitations_today' => $invitations_today,
+                    'deposits_sum' => $deposits_sum,
+                    'today_deposits_sum' => $today_deposits_sum,
+                    'withdrawals_sum' => $withdrawals_sum,
+                    'today_withdrawals_sum' => $today_withdrawals_sum,
+                    'users_by_methods' => $users_by_methods
+                ]);
+        }
     public function profile(Request $request){
         return Inertia::render('Admin/Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,

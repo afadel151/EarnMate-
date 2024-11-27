@@ -18,7 +18,7 @@ class TaskController extends Controller
             return response()->json(Task::all()->load('admin.user')->toArray());
         }else {
             return response('error',400);
-        }
+    }
     }
     public function add(Request $request)
     {

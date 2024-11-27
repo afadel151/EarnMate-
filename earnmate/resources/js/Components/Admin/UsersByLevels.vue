@@ -1,6 +1,17 @@
 <script setup>
 import UsersByLevel from './UsersByLevel.vue';
 import Chart from 'primevue/chart';
+const props = defineProps({
+    levels: Array
+})
+const filterLevel = (number) =>
+{
+    return props.levels.filter((level)=> level.level_number == number)[0];
+}
+let users = 0;
+props.levels.forEach((level)=>{
+    users = users + level.users_count
+});
 </script>
 
 <template>
@@ -14,15 +25,14 @@ import Chart from 'primevue/chart';
             </div>
         </div>
         <div class="h-full w-full p-2 flex flex-col justify-between ">
-            <UsersByLevel :level="1"  class="border-y "/>
-
-            <UsersByLevel :level="2"  class="border-b" />
-            <UsersByLevel :level="3"  class="border-b" />
-            <UsersByLevel :level="4"  class="border-b" />
-            <UsersByLevel :level="5"  class="border-b" />
-            <UsersByLevel :level="6"  class="border-b" /> 
-            <UsersByLevel :level="7"  class="border-b" />
-             <UsersByLevel :level="8"  class="border-b" />
+            <UsersByLevel :users_count="users" :level="filterLevel(1)"   class="border-y "/>
+            <UsersByLevel :users_count="users" :level="filterLevel(2)"   class="border-b" />
+            <UsersByLevel :users_count="users" :level="filterLevel(3)"  class="border-b" />
+            <UsersByLevel :users_count="users" :level="filterLevel(4)"  class="border-b" />
+            <UsersByLevel :users_count="users" :level="filterLevel(5)"  class="border-b" />
+            <UsersByLevel :users_count="users" :level="filterLevel(6)"  class="border-b" /> 
+            <UsersByLevel :users_count="users" :level="filterLevel(7)"  class="border-b" />
+             <UsersByLevel :users_count="users" :level="filterLevel(8)"  class="border-b" />
         </div>
     </div>
     

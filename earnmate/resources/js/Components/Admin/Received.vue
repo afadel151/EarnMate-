@@ -1,5 +1,8 @@
 <script setup>
-
+const props = defineProps({
+    amount:Number,
+    today:Number
+})
 </script>
 
 <template>
@@ -10,8 +13,8 @@
         </box-icon></span>
 
         <p class="text-gray-500 font-semibold">received</p>
-        <p class="text-2xl font-semibold text-gray-500">$20,80</p>
-        <p class="text-green-500">+10%</p>
+        <p class="text-2xl font-semibold text-gray-500">${{ props.amount }}</p>
+        <p class="text-green-500">{{ props.today }} today</p>
     </div>
     
 </template>

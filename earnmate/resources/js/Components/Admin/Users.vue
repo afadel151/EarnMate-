@@ -5,7 +5,10 @@ onMounted(() => {
     chartData.value = setChartData();
     chartOptions.value = setChartOptions();
 });
-
+const props = defineProps({
+    count: Number,
+    today: Number
+})
 const chartData = ref();
 const chartOptions = ref();
 
@@ -76,15 +79,14 @@ const setChartOptions = () => {
 
 <template>
     <div class="h-full bg-white rounded-md  shadow-sm  flex justify-between p-5 items-center">
-        <!-- <img src="/imgs/admin/wallet-info.png" class="w-14" alt=""> -->
 
         <div class="h-full w-[30%] flex flex-col justify-between items-start">
             <span class="avatar-initial rounded bg-orange-100 w-14 h-14 flex justify-center items-center">
                 <box-icon name="user" color="orange" size="md"></box-icon>
             </span>
             <p class="text-gray-500 font-semibold">total users</p>
-            <p class="text-2xl font-semibold text-gray-500">2401</p>
-            <p class="text-green-500">+10</p>
+            <p class="text-2xl font-semibold text-gray-500">{{props.count}}</p>
+            <p class="text-green-500">{{ props.today }} today</p>
         </div>
         <Chart type="line" :data="chartData" :options="chartOptions" class="w-[70%]" />
     </div>
