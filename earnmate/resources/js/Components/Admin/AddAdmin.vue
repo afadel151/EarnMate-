@@ -5,7 +5,8 @@ import {Dialog} from 'primevue';
 import {InputText} from 'primevue';
 import {Select} from 'primevue';
 import { useForm, usePage } from "@inertiajs/vue3";
-import axios from "axios";
+import axiosClient from "@/axios";
+
 const emit = defineEmits(['addadmin']);
 const visible = ref(false);
 
@@ -17,7 +18,7 @@ const form = useForm({
 
 const submit = async () => {
     try {
-        const response  = await axios.post('/api/admin/admins/add', { ...form});
+        const response  = await axiosClient.post('/admin/admins/add', { ...form});
         console.log(response.data);
         emit('addadmin',response.data);
         visible.value = false;

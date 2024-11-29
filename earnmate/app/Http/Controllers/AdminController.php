@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Deposit;
 use App\Models\DoneTask;
 use App\Models\Level;
+use App\Models\Offer;
 use App\Models\Reference;
 use App\Models\User;
 use App\Models\Withdrawal;
@@ -20,6 +21,7 @@ class AdminController extends Controller
     public function dashboard() {
         $admin = Admin::where('user_id', Auth::user()->id)->first();
         $admins = Admin::all()->take(6);
+        $admins->load('user');
         $levels = Level::all();
         foreach ($levels as $level) {
             $level->users_count = $level->subscriptions()->where('completed',false)->count();
@@ -48,7 +50,7 @@ class AdminController extends Controller
                     'today_deposits_sum' => $today_deposits_sum,
                     'withdrawals_sum' => $withdrawals_sum,
                     'today_withdrawals_sum' => $today_withdrawals_sum,
-                    'users_by_methods' => $users_by_methods
+                    'users_by_method' => $users_by_methods
                 ]);
         }
     public function profile(Request $request){
@@ -70,7 +72,10 @@ class AdminController extends Controller
 
     }
     public function offers(){
-        return Inertia::render('Admin/Offers');
+        $offers = Offer::all();
+        return Inertia::render('Admin/Offers',[
+            'offers' => $offers
+        ]);
 
     }
     public function messages(){

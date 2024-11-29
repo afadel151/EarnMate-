@@ -36,11 +36,6 @@ const submit = () => {
             
             <form @submit.prevent="submit"
                 class="w-[50%] shadow-custom-purple border-2 py-10 rounded-2xl flex flex-col justify-around pb-20 items-center  h-full">
-                <!-- <div class="flex justify-between w-full mt-10 px-10">
-                    <p class="text-4xl font-bold">Register</p>
-                    <p class="text-xl font-semibold "> Already registered ? <br><span
-                            class="underline text-end text-indigo-500">Log in</span></p>
-                </div> -->
                 <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full mt-5 " icon="pi pi-google" label="continue with Google"  severity="help" /></a>
                 <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full mt-5 " icon="pi pi-facebook" label="continue with Facebook"  severity="info" /></a>
 

@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
+            $table->decimal('required_amount');
+            $table->integer('real_max_users');
+            $table->integer('fake_max_users');
+            $table->enum('method',['binance','bybit','baridi','all'])->default('all');
+            $table->integer('days');
+            $table->date('start_date');
+            $table->time('start_time');
             $table->timestamps();
         });
     }

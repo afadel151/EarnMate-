@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DoneTask;
+use App\Models\Offer;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,11 +25,16 @@ class UserController extends Controller
         $bonus = $user->bonuses()->sum('amount');
         $donetasks = Auth::user()->tasks()->pluck('task_id')->toArray();
         $remainedtasks = Task::whereNotIn('id',$donetasks)->get();
+        if ($user->admin()->exists()) {
+            return redirect(route('admin.dashboard'));
+        }
+        $offers = Offer::active()->get();
         return Inertia::render('Dashboard2',[
             'friends' => $invitedFriends->count(),
             'tasks' => $remainedtasks,
             'user' => $user,
-            'bonus' => $bonus
+            'bonus' => $bonus,
+            'offers' => $offers
         ]);
     }
 

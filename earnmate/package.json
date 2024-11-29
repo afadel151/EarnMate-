@@ -21,6 +21,7 @@
     "dependencies": {
         "@primevue/forms": "^4.2.1",
         "@primevue/themes": "^4.2.1",
+        "@vuepic/vue-datepicker": "^10.0.0",
         "boxicons": "^2.1.4",
         "chart.js": "^4.4.6",
         "countup.js": "^2.8.0",

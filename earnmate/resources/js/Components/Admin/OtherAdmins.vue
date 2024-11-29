@@ -1,7 +1,9 @@
 <script setup>
 import { Button } from 'primevue';
 import Admin from './Admin.vue';
-
+const props = defineProps({
+    admins: Array
+})
 
 </script>
 
@@ -17,13 +19,8 @@ import Admin from './Admin.vue';
             </div>
             <Button label="more" variant="text"  severity="secondary"/>
         </div>
-        <div class="h-full w-full p-2 flex space-y-1 flex-col justify-between ">
-            <Admin />
-            <Admin />
-            <Admin />
-            <Admin />
-            <Admin />
-            <Admin />
+        <div class="h-full w-full p-2 flex space-y-1 flex-col  justify-start items-center">
+            <Admin v-for="admin in props.admins" :key="admin.id" :admin="admin" />
         </div>
     </div>
 

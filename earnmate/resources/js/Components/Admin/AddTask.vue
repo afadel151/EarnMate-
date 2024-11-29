@@ -5,7 +5,7 @@ import {Dialog} from 'primevue';
 import {InputText} from 'primevue';
 import {Select} from 'primevue';
 import { useForm } from "@inertiajs/vue3";
-import axios from "axios";
+import axiosClient from "@/axios";
 const emit = defineEmits(['addtask']);
 const visible = ref(false);
 const selectedPlatform = ref(null);
@@ -37,7 +37,7 @@ const form = useForm({
 
 const submit = async () => {
     try {
-        const response  = await axios.post('/api/admin/tasks/add', { ...form});
+        const response  = await axiosClient.post('/admin/tasks/add', { ...form});
         console.log(response.data);
         emit('addtask',response.data);
         visible.value = false;

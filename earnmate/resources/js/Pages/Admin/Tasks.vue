@@ -86,7 +86,6 @@
 </template>
 <script setup>
 import { FilterMatchMode, FilterOperator } from "@primevue/core/api";
-import axios from "axios";
 import { DataTable } from "primevue";
 import { IconField } from "primevue";
 import { InputIcon } from "primevue";
@@ -97,6 +96,7 @@ import AdminLayout from "@/Layouts/AdminLayout.vue";
 
 import { ref, onMounted } from "vue";
 import AddTask from "@/Components/Admin/AddTask.vue";
+import axiosClient from "@/axios";
 const tasks = ref([]);
 const selectedTasks = ref([]);
 const filters = ref({
@@ -145,7 +145,7 @@ function extractDate(datetime) {
 }
 onMounted(async () => {
     try {
-        const response = await axios.get("/api/admin/tasks/");
+        const response = await axiosClient.get("/admin/tasks/");
         tasks.value = response.data;
     } catch (error) {
         console.log(error);

@@ -42,6 +42,7 @@ import SidebarButton from "../SidebarButton.vue";
             <SidebarButton :href="'admin.done_tasks'" :label="'Done tasks'" :icon="'cog'" />
             <SidebarButton :href="'admin.admins'" :label="'Admins'" :icon="'cog'" />
             <SidebarButton :href="'admin.users'" :label="'Users'" :icon="'cog'" />
+            <SidebarButton :href="'admin.offers'" :label="'Offers'" :icon="'gift'" />
             <SidebarButton :href="'admin.messages'" :label="'Messages'" :icon="'envelope'" />
           
         </div>
