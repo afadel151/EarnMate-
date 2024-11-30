@@ -24,6 +24,12 @@ Route::prefix('/api')->group(function (){
     Route::prefix('/tasks')->group(function(){
         Route::post('/confirm', [TaskController::class, 'confirm']);
     });
+    Route::prefix('offers')->group(function (){
+        Route::get('/can', [OfferController::class, 'can']);
+        Route::post('/baridi', [OfferController::class, 'baridi']);
+        Route::post('/binance', [OfferController::class, 'binance']);
+        Route::post('/bybit', [OfferController::class, 'bybit']);
+    });
     // withdraw_baridi
     Route::middleware(\App\Http\Middleware\AdminMiddleware::class)->prefix('/admin')->group(function () {
         Route::prefix('/tasks')->group(function(){
@@ -41,6 +47,8 @@ Route::prefix('/api')->group(function (){
         });
         Route::prefix('/offers')->group(function(){
             Route::post('/add', [OfferController::class, 'add']);
+       
+            
         });
         Route::prefix('/admins')->group(function (){
             Route::post('/add', [AdminController::class, 'add'])->name('admims.add');

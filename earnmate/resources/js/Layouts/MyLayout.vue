@@ -8,7 +8,7 @@ import Sidebar from '@/Components/Sidebar.vue';
         <div class="h-72 absolute bottom-10 left-10 w-72 bg-orange-200 blur-[200px] rounded-full"></div>
         <div class="w-80 h-screen sticky top-0">
 
-            <Sidebar class="w-full " />
+            <Sidebar  />
         </div>
 
         <div class="  w-full   ">

@@ -13,4 +13,4 @@ const props = defineProps({
         <p class="text-2xl text-gray-500">{{ props.method }}</p>
         <p class="text-xl flex justify-between w-20 font-bold text-violet-700">{{props.users ? props.users.user_count : '0' }} <span class=" text-lg text-orange-500">{{props.users ? props.users.user_count/props.total*100  : '0'}}%</span></p>
     </div>
-</template>
+</template> 

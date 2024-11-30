@@ -34,4 +34,7 @@ class Admin extends Model
     {
         return $this->hasMany(DoneTask::class);
     }
+    public function offers():HasMany{
+        return $this->hasMany(OfferSubscription::class);
+    }
 }

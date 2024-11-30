@@ -67,9 +67,9 @@ class RegisteredUserController extends Controller
             'code' => $this->generateUniqueCode(),
             'balance' => 0
         ]);
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $user->createToken('auth_token')->plainTextToken;
         if ($request->code != '') {
-            $referer_id = User::where('code',$request->code)->get('id');
+            $referer_id = User::where('code',$request->code)->first()->id;
             Reference::create([
                 'referrer_id'=>$referer_id,
                 'referenced_id' => $user->id

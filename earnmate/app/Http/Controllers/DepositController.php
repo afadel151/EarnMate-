@@ -29,15 +29,10 @@ class DepositController extends Controller
     {
         $deposit = new Deposit;
         $deposit->user_id = Auth::user()->id;
-        $admins = Admin::all();
-        foreach ($admins  as $admin) {
-            if ($admin->balance < 200000) {
-                $deposit->admin_id = $admin->id;
-                break;
-            }
-        }
+        $deposit->admin_id = $request->admin_id;
         $amount = $request->input('amount');    
         $deposit->amount = $amount;
+        $deposit->price = $request->price;
         $deposit->transaction_code = $request->code;
         if ($request->hasFile('screenshot')) {
             $request_file = $request->file('screenshot');
@@ -53,6 +48,8 @@ class DepositController extends Controller
     public function edit_status(Request $request)
     {
         $deposit = Deposit::find($request->id);
+        $old_status = $deposit->status;
+
         $deposit->update([
             'status' => $request->status
         ]);
@@ -60,6 +57,25 @@ class DepositController extends Controller
         $deposit->update([
             'screenshot'  => 'no_screenshot'
         ]);
+        $amount = $deposit->amount;
+        $price = $request->price;
+        $user = $deposit->user;
+
+        if ($request->status == 'confirmed' ) {
+            if ($old_status == 'pending') {
+                if ($deposit->method == 'baridi') {
+                    $newbalance = $user->balance + $deposit->amount - $deposit->amount * 10 / 100;
+                    $user->update([
+                        'balance' => $newbalance
+                    ]);
+                }else{
+                    $newbalance = $user->balance + $deposit->amount - $deposit->amount * 3 / 100;
+                    $user->update([
+                        'balance' => $newbalance
+                    ]);
+                }
+            }
+        }
         return response()->json($deposit);   
     }
 }

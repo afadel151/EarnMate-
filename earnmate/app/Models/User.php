@@ -83,4 +83,8 @@ class User extends Authenticatable
     {
         return $this->subscriptions()->where('completed', false)->first();
     }
+    public function offers():HasMany
+    {
+        return $this->hasMany(OfferSubscription::class);
+    }
 }

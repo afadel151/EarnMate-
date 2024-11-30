@@ -7,7 +7,6 @@ import { usePage } from "@inertiajs/vue3";
 import Withdraw from "@/Components/Withdraw.vue";
 import Deposit from "@/Components/Deposit.vue";
 import { onMounted, ref } from "vue";
-import axios from "axios";
 import { usePriceStore } from '@/stores/priceStore';
 const exchangeRates = ref();
 const priceStore = usePriceStore();
@@ -138,7 +137,7 @@ const setChartOptions = () => {
                             <p class="text-2xl text-gray-500">Balance</p>
                         </div>
                         <p class="text-3xl text-violet-600 font-bold">
-                            {{ user.balance }} DZD
+                            $ {{ user.balance }} 
                         </p>
                     </div>
                 </div>

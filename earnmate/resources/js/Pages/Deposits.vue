@@ -81,16 +81,8 @@ function getSeverity(status) {
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Date" />
                     </template>
 
-                </Column> <!-- -->
-                <!-- <Column field="user.email" header="Name" sortable style="min-width: 14rem">
-                    <template #body="{ data }">
-                        {{ data.user.email }}
-                    </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by email" />
-                    </template>
-                </Column>
-                -->
+                </Column> 
+                
                 <Column field="amount" header="Amount" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.amount }}

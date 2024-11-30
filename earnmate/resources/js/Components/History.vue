@@ -10,9 +10,19 @@ const props = defineProps({
         required: true
     }
 });
-
-
-
+function getPlatformColor(platform) {
+    if (platform == "youtube") {
+        return "#ff0033";
+    } else if (platform == "telegram") {
+        return "#3491ed";
+    } else if (platform == "facebook") {
+        return "#0a68ff";
+    } else if (platform == "twitter") {
+        return "#46a5e0";
+    } else if (platform == "discord") {
+        return "#4e61ed";
+    }
+}
 const getSeverity = (product) => {
     switch (product.inventoryStatus) {
         case 'INSTOCK':
@@ -39,8 +49,8 @@ const getSeverity = (product) => {
             </div>
         </template>
         <template #empty>
-            <div class="h-full w-full bg-gray-500">
-                no data
+            <div class="h-60 justify-center flex items-center w-full">
+                <p class="text-2xl">No data</p>
             </div>
         </template>
         <Column class="w-[20%]" field="name" header="Name">
@@ -50,7 +60,10 @@ const getSeverity = (product) => {
         </Column>
         <Column class="w-[20%]" field="platform" header="Platform">
             <template #body="slotProps">
-                {{ slotProps.data.task.platform }}
+                <span class="avatar-initial rounded bg-[#75727211] w-14 h-14 flex justify-center items-center">
+                            <box-icon :name="`${ slotProps.data.task.platform}`" :color="getPlatformColor(slotProps.data.task.platform)" type="logo"
+                                size="lg"></box-icon>
+                        </span>
             </template>
         </Column>
         

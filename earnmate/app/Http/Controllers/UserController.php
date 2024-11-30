@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\DoneTask;
 use App\Models\Offer;
+use App\Models\Subscription;
 use App\Models\Task;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -19,22 +21,26 @@ class UserController extends Controller
     {
         $user = Auth::user()->load('deposits');
         $user->current_level = $user->current_level();
-        $user->current_level ? $user->current_level->load('level') : $user->current_level;
+        $level = $user->current_level ? $user->current_level->load('level') : $user->current_level;
 
-        $invitedFriends = Auth::user()->friends();
+        $subscriptions = Subscription::all()->pluck('user_id')->toArray();
+        $invitedFriends = Auth::user()->friends->whereIn('referenced_id',$subscriptions)->count();
+        
         $bonus = $user->bonuses()->sum('amount');
         $donetasks = Auth::user()->tasks()->pluck('task_id')->toArray();
         $remainedtasks = Task::whereNotIn('id',$donetasks)->get();
+        $offer = Offer::whereDate('start_date','>=',Carbon::today())->first();
         if ($user->admin()->exists()) {
             return redirect(route('admin.dashboard'));
         }
         $offers = Offer::active()->get();
         return Inertia::render('Dashboard2',[
-            'friends' => $invitedFriends->count(),
+            'friends' => $invitedFriends,
             'tasks' => $remainedtasks,
             'user' => $user,
             'bonus' => $bonus,
-            'offers' => $offers
+            'offer' => $offer,
+            'level' => $level
         ]);
     }
 

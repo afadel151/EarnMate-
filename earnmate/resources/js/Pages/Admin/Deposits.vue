@@ -109,23 +109,23 @@ function extractDate(datetime) {
                
                 <Column field="amount" header="Amount" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.amount }}
+                        {{ data.method == 'baridi' ? data.amount * data.price : data.amount }}
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by amount" />
                     </template>
                 </Column>
-                <Column field="screenshot" header="Screenshot" sortable style="min-width: 14rem">
-                    <template #body="{ data }">
-                        <ViewScreenshot :src="data.screenshot" />
-                    </template>
-                </Column>
                 <Column field="method" header="Method" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.method }}
+                        <img :src="`/imgs/admin/${data.method}.png`" class="w-14" alt="">
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
+                    </template>
+                </Column>
+                <Column field="screenshot" header="Screenshot" sortable style="min-width: 14rem">
+                    <template #body="{ data }">
+                        <ViewScreenshot :src="data.screenshot" />
                     </template>
                 </Column>
 

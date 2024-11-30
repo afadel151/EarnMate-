@@ -1,27 +1,59 @@
 <script setup>
-import { Button } from "primevue";
+import { Button } from 'primevue';
+import { InputText } from 'primevue';
+import { Select } from 'primevue';
+import { useForm } from "@inertiajs/vue3";
+import axiosClient from "@/axios";
 import { Dialog, InputNumber } from "primevue";
 import { ref, onMounted, watch } from "vue";
 const props = defineProps({
-    dzd_price : Number
+    offer: Object,
 })
-import { useForm } from "@inertiajs/vue3";
+const offer = ref(props.offer)
+const remainingTime = ref(null);
+const isOfferActive = ref(false);
+const calculateRemainingTime = () => {
+    if (props.offer) {
+
+        const [year, month, day] = offer.value.start_date.split('-');
+        const [hours, minutes] = offer.value.start_time.split(':');
+        const startDateTime = new Date(
+            parseInt(year),
+            parseInt(month) - 1, // Months are zero-indexed in JavaScript
+            parseInt(day),
+            parseInt(hours),
+            parseInt(minutes),
+            0 // Seconds
+        );
+        const now = new Date();
+        const difference = startDateTime - now;
+
+        if (difference > 0) {
+            isOfferActive.value = false;
+        } else {
+            isOfferActive.value = true;
+        }
+    }
+};
 const visible = ref(false);
-const Amount = ref(0);
-const AmountUs = ref(0);
-const screenshotBaridi = ref(null);
-const screenshotBinance = ref(null);
-const codeBaridi = ref("");
-const adminrip = ref("");
-const adminid = ref(0);
-const candepositbaridi = ref(true);
-function sendBinance() { }
-import { usePriceStore } from "@/stores/priceStore";
-const priceStore = usePriceStore();
+const CloseSubscription = ref(false);
+const Subscribed = ref(false);
 onMounted(async () => {
     try {
-        let response = await axios.get("/api/deposits/getrip");
+        let response = await axiosClient.get("/deposits/getrip");
+        let cansubscribe = await axiosClient.get("/offers/can", {
+            params: {
 
+                offer_id: offer.value.id
+            }
+        });
+        if (cansubscribe.data == true) {
+            CloseSubscription.value = false
+        } else if(cansubscribe.data == false) {
+            CloseSubscription.value = true
+        }else if(cansubscribe.data == 'subscribed'){
+            Subscribed.value = true
+        }
         if (response.data == "full") {
             candepositbaridi.value = false;
         } else {
@@ -31,53 +63,80 @@ onMounted(async () => {
     } catch (error) {
         console.log(error);
     }
+    calculateRemainingTime();
+    setInterval(calculateRemainingTime, 1000);
 });
+
+async function sendBinance() {
+    if (candepositbaridi.value == true) {
+        let fd = new FormData();
+        fd.append("screenshot", screenshotBinance.value);
+        fd.append("offer_id", offer.value.id);
+        try {
+            const response = await axios.post("/api/offers/binance", fd);
+            console.log(response.data);
+            visible.value = false;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+}
+
 async function sendBaridi() {
     let fd = new FormData();
-    fd.append("amount", Amount.value);
     fd.append("code", codeBaridi.value);
     fd.append("screenshot", screenshotBaridi.value);
     fd.append("admin_id", adminid.value);
-    fd.append("price",priceStore.price);
     try {
-        const response = await axios.post("/api/deposits/baridi", fd);
+        const response = await axios.post("/api/offers/baridi", fd);
         console.log(response.data);
         visible.value = false;
     } catch (error) {
         console.log(error);
     }
 }
-const screenshot = ref(null);
-function onChange(e) {
+function onChangeBaridi(e) {
     screenshotBaridi.value = e.target.files[0];
 }
-watch(Amount,(data)=>{
-    DZDamount.value = (data ? data : 0) * priceStore.price 
-})
-const DZDamount = ref(null)
+function onChangeBinance(e) {
+    screenshotBinance.value = e.target.files[0];
+}
+const codeBaridi = ref("");
+const adminrip = ref("");
+const adminid = ref(0);
+const candepositbaridi = ref(true);
+const AmountDzd = ref(0);
+const AmountUs = ref(0);
+const screenshotBaridi = ref(null);
+const screenshotBinance = ref(null);
+
 import Tabs from "primevue/tabs";
 import TabList from "primevue/tablist";
 import Tab from "primevue/tab";
 import TabPanels from "primevue/tabpanels";
 import TabPanel from "primevue/tabpanel";
-import axios from "axios";
 </script>
 
 <template>
-    <Button @click="visible = true" label="Deposit" outlined icon="pi pi-arrow-up" />
-
+    <Button v-if="isOfferActive && !Subscribed && !CloseSubscription" @click="visible = true" label="Subscribe" icon="pi pi-plus" />
+    <p class="text-5xl font-bold text-white" v-if="Subscribed">Subscribed ✅</p>
     <Dialog v-model:visible="visible" modal header="Deposit" :style="{ width: '32rem' }">
-        <Tabs value="0" class="w-full">
+        <Tabs
+            :value="props.offer.method == 'all' || props.offer.method == 'baridi' ? '0' : props.offer.method == 'binance' ? '1' : '2'"
+            class="w-full">
             <TabList class="w-full">
-                <Tab value="0" as="div" class="flex items-center gap-2">
+                <Tab v-if="props.offer.method == 'baridi' || props.offer.method == 'all'" value="0" as="div"
+                    class="flex items-center gap-2">
                     <img src="/imgs/admin/baridi.png" class="w-10" alt="" />
                     <span class="font-bold whitespace-nowrap">Baridi Mob</span>
                 </Tab>
-                <Tab value="1" as="div" class="flex items-center gap-2">
+                <Tab v-if="props.offer.method == 'binance' || props.offer.method == 'all'" value="1" as="div"
+                    class="flex items-center gap-2">
                     <img src="/imgs/admin/binance.png" class="w-10" alt="" />
                     <span class="font-bold whitespace-nowrap">Binance</span>
                 </Tab>
-                <Tab value="2">
+                <Tab v-if="props.offer.method == 'bybit' || props.offer.method == 'all'" value="2">
                     <div class="w-full flex justify-center gap-2 items-center">
                         <img src="/imgs/admin/bybit.png" class="w-12" alt="" />
                         <span class="font-bold whitespace-nowrap">ByBit </span>
@@ -85,39 +144,39 @@ import axios from "axios";
                 </Tab>
             </TabList>
             <TabPanels>
-                <TabPanel value="0" as="p" class="m-0">
+                <TabPanel v-if="props.offer.method == 'baridi' || props.offer.method == 'all'" value="0" as="p"
+                    class="m-0">
                     <div v-if="candepositbaridi">
                         <p class="text-xl text-gray-500 mb-8">
                             This method will charge you of
                             <span class="text-violet-500">12%</span>
                         </p>
                         <div class="flex items-center gap-4 mb-8">
-                            <label  class="font-semibold w-24">RIP :</label>
+                            <label class="font-semibold w-24">RIP :</label>
                             <InputNumber :default-value="adminrip" readonly fluid />
                         </div>
-                        <div class="flex items-center gap-4 mb-2">
-                            <label for="email" class="font-semibold  w-24">Amount</label>
-                            <InputNumber v-model="Amount"  mode="currency" currency="USD"
+                        <div class="flex items-center gap-4 mb-8">
+                            <label for="email" class="font-semibold w-24">Amount</label>
+                            <InputNumber v-model="AmountDzd" :min="500" :max="2800" mode="currency" currency="DZD"
                                 inputId="withoutgrouping" :useGrouping="false" fluid />
-                            
                         </div>
-                        <p  class="ml-24 mb-8 w-24"> ≈ {{ DZDamount }} DZD</p>
                         <div class="flex items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">code</label>
                             <InputNumber v-model="codeBaridi" fluid />
                         </div>
                         <div class="flex items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">code</label>
-                            <input name="file" type="file" class="w-full" @change="onChange" />
+                            <input name="file" type="file" class="w-full" @change="onChangeBaridi" />
                         </div>
                         <div class="flex justify-end gap-2">
                             <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
-                            <Button type="button" label="Send" @click="sendBaridi" />
+                            <Button type="button" label="Send" />
                         </div>
                     </div>
                     <div v-else>Can't deposit with this method right now</div>
                 </TabPanel>
-                <TabPanel value="1" as="p" class="m-0">
+                <TabPanel v-if="props.offer.method === 'binance' || props.offer.method === 'all'" value="1" as="p"
+                    class="m-0">
                     <p class="text-xl text-gray-500 mb-8">
                         This method will charge you of
                         <span class="text-violet-500">5%</span>
@@ -132,8 +191,9 @@ import axios from "axios";
                     </p>
                     <div class="flex items-center gap-4">
                         <label for="email" class="font-semibold w-24">Amount</label>
-                        <InputNumber :min="500" :max="2800" mode="currency" currency="USD" inputId="withoutgrouping"
-                            :useGrouping="false" fluid />
+                        <InputNumber :min="Number.parseFloat(props.offer.required_amount)"
+                            :max="Number.parseFloat(props.offer.required_amount)" mode="currency" currency="USD"
+                            inputId="withoutgrouping" :useGrouping="false" fluid />
                     </div>
                     <div class="flex flex-col justify-center gap-2 mb-4 items-center w-full">
                         <svg height="80" width="80" class="scale-125 my-5" viewBox="0 0 33 33">
@@ -148,7 +208,7 @@ import axios from "axios";
                         </p>
                         <div class="flex items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">code</label>
-                            <input name="file" type="file" class="w-full" @change="onChange" />
+                            <input name="file" type="file" class="w-full" @change="onChangeBinance" />
                         </div>
                         <div class="flex justify-end w-full gap-2">
                             <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
@@ -156,7 +216,7 @@ import axios from "axios";
                         </div>
                     </div>
                 </TabPanel>
-                <TabPanel value="2">
+                <TabPanel v-if="props.offer.method == 'bybit' || props.offer.method == 'all'" value="2">
                     <p class="m-0">
                         At vero eos et accusamus et iusto odio dignissimos
                         ducimus qui blanditiis praesentium voluptatum deleniti
@@ -172,4 +232,5 @@ import axios from "axios";
             </TabPanels>
         </Tabs>
     </Dialog>
+
 </template>

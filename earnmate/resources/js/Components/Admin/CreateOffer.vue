@@ -32,11 +32,10 @@ watch(date, (newDate) => {
 
 const submit = async () => {
     try {
-        const response = await axiosClient.post("/api/admin/tasks/add", {
+        const response = await axiosClient.post("/admin/offers/add", {
             ...form,
         });
         console.log(response.data);
-        emit("addtask", response.data);
         visible.value = false;
     } catch (error) {
         console.log(error);
@@ -45,7 +44,7 @@ const submit = async () => {
 </script>
 
 <template>
-    <Button icon="pi pi-plus" label="Add Task" @click="visible = true" />
+    <Button icon="pi pi-plus" label="Add Offer" @click="visible = true" />
     <Dialog
         v-model:visible="visible"
         modal
