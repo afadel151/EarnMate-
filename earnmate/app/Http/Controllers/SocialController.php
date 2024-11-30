@@ -61,7 +61,6 @@ class SocialController extends Controller
                 'provider_refresh_token' => $SocialUser->refreshToken,
                 'provider_avatar' => $SocialUser->getAvatar(),
             ]);
-            // dd($user);
             Auth::login($user,true);
             return redirect()->route('dashboard');
         }

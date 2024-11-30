@@ -151,6 +151,9 @@ const priceStore = usePriceStore();
                             🚀 User Limit: <span class="font-semibold">{{ props.offer.fake_max_users }}</span>
                         </p>
                         <p class="text-2xl">
+                            💵 Amount : <span class="font-semibold"> ${{ props.offer.required_amount }}</span>
+                        </p>
+                        <p class="text-2xl">
                             💳 Payment Method:
                             <span class="font-semibold">
                                 {{ props.offer.method == 'all' ? 'All Methods' : 'Only ' + props.offer.method }}

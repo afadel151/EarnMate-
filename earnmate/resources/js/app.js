@@ -56,8 +56,7 @@ createInertiaApp({
                 }
              })
              .directive('tooltip', Tooltip)
-             .use(ToastService)
-             
+             .use(ToastService) 
             .mount(el);
     },
     progress: {

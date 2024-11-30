@@ -22,7 +22,7 @@ export const usePriceStore = defineStore('price', () => {
   const fetchPrice = async () => {
     if (isToday(lastFetchedDate.value)) {
       console.log('Price already fetched today.');
-      return; // Skip fetching if already fetched today
+      return;
     }
 
     loading.value = true;

@@ -13,6 +13,7 @@ Route::prefix('/api')->group(function (){
     
     Route::prefix('/levels')->group(function (){
         Route::get('/get-level', [LevelController::class, 'info'])->name('level.info');
+        Route::post('/subscribe', [LevelController::class, 'subscribe']);
     });
     Route::prefix('/deposits')->group(function (){
         Route::get('/getrip',[DepositController::class, 'getrip']);

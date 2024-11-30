@@ -6,6 +6,7 @@ import { useForm } from "@inertiajs/vue3";
 import axiosClient from "@/axios";
 import { Dialog, InputNumber } from "primevue";
 import { ref, onMounted, watch } from "vue";
+import { usePriceStore } from '@/stores/priceStore';
 const props = defineProps({
     offer: Object,
 })
@@ -66,12 +67,13 @@ onMounted(async () => {
     calculateRemainingTime();
     setInterval(calculateRemainingTime, 1000);
 });
-
+const priceStore = usePriceStore();
 async function sendBinance() {
     if (candepositbaridi.value == true) {
         let fd = new FormData();
         fd.append("screenshot", screenshotBinance.value);
         fd.append("offer_id", offer.value.id);
+        fd.append("amount",parseFloat(offer.value.required_amount))
         try {
             const response = await axios.post("/api/offers/binance", fd);
             console.log(response.data);
@@ -82,14 +84,18 @@ async function sendBinance() {
     }
 
 }
-
+priceStore.fetchPrice();
 async function sendBaridi() {
     let fd = new FormData();
     fd.append("code", codeBaridi.value);
     fd.append("screenshot", screenshotBaridi.value);
     fd.append("admin_id", adminid.value);
+    fd.append("offer_id", offer.value.id);
+    fd.append("amount",(priceStore.price * parseFloat(offer.value.required_amount) ) )
+    console.log(fd.get('amount'));
+    
     try {
-        const response = await axios.post("/api/offers/baridi", fd);
+        const response = await axiosClient.post("/offers/baridi", fd);
         console.log(response.data);
         visible.value = false;
     } catch (error) {
@@ -116,6 +122,7 @@ import TabList from "primevue/tablist";
 import Tab from "primevue/tab";
 import TabPanels from "primevue/tabpanels";
 import TabPanel from "primevue/tabpanel";
+
 </script>
 
 <template>
@@ -147,30 +154,25 @@ import TabPanel from "primevue/tabpanel";
                 <TabPanel v-if="props.offer.method == 'baridi' || props.offer.method == 'all'" value="0" as="p"
                     class="m-0">
                     <div v-if="candepositbaridi">
-                        <p class="text-xl text-gray-500 mb-8">
-                            This method will charge you of
-                            <span class="text-violet-500">12%</span>
-                        </p>
                         <div class="flex items-center gap-4 mb-8">
                             <label class="font-semibold w-24">RIP :</label>
-                            <InputNumber :default-value="adminrip" readonly fluid />
+                            <InputNumber  :default-value="adminrip" readonly fluid />
                         </div>
                         <div class="flex items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">Amount</label>
-                            <InputNumber v-model="AmountDzd" :min="500" :max="2800" mode="currency" currency="DZD"
-                                inputId="withoutgrouping" :useGrouping="false" fluid />
+                            <p class="text-xl font-bold text-gray-600">≈ {{ priceStore.price * parseFloat(offer.required_amount) }} DZD</p>
                         </div>
                         <div class="flex items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">code</label>
-                            <InputNumber v-model="codeBaridi" fluid />
+                            <InputNumber required v-model="codeBaridi" fluid />
                         </div>
                         <div class="flex items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">code</label>
-                            <input name="file" type="file" class="w-full" @change="onChangeBaridi" />
+                            <input name="file" type="file" required class="w-full" @change="onChangeBaridi" />
                         </div>
                         <div class="flex justify-end gap-2">
                             <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
-                            <Button type="button" label="Send" />
+                            <Button type="button" label="Send" @click="sendBaridi" />
                         </div>
                     </div>
                     <div v-else>Can't deposit with this method right now</div>
@@ -191,7 +193,7 @@ import TabPanel from "primevue/tabpanel";
                     </p>
                     <div class="flex items-center gap-4">
                         <label for="email" class="font-semibold w-24">Amount</label>
-                        <InputNumber :min="Number.parseFloat(props.offer.required_amount)"
+                        <InputNumber required :min="Number.parseFloat(props.offer.required_amount)"
                             :max="Number.parseFloat(props.offer.required_amount)" mode="currency" currency="USD"
                             inputId="withoutgrouping" :useGrouping="false" fluid />
                     </div>
@@ -208,7 +210,7 @@ import TabPanel from "primevue/tabpanel";
                         </p>
                         <div class="flex items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">code</label>
-                            <input name="file" type="file" class="w-full" @change="onChangeBinance" />
+                            <input required name="file" type="file" class="w-full" @change="onChangeBinance" />
                         </div>
                         <div class="flex justify-end w-full gap-2">
                             <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />

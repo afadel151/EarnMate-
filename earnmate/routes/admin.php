@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OfferController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware( [\App\Http\Middleware\AdminMiddleware::class,'auth:sanctum'])->prefix('/admin')->group(function (){
@@ -27,7 +28,7 @@ Route::middleware( [\App\Http\Middleware\AdminMiddleware::class,'auth:sanctum'])
     });
     Route::prefix('/offers')->group(function () {
         Route::get('/', [AdminController::class, 'offers'])->name('admin.offers');
- 
+        Route::get('/subscribers', [OfferController::class, 'subscribers'])->name('admin.offer_subscribers');
     });
     Route::prefix('/messages')->group(function () {
         Route::get('/', [AdminController::class, 'messages'])->name('admin.messages');

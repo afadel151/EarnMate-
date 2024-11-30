@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class OfferController extends Controller
 {
@@ -49,6 +50,8 @@ class OfferController extends Controller
         $subscription->admin_id = $request->admin_id;
         $subscription->method = 'baridi';
         $subscription->transaction_code = $request->code;
+    
+        $subscription->amount = $request->amount;
         $subscription->status = 'pending';
         if ($request->hasFile('screenshot')) {
             $request_file = $request->file('screenshot');
@@ -70,6 +73,7 @@ class OfferController extends Controller
         $subscription->admin_id = 1;
         $subscription->method = 'binance';
         $subscription->transaction_code = '0000';
+        $subscription->amount = $request->amount;
         $subscription->status = 'pending';
         if ($request->hasFile('screenshot')) {
             $request_file = $request->file('screenshot');
@@ -118,6 +122,14 @@ class OfferController extends Controller
             ]);
         }
         return response()->json($sub);
+    }
+    public function subscribers()
+    {
+
+        $subscriptions = OfferSubscription::all()->load(['user','offer']);
+        return Inertia::render('Admin/OfferSubscriptions',[
+            'subscriptions' => $subscriptions
+        ]);
     }
 }
 

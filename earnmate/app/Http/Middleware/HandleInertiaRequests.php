@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -33,7 +34,8 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
-                'csrf' => $request->session()->token()
+                'csrf' => $request->session()->token(),
+                'current_level' => Auth::user()->current_level() ? Auth::user()->current_level()->load('level') : 'No_subscription'
             ],
         ];
     }

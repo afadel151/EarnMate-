@@ -1,6 +1,6 @@
 <script setup>
 import MyLayout from "@/Layouts/MyLayout.vue";
-import ProgressBar from "primevue/progressbar";
+
 import Levels from "@/Components/Levels.vue";
 import History from "@/Components/History.vue";
 import { usePage } from "@inertiajs/vue3";
@@ -8,122 +8,31 @@ import Withdraw from "@/Components/Withdraw.vue";
 import Deposit from "@/Components/Deposit.vue";
 import { onMounted, ref } from "vue";
 import { usePriceStore } from '@/stores/priceStore';
-const exchangeRates = ref();
 const priceStore = usePriceStore();
 const user = usePage().props.auth.user;
 const props = defineProps({
-    tasks : Array
+    tasks: Array
 })
-
 const today = new Date();
 const year = today.getFullYear();
-const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+const month = String(today.getMonth() + 1).padStart(2, '0');
 const day = String(today.getDate()).padStart(2, '0');
-
 const formattedDate = `${year}-${month}-${day}`;
 import Chart from "primevue/chart";
+import UserDetails from "@/Components/UserDetails.vue";
 onMounted(() => {
     priceStore.fetchPrice();
-    chartData.value = setChartData();
-    chartOptions.value = setChartOptions();
 });
 
-const chartData = ref();
-const chartOptions = ref();
 
-const setChartData = () => {
-    return {
-        labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q6', 'Q6', 'Q6'],
-        datasets: [
-            {
-                label: 'earnings',
-                data: [325, 702, 620, 900, 230, 230, 230, 220, 310],
-                borderWidth: 2,
-                tension: 0.4,
-                borderColor: 'lightgreen'
-
-
-            }
-        ],
-
-
-
-    };
-};
-
-
-const setChartOptions = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-    const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
-    return {
-        plugins: {
-            legend: {
-                display: false,
-                labels: {
-
-                    color: textColor
-                },
-
-            },
-
-        },
-        scales: {
-            x: {
-                display: false,
-                ticks: {
-                    color: textColorSecondary
-                },
-                grid: {
-                    color: surfaceBorder,
-                }
-            },
-            y: {
-                beginAtZero: true,
-                display: false,
-                ticks: {
-                    color: textColorSecondary
-                },
-                grid: {
-                    color: surfaceBorder
-                }
-            }
-        },
-        pointStyle: false,
-
-
-    };
-}
 </script>
 
 <template>
     <MyLayout>
         <div
             class="grid grid-cols-1 p-10 px-[12rem] font-['GeneralSans-Medium'] md:grid-cols-6 md:grid-rows-5 gap-5 h-full w-full">
-            <div
-                class="backdrop-blur-md p-7 flex flex-col justify-around space-y-2 items-start bg-white/70 shadow-sm rounded-md md:col-span-2 md:row-span-2">
-                <div class="h-12  flex justify-start items-center w-full  space-x-2">
-                    <span class="avatar-initial rounded bg-[#d7f6fc] w-14  h-14 flex justify-center items-center">
-                        <box-icon type='solid' name='user-circle' color='#02bee8' size="md"></box-icon>
-                    </span>
-                    <p class="text-2xl text-gray-500">User</p>
-                </div>
-
-                <p class="text-5xl text-gray-600 font-bold">{{ user.name }}</p>
-                <p class="text-lg text-gray-700  ">joined 20days ago</p>
-
-                <p class="text-2xl font-bold text-gray-600">Current level : level 1</p>
-                <div class="w-[80%]">
-
-                    <ProgressBar :value="15" severity="secondary"></ProgressBar>
-                </div>
-                <p class="text-gray-500 font-bold"> 2 more days to get rewarded</p>
-
-
-
-            </div>
+           
+            <UserDetails :user="user" /> 
             <div
                 class="backdrop-blur-md bg-white/70 shadow-sm md:col-span-2 rounded-md md:row-span-1 p-5 md:col-start-3">
                 <div class="w-full h-full rounded-md p-2 ">
@@ -137,7 +46,7 @@ const setChartOptions = () => {
                             <p class="text-2xl text-gray-500">Balance</p>
                         </div>
                         <p class="text-3xl text-violet-600 font-bold">
-                            $ {{ user.balance }} 
+                            $ {{ user.balance }}
                         </p>
                     </div>
                 </div>
@@ -161,7 +70,7 @@ const setChartOptions = () => {
                 <div class="h-12 mt-4 p-4 flex justify-start items-center w-full  space-x-2">
                     <span class="avatar-initial rounded bg-[#f5918829] w-14  h-14 flex justify-center items-center">
                         <!-- <box-icon type='solid' name='star' ></box-icon> -->
-                        <box-icon name='task' color='red' size="md" ></box-icon>
+                        <box-icon name='task' color='red' size="md"></box-icon>
                     </span>
                     <p class="text-2xl text-gray-500">Task History</p>
                 </div>

@@ -15,7 +15,8 @@ class OfferSubscription extends Model
         'screenshot',
         'transaction_code',      
         'method',
-        'admin_id'
+        'admin_id',
+        'amount'
     ];
 
     public function offer(): BelongsTo
