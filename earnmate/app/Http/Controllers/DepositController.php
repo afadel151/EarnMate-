@@ -57,14 +57,11 @@ class DepositController extends Controller
         $deposit->update([
             'screenshot'  => 'no_screenshot'
         ]);
-        $amount = $deposit->amount;
-        $price = $request->price;
         $user = $deposit->user;
-
         if ($request->status == 'confirmed' ) {
             if ($old_status == 'pending') {
                 if ($deposit->method == 'baridi') {
-                    $newbalance = $user->balance + $deposit->amount - $deposit->amount * 10 / 100;
+                    $newbalance = $user->balance + $deposit->amount - $deposit->amount*10/100;
                     $user->update([
                         'balance' => $newbalance
                     ]);
@@ -74,6 +71,8 @@ class DepositController extends Controller
                         'balance' => $newbalance
                     ]);
                 }
+            }else{
+                return response()->json($deposit);
             }
         }
         return response()->json($deposit);   

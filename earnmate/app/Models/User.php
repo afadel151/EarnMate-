@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable 
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasApiTokens;
@@ -28,7 +28,7 @@ class User extends Authenticatable
         'google_id',
         'balance'
     ];
-    protected $appends = ['current_level'];
+    protected $appends = ['current_level','inviter'];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -80,13 +80,24 @@ class User extends Authenticatable
         return $this->hasMany(Bonus::class);
     }
     public function getCurrentLevelAttribute()
-{
-    return $this->subscriptions()->where('completed', false)->exists()
-        ? $this->subscriptions()->where('completed', false)->first()->load('level')
-        : null;
-}
+    {
+        return $this->subscriptions()->where('completed', false)->exists()
+            ? $this->subscriptions()->where('completed', false)->first()->load('level')
+            : 'No_subscription';
+    }
     public function offers():HasMany
     {
         return $this->hasMany(OfferSubscription::class);
     }
+
+    public function invitation(): BelongsTo {
+        return $this->belongsTo(Reference::class, 'referenced_id');
+    }
+    public function getInviterAttribute()
+    {
+        return $this->invitation()->exists() 
+        ? $this->invitation()->user 
+        : 'No_inviter';
+    }
+
 }

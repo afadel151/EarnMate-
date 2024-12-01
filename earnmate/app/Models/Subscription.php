@@ -10,7 +10,8 @@ class Subscription extends Model
     protected $fillable = [
         'user_id',
         'level_id',
-        'method'
+        'method',
+        'completed'
     ];
     public function user() : BelongsTo
     {

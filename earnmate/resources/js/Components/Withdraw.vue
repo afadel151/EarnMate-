@@ -6,7 +6,8 @@ import TabList from "primevue/tablist";
 import Tab from "primevue/tab";
 import TabPanels from "primevue/tabpanels";
 import TabPanel from "primevue/tabpanel";
-import axios from "axios";
+import { usePriceStore } from '@/stores/priceStore';
+import axiosClient from '@/axios';
 const visible = ref(false);
 const props = defineProps({
     user: Object
@@ -20,24 +21,32 @@ const BinanceAdress = ref('');
 const adminid = ref(0);
 const Rip = ref('');
 async function withdrawBaridi() {
+    if (priceStore.price != 0) {
     try {
-        let response = await axios.post('/api/withdrawals/withdraw_baridi',{
+        let response = await axiosClient.post('/withdrawals/withdraw_baridi',{
             rip : Rip.value,
-            amount: AmountDzd.value
+            amount: AmountDzd.value,
+            price : priceStore.price
         });
         console.log(response.data);
-        
+        visible.value = false;
     } catch (error) {
         console.log(error);
         
+    }}else{
+        console.log('wait');
+        
     }
 }
+
+const priceStore = usePriceStore()
+
 </script>
 
 
 <template>
 
-    <Button @click="visible = true" :disabled="props.user.balance < 500"  severity="secondary" label="Withdraw"  icon="pi 
+    <Button @click="visible = true" :disabled="props.user.balance < 5"  severity="secondary" label="Withdraw"  icon="pi 
 pi-arrow-down" />
 <Dialog v-model:visible="visible" modal header="Deposit" :style="{ width: '32rem' }">
         <Tabs value="0" class="w-full">
@@ -67,9 +76,11 @@ pi-arrow-down" />
                         </div>
                         <div class="flex items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">Amount</label>
-                            <InputNumber v-model="AmountDzd" :min="500" :max="props.user.balance" mode="currency" currency="DZD"
-                                inputId="withoutgrouping" :useGrouping="false" fluid />
+                            <InputNumber v-model="AmountDzd" :min="5" :max="props.user.balance" mode="currency" currency="USD"
+                                inputId="withoutgrouping" fluid />
+                           
                         </div>
+                        <p class="text-xl font-bold mb-8 ml-24"> ≈ {{ Math.floor((priceStore.price - 5) * AmountDzd) }} DZD</p>
                         <div class="flex justify-end w-full gap-2">
                             <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
                             <Button type="button" label="Send" @click="withdrawBaridi" />

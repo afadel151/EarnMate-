@@ -1,6 +1,6 @@
 <template>
     <MyLayout>
-        <div class="p-20 w-full pt-40 flex flex-col justify-center items-center">
+        <div class="md:p-20 p-5 w-full pt-40 flex flex-col justify-center items-center">
             <DataTable v-model:filters="filters" class="max-w-[100%]"  :value="tasks" paginator :rows="10"
                 dataKey="id" filterDisplay="menu" :globalFilterFields="[
                     'name',
@@ -24,42 +24,32 @@
                     <template #body="{ data }">
                         {{ data.task.name }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by name" />
-                    </template>
+                    
                 </Column>
                 <Column field="platform" header="Platform" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.task.platform }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by platform" />
-                    </template>
+                    
                 </Column>
                 <Column field="type" header="Type" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.task.type }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Type" />
-                    </template>
+                    
                 </Column>
                 <Column field="link" header="Link" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.task.link }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
-                    </template>
+                    
                 </Column>
                 
                 <Column field="created_at" header="Created" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ extractDate(data.created_at) }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Date" />
-                    </template>
+                    
                 </Column>
                 <Column field="status" header="Link" sortable style="min-width: 14rem">
                     <template #body="{ data }">

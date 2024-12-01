@@ -107,7 +107,7 @@ const filters = ref({
                 </Column>
                 <Column  header="Level" sortable >
                     <template #body="{ data }">
-                        {{ data.current_level  ? data.current_level.level.level_number : 'Not subscibed' }}
+                        {{ data.current_level != 'No_subscription'  ? data.current_level.level.level_number : 'Not subscibed' }}
                     </template>
                 </Column>
                 <Column  header="Bonus" sortable >

@@ -46,22 +46,23 @@ async function editStatus() {
 </script>
 
 <template>
-    <Tag :value="refSub.status" :severity="getSeverity(refSub.status)" class="hover:cursor-pointer"
-        @click="toggle"></Tag>
+    <Tag :value="refSub.status" :severity="getSeverity(refSub.status)" class="hover:cursor-pointer" @click="toggle">
+    </Tag>
     <Popover ref="op">
         <div class="w-[10rem] flex flex-col space-y-2 p-4 justify-center items-center">
             <Button v-for="status in statuses" :key="status" :label="status" @click="selectStatus(status)"
                 :severity="getSeverity(status)" class="hover:cursor-pointer w-full" />
         </div>
     </Popover>
-    <Dialog v-model:visible="visible" modal header="Screenshot" class="w-[10rem] h-[10rem]">
-        <div class="flex justify-end gap-2">
-            <p class="text-2xl text-gray-600 font-bold">Are you sure you want to change the status to {{ selectedStatus
-                }}</p>
-        </div>
-        <div class="flex justify-end gap-2">
-            <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-            <Button type="button" label="Change status" @click="editStatus"></Button>
+    <Dialog v-model:visible="visible" modal header="Screenshot" class="w-[25rem]">
+        <div class="flex justify-between items-start  w-full flex-col  space-y-5">
+            <p class="text-2xl text-gray-600 ">Are you sure you want to change the status to <span class="font-black"> {{ selectedStatus
+                }}</span></p>
+
+            <div class="flex w-full justify-end gap-2">
+                <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
+                <Button type="button" label="Change status" @click="editStatus"></Button>
+            </div>
         </div>
     </Dialog>
 </template>

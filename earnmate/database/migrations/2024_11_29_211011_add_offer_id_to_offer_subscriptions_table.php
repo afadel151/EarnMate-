@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('offer_subscriptions', function (Blueprint $table) {
-            $table->foreignId('offer_id')->constrained('offers');
+            $table->foreignId('offer_id')->constrained('offers')->cascadeOnDelete();
             $table->enum('method', ['baridi', 'bybit', 'binance']);
         });
     }

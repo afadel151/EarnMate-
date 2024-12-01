@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\DoneTask;
 use App\Models\OfferSubscription;
 use App\Models\Subscription;
 use Carbon\Carbon;
@@ -14,7 +15,8 @@ Schedule::call(function () {
     $subscriptions = Subscription::where('completed', false)
     ->whereDate('created_at', Carbon::now()->subDays(5))
     ->get();
-    $offers = OfferSubscription::where('done', false);
+    
+    $offers = OfferSubscription::where('done', false)->where('status','confirmed')->get();
     foreach ($offers as $offer) {
         $level_days = $offer->offer->days;
         if ($offer->created_at == Carbon::now()->subDays($level_days)) {
@@ -28,12 +30,25 @@ Schedule::call(function () {
         }
     }
     foreach ($subscriptions as $subscription) {
-        $subscription->update([
-            'completed' => true
-        ]);
-        $user = $subscription->user;
-        $user->update([
-            'balance' => $user->balance + $subscription->level->reward
-        ]);
+        $startDate = Carbon::now()->subDays(5);
+        $userTasks = DoneTask::where('user_id',$subscription->user_id)->where(function ($query) use ($startDate){
+            $query->whereDate('created_at','>=',$startDate)
+                    ->whereDate('created_at','<=',Carbon::today());
+        })->get();
+        $activeTasks = $userTasks->count() - $userTasks->where('status','confirmed')->count();
+        if ($activeTasks < 5) {
+            $subscription->update([
+                'completed' => true
+            ]);
+            $user = $subscription->user;
+            $user->update([
+                'balance' => $user->balance + $subscription->level->reward
+            ]);
+        }else {
+            $subscription->update([
+                'completed' => true
+            ]);
+        }
+       
     }
-})->daily();
+})->dailyAt('13:00');

@@ -1,8 +1,8 @@
 <script setup>
+import axiosClient from "@/axios";
 import WithdrawalStatusEdit from "@/Components/Admin/WithdrawalStatusEdit.vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { FilterMatchMode, FilterOperator } from "@primevue/core/api";
-import axios from "axios";
 import { DataTable } from "primevue";
 import { IconField } from "primevue";
 import { InputIcon } from "primevue";
@@ -46,9 +46,8 @@ function extractDate(datetime) {
 }
 onMounted(async () => {
     try {
-        const response = await axios.get("/api/admin/withdrawals/");
+        const response = await axiosClient.get("/admin/withdrawals/");
         withdrawals.value = response.data;
-        console.log(response.data);
     } catch (error) {
         console.log(error);
     }
@@ -124,26 +123,26 @@ const initFilters = () => {
                     </template>
                     
                 </Column>
-                <Column field="user.name" header="Name" sortable >
+                <Column field="user.balance" header="Balance" sortable >
                     <template #body="{ data }">
-                        {{ data.user.name }}
+                        {{ '$ ' + data.user.balance }}
                     </template>
                    
                 </Column>
-                <Column field="amount" header="Amount" sortable >
-                    <template #body="{ data }">
-                        {{ data.amount }}
-                    </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by amount" />
-                    </template>
-                </Column>
                 <Column field="method" header="Method" sortable >
                     <template #body="{ data }">
-                        {{ data.method }}
+                        <img :src="`/imgs/admin/${data.method}.png`" class="w-14" alt="">
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Method" />
+                    </template>
+                </Column>
+                <Column field="amount" header="Amount" sortable >
+                    <template #body="{ data }">
+                        {{ data.method == 'baridi' ? Math.floor(data.amount * data.price)+ ' DZD' : '$ ' +data.amount }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                        <InputText v-model="filterModel.value" type="text" placeholder="Search by amount" />
                     </template>
                 </Column>
                 <Column field="destination" header="Destination" sortable >

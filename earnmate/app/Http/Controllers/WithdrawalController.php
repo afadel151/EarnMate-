@@ -21,6 +21,34 @@ class WithdrawalController extends Controller
     {
         $rip = $request->rip;
         $amount = $request->amount;
+        $price = $request->price;
+        if (Auth::user()->balance < $amount) {
+            return response()->json('failed');
+        }
+        $withdrawal = new Withdrawal;
+        $withdrawal->destination = $rip;
+        $withdrawal->method = 'baridi';
+        $withdrawal->amount = $amount;
+        $withdrawal->user_id = Auth::user()->id;
+        $withdrawal->price = $price;
+        $withdrawal->processed_at = Carbon::now();
+        $admins = Admin::all();
+        foreach ($admins as $admin) {
+            $amounts = $admin->withdrawals()->whereDate('created_at', Date::today())
+                            ->sum('amount');
+            if ($amounts < 200000) {
+                $withdrawal->admin_id = $admin->id;
+                $withdrawal->status = 'pending';
+                $withdrawal->save();
+                return response()->json($withdrawal);
+            }
+        }
+        return response()->json('failed');
+    }
+    public function withdraw_binance(Request $request)
+    {
+        $rip = $request->rip;
+        $amount = $request->amount;
 
        
         if (Auth::user()->balance < $amount) {
@@ -44,7 +72,6 @@ class WithdrawalController extends Controller
             }
         }
         return response()->json('failed');
-
     }
     public function edit_status(Request $request)
     {
@@ -52,6 +79,12 @@ class WithdrawalController extends Controller
         $withdrawal->update([
             'status' => $request->status
         ]);
+        if ($request->status == 'confirmed') {
+            $user = $withdrawal->user;
+            $user->update([
+                'balance' => $user->balance - $withdrawal->amount
+            ]);
+        }
         return response()->json($withdrawal);   
     }
 }

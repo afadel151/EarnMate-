@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('done_tasks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('task_id')->constrained('tasks');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('task_id')->constrained('tasks')->cascadeOnDelete();
             $table->string('image');
             $table->enum('status',['pending','confirmed','declined'])->default('pending');
             $table->foreignId('admin_id')->constrained('admins');

@@ -3,7 +3,7 @@ import { Button } from "primevue";
 import { Dialog, InputNumber } from "primevue";
 import { ref, onMounted, watch } from "vue";
 const props = defineProps({
-    dzd_price : Number
+    dzd_price: Number
 })
 import { useForm } from "@inertiajs/vue3";
 const visible = ref(false);
@@ -33,26 +33,33 @@ onMounted(async () => {
     }
 });
 async function sendBaridi() {
-    let fd = new FormData();
-    fd.append("amount", Amount.value);
-    fd.append("code", codeBaridi.value);
-    fd.append("screenshot", screenshotBaridi.value);
-    fd.append("admin_id", adminid.value);
-    fd.append("price",priceStore.price);
-    try {
-        const response = await axios.post("/api/deposits/baridi", fd);
-        console.log(response.data);
-        visible.value = false;
-    } catch (error) {
-        console.log(error);
+    if (priceStore.price != 0) {
+
+
+        let fd = new FormData();
+        fd.append("amount", Amount.value);
+        fd.append("code", codeBaridi.value);
+        fd.append("screenshot", screenshotBaridi.value);
+        fd.append("admin_id", adminid.value);
+        fd.append("price", priceStore.price);
+        try {
+            const response = await axios.post("/api/deposits/baridi", fd);
+            console.log(response.data);
+            visible.value = false;
+        } catch (error) {
+            console.log(error);
+        }
+    }else{
+        console.log('wait');
+        
     }
 }
 const screenshot = ref(null);
 function onChange(e) {
     screenshotBaridi.value = e.target.files[0];
 }
-watch(Amount,(data)=>{
-    DZDamount.value = (data ? data : 0) * priceStore.price 
+watch(Amount, (data) => {
+    DZDamount.value = (data ? data : 0) * priceStore.price
 })
 const DZDamount = ref(null)
 import Tabs from "primevue/tabs";
@@ -92,16 +99,16 @@ import axios from "axios";
                             <span class="text-violet-500">12%</span>
                         </p>
                         <div class="flex items-center gap-4 mb-8">
-                            <label  class="font-semibold w-24">RIP :</label>
+                            <label class="font-semibold w-24">RIP :</label>
                             <InputNumber :default-value="adminrip" readonly fluid />
                         </div>
                         <div class="flex items-center gap-4 mb-2">
                             <label for="email" class="font-semibold  w-24">Amount</label>
-                            <InputNumber v-model="Amount"  mode="currency" currency="USD"
-                                inputId="withoutgrouping" :useGrouping="false" fluid />
-                            
+                            <InputNumber v-model="Amount" mode="currency" currency="USD" inputId="withoutgrouping"
+                                :useGrouping="false" fluid />
+
                         </div>
-                        <p  class="ml-24 mb-8 w-24"> ≈ {{ DZDamount }} DZD</p>
+                        <p class="ml-24 mb-8 w-24"> ≈ {{ DZDamount }} DZD</p>
                         <div class="flex items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">code</label>
                             <InputNumber v-model="codeBaridi" fluid />

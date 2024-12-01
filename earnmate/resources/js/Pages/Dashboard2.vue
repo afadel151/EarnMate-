@@ -11,8 +11,7 @@ const props = defineProps({
 });
 
 onMounted(() => {
-    chartData.value = setChartData();
-    chartOptions.value = setChartOptions();
+    fetchWithdrawals();
     calculateRemainingTime();
     setInterval(calculateRemainingTime, 1000);
 });
@@ -30,45 +29,48 @@ const setChartData = () => {
         ],
     };
 };
-const setChartOptions = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue("--p-text-color");
-    const textColorSecondary = documentStyle.getPropertyValue(
-        "--p-text-muted-color"
-    );
-    const surfaceBorder = documentStyle.getPropertyValue(
-        "--p-content-border-color"
-    );
+const chartOptions = ref({
+    responsive: true,
+    plugins: {
+        legend: {
+            display: true,
+            position: 'top',
+        },
+    },
+    scales: {
+        x: {
+            title: {
+                display: true,
+                text: 'Weeks',
+            },
+        },
+        y: {
+            title: {
+                display: true,
+                text: 'Amount Withdrawn',
+            },
+        },
+    },
+});
+const fetchWithdrawals = async () => {
+    try {
+        const response = await axiosClient.get('/user/withdrawals'); // Adjust API endpoint
+        const data = response.data;
 
-    return {
-        plugins: {
-            legend: {
-                display: false,
-                labels: {
-                    color: textColor,
+        chartData.value = {
+            labels: data.map(item => item.week),
+            datasets: [
+                {
+                    label: 'Withdrawals',
+                    data: data.map(item => item.total),
+                    borderColor: '#42A5F5',
+                    tension: 0.4,
                 },
-            },
-        },
-        scales: {
-            x: {
-                ticks: {
-                    color: textColorSecondary,
-                },
-                grid: {
-                    color: surfaceBorder,
-                },
-            },
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    color: textColorSecondary,
-                },
-                grid: {
-                    color: surfaceBorder,
-                },
-            },
-        },
-    };
+            ],
+        };
+    } catch (error) {
+        console.error('Error fetching withdrawals:', error);
+    }
 };
 const visibleTasks = computed(() => tasks.value.slice(0, 5));
 const completeTask = (taskId) => {
@@ -80,7 +82,6 @@ const completeTask = (taskId) => {
 
 const tasks = ref(props.tasks);
 import Chart from "primevue/chart";
-import Withdraw from "@/Components/Withdraw.vue";
 import InvieDialog from "@/Components/InviteDialog.vue";
 import { Button } from "primevue";
 import ConfirmTask from "@/Components/ConfirmTask.vue";
@@ -99,7 +100,6 @@ function getPlatformColor(platform) {
     }
 }
 const chartData = ref([]);
-const chartOptions = ref([]);
 const offer = props.offer; // Assuming the single offer is passed as `offer`
 const remainingTime = ref(null);
 
@@ -120,49 +120,44 @@ const calculateRemainingTime = () => {
         }
     }
 };
-const subscribe = () => {
-    console.log(`Subscribing to offer ${offer.id}`);
-};
 import { usePriceStore } from "@/stores/priceStore";
+import axiosClient from "@/axios";
 const priceStore = usePriceStore();
+
 </script>
 <template>
     <MyLayout>
-        <div class="grid grid-cols-4 grid-rows-[1.5fr_1.2fr_1fr_1fr_1fr_1fr] gap-4  py-10 px-[12rem] ">
-            <div class="col-span-4" :class="props.offer ? 'h-60' : ''">
+        <div class="md:grid grid-cols-4 grid-rows-[1.5fr_1.2fr_1fr_1fr_1fr_1fr] md:gap-4  px-5 flex flex-col space-y-5  md:py-10 md:px-[12rem] ">
+            <div class="col-span-4 flex flex-col space-y-6 md:block " :class="props.offer ? 'h-72' : ''">
                 <div v-if="!props.offer"
                     class="w-full backdrop-blur-md bg-white/80 shadow-sm flex justify-center items-center rounded-md h-full">
-                    <p class="text-3xl">
-                        Dear users , we discovered a bad behaviour
+                    <p class="text-xl text-gray-500">
+                        No offer for today 
                     </p>
                 </div>
                 <div v-else
-                    class="w-full backdrop-blur-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg p-8 flex items-center rounded-lg space-x-8 h-full">
+                    class="w-full backdrop-blur-md  justify-between bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg md:p-8 px-1 flex  items-center rounded-lg md:space-x-8 h-full">
                     <!-- Left Image Section -->
-                    <img src="/imgs/special_offer.png"
-                        class="h-48  object-cover   "
-                        alt="Special Offer" />
+                    <img src="/imgs/special_offer.png" class="md:h-48 md:w-fit w-48  object-cover   " alt="Special Offer" />
 
-                    <div class="flex-1 space-y-4">
-                        <p class="text-5xl font-bold">
+                    <div class="space-y-4">
+                        <p class="md:text-5xl text-2xl font-bold">
                             🎉 {{ props.offer.percentage }}% profit in {{ props.offer.days }} days!
                         </p>
-                        <p class="text-3xl">
+                        <p class="md:text-3xl text-2xl">
                             🚀 User Limit: <span class="font-semibold">{{ props.offer.fake_max_users }}</span>
                         </p>
-                        <p class="text-2xl">
+                        <p class="md:text-2xl text-xl">
                             💵 Amount : <span class="font-semibold"> ${{ props.offer.required_amount }}</span>
                         </p>
-                        <p class="text-2xl">
+                        <p class="md:text-2xl text-xl">
                             💳 Payment Method:
                             <span class="font-semibold">
                                 {{ props.offer.method == 'all' ? 'All Methods' : 'Only ' + props.offer.method }}
                             </span>
                         </p>
                     </div>
-
-                    <!-- Countdown & Action Section -->
-                    <div class="flex flex-col justify-center items-center space-y-6">
+                    <div class="md:flex hidden flex-col justify-center items-center space-y-6">
                         <div v-if="remainingTime" class="text-center">
                             <p class="text-4xl font-bold">⏳ Starts In:</p>
                             <p class="text-3xl font-mono">
@@ -172,19 +167,30 @@ const priceStore = usePriceStore();
                         </div>
                         <OfferSubscribe :offer="props.offer" />
                     </div>
+ 
                 </div>
-
+                <div class="flex md:hidden flex-col justify-center items-center space-y-6">
+                        <div v-if="remainingTime" class="text-center">
+                            <p class="text-4xl font-bold">⏳ Starts In:</p>
+                            <p class="text-3xl font-mono">
+                                {{ remainingTime.days }}d {{ remainingTime.hours }}h
+                                {{ remainingTime.minutes }}m {{ remainingTime.seconds }}s
+                            </p>
+                        </div>
+                        <OfferSubscribe :offer="props.offer" />
+                    </div>
             </div>
+           
             <div class="row-start-2">
                 <div
-                    class="rounded-md relative py-5  backdrop-blur-sm h-full bg-white/80 md:pl-5 space-y-1 shadow-sm flex flex-col justify-between items-start">
+                    class="rounded-md relative md:py-5  md:pr-0 p-5 md:pl-5 backdrop-blur-sm h-full bg-white/80  space-y-1 shadow-sm flex flex-col justify-between items-start">
                     <div class="h-12 flex justify-start items-center w-full space-x-2">
                         <span class="avatar-initial rounded bg-[#eafae1] w-14 h-14 flex justify-center items-center">
                             <box-icon name="money-withdraw" color="#72de37" size="md"></box-icon>
                         </span>
                         <p class="text-2xl text-gray-500">Balance</p>
                     </div>
-                    <p class="text-2xl font-bold text-gray-600">${{props.user.balance}}</p>
+                    <p class="text-2xl font-bold text-gray-600">${{ props.user.balance }}</p>
                     <p class="font-bold text-gray-500"> ≈ {{ props.user.balance * priceStore.price }} DZD</p>
                     <p class="text-green-400 text-2xl">
                         <i class="pi hover:-translate-y-2 duration-200 pi-arrow-up"></i>
@@ -194,7 +200,7 @@ const priceStore = usePriceStore();
             </div>
             <div class="row-start-2">
                 <div
-                    class="rounded-md py-5 justify-between backdrop-blur-sm h-full bg-white/80 md:pl-5 space-y-1 shadow-sm flex flex-col  items-start">
+                    class="rounded-md md:py-5  md:pr-0 p-5 md:pl-  justify-between backdrop-blur-sm h-full bg-white/80  space-y-1 shadow-sm flex flex-col  items-start">
                     <div class="h-12 flex justify-start items-center w-full space-x-2">
                         <span class="avatar-initial rounded bg-[#f5e38829] w-14 h-14 flex justify-center items-center">
                             <box-icon type="solid" name="star" color="#fbed53" size="md"></box-icon>
@@ -202,7 +208,8 @@ const priceStore = usePriceStore();
                         <p class="text-2xl text-gray-500">Current Level</p>
                     </div>
 
-                    <p class="text-2xl text-gray-600 font-bold">{{ props.level ? 'Level ' +  props.level.level.level_number : 'No level' }}</p>
+                    <p class="text-2xl text-gray-600 font-bold">{{ props.level != 'No_subscription' ? 'Level ' +
+                        props.level.level.level_number : 'Unsubscribed' }}</p>
                     <p class="text-2xl text-gray-600">
                         <i class="pi pi-arrow-right mr-5 text-red-400 hover:translate-x-2 duration-200"></i>
                         See other levels
@@ -211,7 +218,7 @@ const priceStore = usePriceStore();
             </div>
             <div class="row-start-2">
                 <div
-                    class="rounded-md relative  py-5 justify-between backdrop-blur-sm h-full bg-white/80 md:pl-5 space-y-1 shadow-sm flex flex-col  items-start">
+                    class="rounded-md relative md:py-5  md:pr-0 p-5 md:pl-  justify-between backdrop-blur-sm h-full bg-white/80  space-y-1 shadow-sm flex flex-col  items-start">
                     <div class="h-12 flex justify-start items-center w-full space-x-2">
                         <span class="avatar-initial rounded bg-[#6b6de61b] w-10 h-10 flex justify-center items-center">
                             <box-icon name="user-plus" color="blue" size="sm"></box-icon>
@@ -233,14 +240,14 @@ const priceStore = usePriceStore();
             </div>
             <div class="row-start-2">
                 <div
-                    class="rounded-md  py-5 justify-between backdrop-blur-sm md:pl-5 h-full bg-white/80 space-y-1 shadow-sm flex flex-col  items-start">
+                    class="rounded-md  md:py-5  md:pr-0 p-5 md:pl- justify-between backdrop-blur-sm h-full bg-white/80 space-y-1 shadow-sm flex flex-col  items-start">
                     <div class="h-12 flex justify-start items-center w-full space-x-2">
                         <span class="avatar-initial rounded bg-[#fcf9eb] w-10 h-10 flex justify-center items-center">
                             <box-icon type="solid" name="gift" color="#faec55" size="sm"></box-icon>
                         </span>
                         <p class="text-2xl text-gray-500">Bonus</p>
                     </div>
-                    <p class="text-2xl font-bold text-gray-600">800DA</p>
+                    <p class="text-2xl font-bold text-gray-600">{{ props.bonus }}</p>
                     <p class="text-green-400 text-2xl">
                         <i class="pi hover:-translate-y-2 duration-200 pi-arrow-up"></i>
                         30DA
@@ -261,9 +268,9 @@ const priceStore = usePriceStore();
                                 Income Analysis
                             </p>
                         </div>
-                        <p>Completed tasks over this month</p>
+                        <p>Withdrawals based on weeks</p>
                     </div>
-                    <Chart type="bar" :data="chartData" :options="chartOptions" class="h-fit w-full" />
+                    <Chart type="line" :data="chartData" :options="chartOptions" class="w-full" />
                 </div>
             </div>
             <div
@@ -276,9 +283,10 @@ const priceStore = usePriceStore();
                         </span>
                         <p class="text-2xl text-gray-500">On going Tasks</p>
                     </div>
-                    <div v-if="visibleTasks.length == 0" class="h-full w-full flex justify-center items-center">
-                        <p class="text-2xl text-gray-500">
-                            No available tasks for now
+                    <div v-if="visibleTasks.length == 0 || props.user.current_level == 'No_subscription'"
+                        class="h-full w-full flex justify-center items-center">
+                        <p class="text-2xl text-gray-500 text-center">
+                            No available tasks for now, Subscribe to a level to get something to do
                         </p>
                     </div>
                     <div v-else v-for="task in visibleTasks" :key="task.id"
@@ -300,7 +308,7 @@ const priceStore = usePriceStore();
                     </div>
                 </div>
             </div>
-            <div class="col-span-2 row-span-3 col-start-3 row-start-6">
+            <div class="md:block hidden col-span-2 row-span-3 col-start-3 row-start-6">
                 <div class="h-full w-full backdrop-blur-sm rounded-md bg-white/80 shadow-sm">
                     <div class="w-full flex justify-center items-center h-full">
                         <div>

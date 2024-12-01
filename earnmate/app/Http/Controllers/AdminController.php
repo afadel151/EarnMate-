@@ -93,10 +93,7 @@ class AdminController extends Controller
     public function users()
     {
         $users = User::with(['tasks', 'friends', 'bonuses', 'subscriptions'])->get();
-        foreach ($users as $user) {
-            $user->current_level = $user->current_level();
-            $user->current_level ? $user->current_level->load('level') : $user->current_level; // Assign method output to a temporary attribute
-        }
+        
         return Inertia::render('Admin/Users', ['users'=>$users]);
     }
     public function show($id){

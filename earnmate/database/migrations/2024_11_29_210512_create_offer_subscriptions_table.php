@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('offer_subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('screenshot');
             $table->string('transaction_code')->nullable();
             $table->enum('status',['pending','confirmed','declined'])->default('pending');

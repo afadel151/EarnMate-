@@ -54,7 +54,7 @@ function getSeverity(status) {
 </script>
 <template>
     <MyLayout>
-        <div class="p-20 w-full  pt-40  flex flex-col justify-center items-center">
+        <div class="md:p-20 p-5 w-full   pt-40   flex flex-col justify-center items-center">
             <DataTable v-model:filters="filters" class="w-[100%]" :value="props.deposits" paginator :rows="10" dataKey="id"
                 filterDisplay="menu" :globalFilterFields="[
                     'user.email',
@@ -77,9 +77,7 @@ function getSeverity(status) {
                     <template #body="{ data }">
                         {{ extractDate(data.created_at) }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Date" />
-                    </template>
+                    
 
                 </Column> 
                 
@@ -87,9 +85,7 @@ function getSeverity(status) {
                     <template #body="{ data }">
                         {{ data.amount }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by amount" />
-                    </template>
+                    
                 </Column>
 
 
@@ -98,9 +94,7 @@ function getSeverity(status) {
 
                         {{ data.method }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
-                    </template>
+                    
                 </Column>
 
 
@@ -110,17 +104,8 @@ function getSeverity(status) {
 
                         <Tag :value="data.status" :severity="getSeverity(data.status)"></Tag>
                     </template>
-                    <!-- <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Status" />
-                    </template> -->
-                    <template #filter="{ filterModel, filterCallback }">
-                        <Select v-model="filterModel.value" :options="statuses" @change="filterCallback()"
-                            placeholder="Select One" style="min-width: 12rem" :showClear="true">
-                            <template #option="slotProps">
-                                <Tag :value="slotProps.option" :severity="getSeverity(slotProps.option)" />
-                            </template>
-                        </Select>
-                    </template>
+                   
+                    
                 </Column>
 
             </DataTable>

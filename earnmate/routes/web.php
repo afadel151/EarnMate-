@@ -1,15 +1,21 @@
 <?php
-
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Models\DoneTask;
+use App\Models\OfferSubscription;
+use App\Models\Subscription;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Mailgun\Mailgun;
 
 Route::get('/', function () {
     return Inertia::render('Landing', [
@@ -19,7 +25,52 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+Route::get('/admin/run_subscription_schedule', function () {
+    $subscriptions = Subscription::where('completed', false)
+        ->whereDate('created_at', Carbon::now()->subDays(0))
+        ->get();
 
+    $offers = OfferSubscription::where('done', false)->where('status', 'confirmed')->get();
+    foreach ($offers as $offer) {
+        $level_days = $offer->offer->days;
+        if ($offer->created_at == Carbon::now()->subDays($level_days)) {
+            $offer->update([
+                'done' => true
+            ]);
+            $user = $offer->user;
+            $user->update([
+                'balance' => $user->balance + $offer->offer->amount + $offer->offer->amount * $offer->offer->percentage / 100
+            ]);
+        }
+    }
+    foreach ($subscriptions as $subscription) {
+        $startDate = Carbon::now()->subDays(5);
+        $userTasks = DoneTask::where('user_id', $subscription->user_id)->where(function ($query) use ($startDate) {
+            $query->whereDate('created_at', '>=', $startDate)
+                ->whereDate('created_at', '<=', Carbon::today());
+        })->get();
+        $activeTasks = $userTasks->count() - $userTasks->where('status', 'confirmed')->count();
+        if ($activeTasks < 5) {
+            $subscription->update([
+                'completed' => true
+            ]);
+            $user = $subscription->user;
+            echo $user->balance + $subscription->level->reward;
+            $user->update([
+                'balance' => $user->balance + $subscription->level->reward
+            ]);
+
+            echo 'done';
+        } else {
+            // echo 'yes';
+            $subscription->update([
+                'completed' => 1
+            ]);
+            echo 'no';
+        }
+    }
+    return 'Task executed successfully';
+})->middleware(['auth','auth:sanctum',AdminMiddleware::class]);
 
 Route::middleware(['auth', 'auth:sanctum'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

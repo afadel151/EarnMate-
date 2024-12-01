@@ -19,7 +19,9 @@ function getSeverity(status) {
     }
 }
 const toggle = (event) => {
-    op.value.toggle(event);
+    if(refTask.value.status == 'pending'){
+        op.value.toggle(event);
+    }
 }
 const statuses = ref(['pending', 'confirmed', 'declined']);
 async function editStatus(status){

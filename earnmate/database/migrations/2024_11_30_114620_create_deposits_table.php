@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('deposits', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('admin_id')->constrained('admins');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('admin_id')->constrained('admins')->cascadeOnDelete();
             $table->string('screenshot');
             $table->string('transaction_code');
             $table->decimal('amount');

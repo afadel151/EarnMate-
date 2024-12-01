@@ -48,7 +48,7 @@ const filters = ref({
 
 <template>
     <MyLayout>
-        <div class="p-20 w-full  pt-40  flex flex-col justify-center items-center">
+        <div class="md:p-20 w-full p-5 pt-40  flex flex-col justify-center items-center">
             <div class="w-full mb-8 flex justify-center items-center">
                 <AddAdmin @addadmin="add_admin" />
             </div>
@@ -74,9 +74,7 @@ const filters = ref({
                     <template #body="{ data }">
                         {{ extractDate(data.created_at) }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Date" />
-                    </template>
+                    
 
                 </Column>
                 <Column field="friend.name" header="Name" sortable style="min-width: 14rem">
@@ -84,26 +82,20 @@ const filters = ref({
 
                         {{ data.friend.name }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Task" />
-                    </template>
+                    
                 </Column>
 
                 <Column field="friend.email" header="Email" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.friend.email }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Enail" />
-                    </template>
+                    
                 </Column>
                 <Column field="amount" header="Amount" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.amount }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Enail" />
-                    </template>
+                    
                 </Column>
                 
             </DataTable>

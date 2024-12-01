@@ -50,9 +50,9 @@ onMounted(async () => {
         });
         if (cansubscribe.data == true) {
             CloseSubscription.value = false
-        } else if(cansubscribe.data == false) {
+        } else if (cansubscribe.data == false) {
             CloseSubscription.value = true
-        }else if(cansubscribe.data == 'subscribed'){
+        } else if (cansubscribe.data == 'subscribed') {
             Subscribed.value = true
         }
         if (response.data == "full") {
@@ -73,7 +73,7 @@ async function sendBinance() {
         let fd = new FormData();
         fd.append("screenshot", screenshotBinance.value);
         fd.append("offer_id", offer.value.id);
-        fd.append("amount",parseFloat(offer.value.required_amount))
+        fd.append("amount", parseFloat(offer.value.required_amount))
         try {
             const response = await axios.post("/api/offers/binance", fd);
             console.log(response.data);
@@ -86,20 +86,26 @@ async function sendBinance() {
 }
 priceStore.fetchPrice();
 async function sendBaridi() {
-    let fd = new FormData();
-    fd.append("code", codeBaridi.value);
-    fd.append("screenshot", screenshotBaridi.value);
-    fd.append("admin_id", adminid.value);
-    fd.append("offer_id", offer.value.id);
-    fd.append("amount",(priceStore.price * parseFloat(offer.value.required_amount) ) )
-    console.log(fd.get('amount'));
-    
-    try {
-        const response = await axiosClient.post("/offers/baridi", fd);
-        console.log(response.data);
-        visible.value = false;
-    } catch (error) {
-        console.log(error);
+    if (priceStore.price != 0) {
+
+        let fd = new FormData();
+        fd.append("code", codeBaridi.value);
+        fd.append("screenshot", screenshotBaridi.value);
+        fd.append("admin_id", adminid.value);
+        fd.append("offer_id", offer.value.id);
+        fd.append("amount", (priceStore.price * parseFloat(offer.value.required_amount)))
+        console.log(fd.get('amount'));
+
+        try {
+            const response = await axiosClient.post("/offers/baridi", fd);
+            console.log(response.data);
+            visible.value = false;
+        } catch (error) {
+            console.log(error);
+        }
+    } else {
+        console.log('wait');
+        
     }
 }
 function onChangeBaridi(e) {
@@ -122,11 +128,14 @@ import TabList from "primevue/tablist";
 import Tab from "primevue/tab";
 import TabPanels from "primevue/tabpanels";
 import TabPanel from "primevue/tabpanel";
+import { useWindowSize } from '@vueuse/core'
 
+const { width } = useWindowSize()
 </script>
 
 <template>
-    <Button v-if="isOfferActive && !Subscribed && !CloseSubscription" @click="visible = true" label="Subscribe" icon="pi pi-plus" />
+    <Button v-if="isOfferActive && !Subscribed && !CloseSubscription" @click="visible = true" :label="'Subscribe'"
+        icon="pi pi-plus" />
     <p class="text-5xl font-bold text-white" v-if="Subscribed">Subscribed ✅</p>
     <Dialog v-model:visible="visible" modal header="Deposit" :style="{ width: '32rem' }">
         <Tabs
@@ -156,11 +165,12 @@ import TabPanel from "primevue/tabpanel";
                     <div v-if="candepositbaridi">
                         <div class="flex items-center gap-4 mb-8">
                             <label class="font-semibold w-24">RIP :</label>
-                            <InputNumber  :default-value="adminrip" readonly fluid />
+                            <InputNumber :default-value="adminrip" readonly fluid />
                         </div>
                         <div class="flex items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">Amount</label>
-                            <p class="text-xl font-bold text-gray-600">≈ {{ priceStore.price * parseFloat(offer.required_amount) }} DZD</p>
+                            <p class="text-xl font-bold text-gray-600">≈ {{ priceStore.price *
+                                parseFloat(offer.required_amount) }} DZD</p>
                         </div>
                         <div class="flex items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">code</label>
@@ -179,10 +189,7 @@ import TabPanel from "primevue/tabpanel";
                 </TabPanel>
                 <TabPanel v-if="props.offer.method === 'binance' || props.offer.method === 'all'" value="1" as="p"
                     class="m-0">
-                    <p class="text-xl text-gray-500 mb-8">
-                        This method will charge you of
-                        <span class="text-violet-500">5%</span>
-                    </p>
+                    
 
                     <p class="text-lg">
                         Deposit your money using

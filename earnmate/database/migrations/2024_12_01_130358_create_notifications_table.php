@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subscriptions', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('level_id')->constrained('levels')->cascadeOnDelete();
-            $table->string('method')->default('regular');
-            $table->boolean('completed')->default(false);
+            $table->foreignId('admin_id')->constrained('admins')->cascadeOnDelete();
+            $table->text('text');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subscriptions');
+        Schema::dropIfExists('notifications');
     }
 };

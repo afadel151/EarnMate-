@@ -49,7 +49,7 @@ class SocialController extends Controller
             $user = User::create([
                 'name' => $name,
                 'email' => $SocialUser->getEmail(),
-                'password' => Hash::make('12345678'),
+                'password' => Hash::make('3andi omri mglouba glib'),
                 'code' => $this->generateUniqueCode(),
                 'balance' => 00.00
             ]);

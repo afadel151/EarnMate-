@@ -6,11 +6,12 @@ use App\Http\Controllers\DepositController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WithdrawalController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/api')->group(function (){
-    
+    Route::get('/user/withdrawals', [UserController::class, 'getUserWeeklyWithdrawals']);
     Route::prefix('/levels')->group(function (){
         Route::get('/get-level', [LevelController::class, 'info'])->name('level.info');
         Route::post('/subscribe', [LevelController::class, 'subscribe']);
@@ -57,4 +58,4 @@ Route::prefix('/api')->group(function (){
         });
     });
 
-})->middleware(['auth:sanctum']);
+})->middleware(['auth:sanctum','auth']);

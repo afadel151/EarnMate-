@@ -7,6 +7,7 @@ use App\Models\Offer;
 use App\Models\Subscription;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Withdrawal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,8 +21,7 @@ class UserController extends Controller
     public function dashboard()
     {
         $user = Auth::user()->load('deposits');
-        $user->current_level = $user->current_level();
-        $level = $user->current_level ? $user->current_level->load('level') : $user->current_level;
+        $level = $user->current_level ;
 
         $subscriptions = Subscription::all()->pluck('user_id')->toArray();
         $invitedFriends = Auth::user()->friends->whereIn('referenced_id',$subscriptions)->count();
@@ -83,9 +83,28 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function getUserWeeklyWithdrawals()
     {
-        //
+        $userId = Auth::user()->id; 
+        
+        $withdrawals = Withdrawal::where('user_id', $userId)
+            ->where('status', 'completed') // Only completed withdrawals
+            ->selectRaw('YEARWEEK(created_at) as week, SUM(amount) as total')
+            ->groupBy('week')
+            ->orderBy('week', 'asc')
+            ->get();
+
+        $formattedWithdrawals = $withdrawals->map(function ($withdrawal) {
+            $weekStart = Carbon::now()->startOfWeek()->setISODate(substr($withdrawal->week, 0, 4), substr($withdrawal->week, 4));
+            $weekEnd = $weekStart->copy()->endOfWeek();
+
+            return [
+                'week' => $weekStart->format('Y-m-d') . ' to ' . $weekEnd->format('Y-m-d'),
+                'total' => $withdrawal->total,
+            ];
+        });
+
+        return response()->json($formattedWithdrawals);
     }
 
     /**

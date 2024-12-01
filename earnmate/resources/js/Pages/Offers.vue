@@ -66,7 +66,7 @@ function getSeverity(status) {
 
 <template>
     <MyLayout>
-        <div class="p-20 mt-20 w-full  flex flex-col justify-center items-center">
+        <div class="md:p-20 p-5 mt-20 w-full  flex flex-col justify-center items-center">
 
             <DataTable v-model:filters="filters" class="w-[100%]" :value="props.subscriptions" paginator :rows="10"
                 dataKey="id" filterDisplay="menu" :globalFilterFields="[
@@ -91,66 +91,50 @@ function getSeverity(status) {
                     <template #body="{ data }">
                         <img v-if="data.method != 'all'" :src="`/imgs/admin/${data.method}.png`" class="w-14" alt="">
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by name" />
-                    </template>
+                    
                 </Column>
                 <Column field="amount" header="Amount" sortable >
                     <template #body="{ data }">
                         {{ data.method == 'baridi' ? data.amount + ' DZD' : '$ '+data.amount }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
-                    </template>
+                    
                 </Column>
                 <Column field="days" header="Days" sortable >
                     <template #body="{ data }">
                         {{ data.offer.days }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
-                    </template>
+                    
                 </Column>
                 <Column field="start_date" header="Start date" sortable >
                     <template #body="{ data }">
                         {{ data.offer.start_date }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
-                    </template>
+                    
                 </Column>
                 <Column field="start_time" header="Start time" sortable >
                     <template #body="{ data }">
                         {{ data.offer.start_time }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
-                    </template>
+                    
                 </Column>
                 <Column field="created_at" header="Created" sortable >
                     <template #body="{ data }">
                         {{ extractDate(data.created_at) }}
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Date" />
-                    </template>
+                    
                     
                 </Column>
                 <Column field="status" header="Status" sortable >
                     <template #body="{ data }">
                         <Tag :value="data.status" :severity="getSeverity(data.status)"></Tag>
                                         </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
-                    </template>
+                    
                 </Column>
                 <Column field="done" header="Done" sortable >
                     <template #body="{ data }">
                         <Tag :icon="data.done ? 'pi pi-check' : 'pi pi-hourglass'" :value="data.done ? 'done' : 'waiting'" :severity="data.done ? 'primary' : 'secondary'"></Tag>
                     </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
-                    </template>
+                    
                 </Column>
             </DataTable>
         </div>
