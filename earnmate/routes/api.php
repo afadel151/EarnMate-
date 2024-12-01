@@ -48,7 +48,8 @@ Route::prefix('/api')->group(function (){
         });
         Route::prefix('/offers')->group(function(){
             Route::post('/add', [OfferController::class, 'add']);
-       
+            Route::post('/edit_status', [OfferController::class, 'edit_status']);
+            
             
         });
         Route::prefix('/admins')->group(function (){

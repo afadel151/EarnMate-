@@ -28,7 +28,7 @@ class User extends Authenticatable
         'google_id',
         'balance'
     ];
-
+    protected $appends = ['current_level'];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -68,7 +68,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(Admin::class);
     }
-    public function subscriptions() : HasMany
+    public function subscriptions()
     {
         return $this->hasMany(Subscription::class);
     }
@@ -79,10 +79,12 @@ class User extends Authenticatable
     public function bonuses(): HasMany{
         return $this->hasMany(Bonus::class);
     }
-    public function current_level()
-    {
-        return $this->subscriptions()->where('completed', false)->first();
-    }
+    public function getCurrentLevelAttribute()
+{
+    return $this->subscriptions()->where('completed', false)->exists()
+        ? $this->subscriptions()->where('completed', false)->first()->load('level')
+        : null;
+}
     public function offers():HasMany
     {
         return $this->hasMany(OfferSubscription::class);

@@ -122,4 +122,12 @@ class AdminController extends Controller
         $admin->load('user');
         return response()->json($admin);
     }
+
+    public function user($id)
+    {
+        $user = User::find($id)->load(['withdrawals','subscriptions','deposits','tasks','friends','bonuses','offers']);
+        return Inertia::render('Admin/User',[
+            'user' => $user
+        ]);
+    }
 }

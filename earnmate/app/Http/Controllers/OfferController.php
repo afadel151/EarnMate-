@@ -131,5 +131,13 @@ class OfferController extends Controller
             'subscriptions' => $subscriptions
         ]);
     }
+
+    public function offers()
+    {
+        $subscriptions = Auth::user()->offers->load('offer');
+        return Inertia::render('Offers', [
+            'subscriptions' => $subscriptions
+        ]);
+    }    
 }
 

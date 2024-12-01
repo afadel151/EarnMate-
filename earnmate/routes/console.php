@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\OfferSubscription;
 use App\Models\Subscription;
 use Carbon\Carbon;
 use Illuminate\Foundation\Inspiring;
@@ -13,15 +14,26 @@ Schedule::call(function () {
     $subscriptions = Subscription::where('completed', false)
     ->whereDate('created_at', Carbon::now()->subDays(5))
     ->get();
-
-foreach ($subscriptions as $subscription) {
-    $subscription->update([
-        'completed' => true
-    ]);
-    $user = $subscription->user;
-    $user->update([
-        'balance' => $user->balance + $subscription->level->reward
-    ]);
-}
-
+    $offers = OfferSubscription::where('done', false);
+    foreach ($offers as $offer) {
+        $level_days = $offer->offer->days;
+        if ($offer->created_at == Carbon::now()->subDays($level_days)) {
+            $offer->update([
+                'done' => true
+            ]);
+            $user = $offer->user;
+            $user->update([
+                'balance' => $user->balance + $offer->offer->amount + $offer->offer->amount*$offer->offer->percentage/100
+            ]);
+        }
+    }
+    foreach ($subscriptions as $subscription) {
+        $subscription->update([
+            'completed' => true
+        ]);
+        $user = $subscription->user;
+        $user->update([
+            'balance' => $user->balance + $subscription->level->reward
+        ]);
+    }
 })->daily();

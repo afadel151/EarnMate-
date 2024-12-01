@@ -40,6 +40,7 @@ Route::middleware( [\App\Http\Middleware\AdminMiddleware::class,'auth:sanctum'])
     });
     Route::prefix('/users')->group(function () {
         Route::get('/', [AdminController::class, 'users'])->name('admin.users');
+        Route::get('/{id}', [AdminController::class, 'user'])->name('admin.user');
     });
     
 });

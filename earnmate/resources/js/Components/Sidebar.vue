@@ -40,6 +40,8 @@ import SidebarButton from "./SidebarButton.vue";
             <SidebarButton :href="'leaderboard'" :label="'Leaderboard'" :icon="'crown'"  />
             <SidebarButton :href="'tasks'" :label="'Tasks'" :icon="'list-check'"  />
             <SidebarButton :href="'bonuses'" :label="'Bonuses'" :icon="'gift'"  />
+            <SidebarButton :href="'offers'" :label="'Offers'" :icon="'gift'"  />
+            
             <SidebarButton :href="'profile.edit'" :label="'Profile'" :icon="'cog'"  />
         </div>
        

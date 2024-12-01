@@ -35,7 +35,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
                 'csrf' => $request->session()->token(),
-                'current_level' => Auth::user()->current_level() ? Auth::user()->current_level()->load('level') : 'No_subscription'
+                'current_level' => Auth::user()->current_level ? Auth::user()->current_level : 'No_subscription'
             ],
         ];
     }

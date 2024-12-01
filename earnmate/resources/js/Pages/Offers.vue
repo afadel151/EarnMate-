@@ -1,23 +1,22 @@
 <script setup>
-import CreateOffer from '@/Components/Admin/CreateOffer.vue';
-import AdminLayout from '@/Layouts/AdminLayout.vue';
-
+import MyLayout from '@/Layouts/MyLayout.vue';
+const props = defineProps({
+    subscriptions: Array
+})
 import { FilterMatchMode, FilterOperator } from "@primevue/core/api";
-import { DataTable } from "primevue";
+import { DataTable, Tag } from "primevue";
 import { IconField } from "primevue";
 import { InputIcon } from "primevue";
 import { Button } from "primevue";
 import { Column } from "primevue";
 import { InputText } from "primevue";
 import { ref } from "vue";
-const props = defineProps({
-    offers: Array
-})
+
 function extractDate(datetime) {
     const date = new Date(datetime);
     return date.toISOString().split('T')[0];
 }
-const offers = ref(props.offers)
+
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     
@@ -54,21 +53,24 @@ const filters = ref({
         constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }],
     },
 });
-
+function getSeverity(status) {
+    if (status == 'pending') {
+        return 'info'
+    } else if (status == 'confirmed') {
+        return 'success'
+    } else {
+        return 'danger'
+    }
+}
 </script>
+
 <template>
-    <AdminLayout>
-        <div class="p-10 w-full  flex flex-col justify-center items-center">
-            <div class="w-full flex my-10 justify-center items-center">
-            <CreateOffer />
-            
-            </div>
-            <DataTable v-model:filters="filters" class="w-[100%]" :value="props.offers" paginator :rows="10"
+    <MyLayout>
+        <div class="p-20 mt-20 w-full  flex flex-col justify-center items-center">
+
+            <DataTable v-model:filters="filters" class="w-[100%]" :value="props.subscriptions" paginator :rows="10"
                 dataKey="id" filterDisplay="menu" :globalFilterFields="[
                     'method',
-                    'real_max_users',
-                    'fake_max_users',
-                    'required_amount',
                     'days',
                     'start_date',
                     'start_time',
@@ -87,31 +89,15 @@ const filters = ref({
                 <template #empty> No customers found. </template>
                 <Column field="method" header="Method" sortable >
                     <template #body="{ data }">
-                        {{ data.method }}
+                        <img v-if="data.method != 'all'" :src="`/imgs/admin/${data.method}.png`" class="w-14" alt="">
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by name" />
                     </template>
                 </Column>
-                <Column field="real_max_users" header="Real users" sortable >
+                <Column field="amount" header="Amount" sortable >
                     <template #body="{ data }">
-                        {{ data.real_max_users }}
-                    </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by platform" />
-                    </template>
-                </Column>
-                <Column field="fake_max_users" header="Fake users" sortable >
-                    <template #body="{ data }">
-                        {{ data.fake_max_users }}
-                    </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Type" />
-                    </template>
-                </Column>
-                <Column field="required_amount" header="Amount" sortable >
-                    <template #body="{ data }">
-                        {{ data.required_amount }}
+                        {{ data.method == 'baridi' ? data.amount + ' DZD' : '$ '+data.amount }}
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
@@ -119,7 +105,7 @@ const filters = ref({
                 </Column>
                 <Column field="days" header="Days" sortable >
                     <template #body="{ data }">
-                        {{ data.days }}
+                        {{ data.offer.days }}
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
@@ -127,7 +113,7 @@ const filters = ref({
                 </Column>
                 <Column field="start_date" header="Start date" sortable >
                     <template #body="{ data }">
-                        {{ data.start_date }}
+                        {{ data.offer.start_date }}
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
@@ -135,7 +121,7 @@ const filters = ref({
                 </Column>
                 <Column field="start_time" header="Start time" sortable >
                     <template #body="{ data }">
-                        {{ data.start_time }}
+                        {{ data.offer.start_time }}
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
@@ -150,8 +136,24 @@ const filters = ref({
                     </template>
                     
                 </Column>
-
+                <Column field="status" header="Status" sortable >
+                    <template #body="{ data }">
+                        <Tag :value="data.status" :severity="getSeverity(data.status)"></Tag>
+                                        </template>
+                    <template #filter="{ filterModel }">
+                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
+                    </template>
+                </Column>
+                <Column field="done" header="Done" sortable >
+                    <template #body="{ data }">
+                        <Tag :icon="data.done ? 'pi pi-check' : 'pi pi-hourglass'" :value="data.done ? 'done' : 'waiting'" :severity="data.done ? 'primary' : 'secondary'"></Tag>
+                    </template>
+                    <template #filter="{ filterModel }">
+                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
+                    </template>
+                </Column>
             </DataTable>
         </div>
-    </AdminLayout>
+
+    </MyLayout>
 </template>

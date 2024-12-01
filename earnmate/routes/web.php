@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UserController;
@@ -35,6 +36,9 @@ Route::middleware(['auth', 'auth:sanctum'])->group(function () {
     });
     Route::prefix('tasks')->group(function (){
         Route::get('/', [UserController::class, 'tasks'] )->name('tasks');
+    });
+    Route::prefix('offers')->group(function (){
+        Route::get('/', [OfferController::class, 'offers'] )->name('offers');
     });
     Route::prefix('bonuses')->group(function (){
         Route::get('/', [UserController::class, 'bonuses'] )->name('bonuses');

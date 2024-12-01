@@ -74,6 +74,7 @@ return [
         public_path('storage') => storage_path('app/public'),
         public_path('baridi') => storage_path('app/private/baridi'),
         public_path('done_tasks') => storage_path('app/private/done_tasks'),
+        public_path('binance') => storage_path('app/private/binance'),
     ],
 
 ];

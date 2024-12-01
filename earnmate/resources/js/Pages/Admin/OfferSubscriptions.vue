@@ -1,9 +1,10 @@
 <script setup>
 import ViewScreenshot from '@/Components/Admin/ViewScreenshot.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
+import OfferSubStatusEdit from '@/Components/Admin/OfferSubStatusEdit.vue';
 
 import { FilterMatchMode, FilterOperator } from "@primevue/core/api";
-import { DataTable } from "primevue";
+import { DataTable, Tag } from "primevue";
 import { IconField } from "primevue";
 import { InputIcon } from "primevue";
 import { Button } from "primevue";
@@ -13,6 +14,15 @@ import { ref } from "vue";
 const props = defineProps({
     subscriptions: Array
 })
+function getSeverity(status) {
+    if (status == 'pending') {
+        return 'info'
+    } else if (status == 'confirmed') {
+        return 'success'
+    } else {
+        return 'danger'
+    }
+}
 function extractDate(datetime) {
     const date = new Date(datetime);
     return date.toISOString().split('T')[0];
@@ -52,6 +62,7 @@ const filters = ref({
         constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }],
     },
 });
+
 </script>
 <template>
     <AdminLayout>
@@ -136,7 +147,7 @@ const filters = ref({
                 </Column>
                 <Column field="status" header="Start time" sortable >
                     <template #body="{ data }">
-                        {{ data.status }}
+                        <OfferSubStatusEdit :subscription="data" />
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
