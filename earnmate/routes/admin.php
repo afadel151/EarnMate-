@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OfferController;
+use App\Models\DoneTask;
+use App\Models\OfferSubscription;
+use App\Models\Subscription;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware( [\App\Http\Middleware\AdminMiddleware::class,'auth:sanctum'])->prefix('/admin')->group(function (){
@@ -37,6 +41,49 @@ Route::middleware( [\App\Http\Middleware\AdminMiddleware::class,'auth:sanctum'])
     Route::prefix('/admins')->group(function () {
         Route::get('/', [AdminController::class, 'admins'])->name('admin.admins');
         
+    });
+    Route::get('/schedule/subscriptions', function () {
+        $subscriptions = Subscription::where('completed', false)
+        ->whereDate('created_at', Carbon::now()->subDays(5))
+        ->get();
+        foreach ($subscriptions as $subscription) {
+            $startDate = Carbon::now()->subDays(5);
+            $userTasks = DoneTask::where('user_id',$subscription->user_id)->where(function ($query) use ($startDate){
+                $query->whereDate('created_at','>=',$startDate)
+                        ->whereDate('created_at','<=',Carbon::today());
+            })->get();
+            $activeTasks = $userTasks->count() - $userTasks->where('status','confirmed')->count();
+            if ($activeTasks < 5) {
+                $subscription->update([
+                    'completed' => true
+                ]);
+                $user = $subscription->user;
+                $user->update([
+                    'balance' => $user->balance + $subscription->level->reward
+                ]);
+            }else {
+                $subscription->update([
+                    'completed' => true
+                ]);
+            }
+        }
+        return $subscriptions;
+    });
+    Route::get('/schedule/offer',function (){
+        $offers = OfferSubscription::where('done', false)->where('status','confirmed')->get();
+        foreach ($offers as $offer) {
+            $level_days = $offer->offer->days;
+            if ($offer->created_at == Carbon::now()->subDays($level_days)) {
+                $offer->update([
+                    'done' => true
+                ]);
+                $user = $offer->user;
+                $user->update([
+                    'balance' => $user->balance + $offer->offer->amount + $offer->offer->amount*$offer->offer->percentage/100
+                ]);
+            }
+        }
+        return $offers;
     });
     Route::prefix('/users')->group(function () {
         Route::get('/', [AdminController::class, 'users'])->name('admin.users');

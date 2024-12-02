@@ -33,10 +33,12 @@ class WithdrawalController extends Controller
         $withdrawal->price = $price;
         $withdrawal->processed_at = Carbon::now();
         $admins = Admin::all();
+        $done = false;
         foreach ($admins as $admin) {
             $amounts = $admin->withdrawals()->whereDate('created_at', Date::today())
                             ->sum('amount');
             if ($amounts < 200000) {
+                $done = true;
                 $withdrawal->admin_id = $admin->id;
                 $withdrawal->status = 'pending';
                 $withdrawal->save();
@@ -79,7 +81,7 @@ class WithdrawalController extends Controller
         $withdrawal->update([
             'status' => $request->status
         ]);
-        if ($request->status == 'confirmed') {
+        if ($request->status == 'completed') {
             $user = $withdrawal->user;
             $user->update([
                 'balance' => $user->balance - $withdrawal->amount

@@ -1,7 +1,7 @@
 <template>
     <MyLayout>
         <div class="md:p-20 p-5 w-full pt-40 flex flex-col justify-center items-center">
-            <DataTable v-model:filters="filters" class="max-w-[100%]"  :value="tasks" paginator :rows="10"
+            <DataTable  v-model:filters="filters" class="max-w-[100%]"  :value="tasks" paginator :rows="10"
                 dataKey="id" filterDisplay="menu" :globalFilterFields="[
                     'name',
                     'type',

@@ -27,9 +27,16 @@ class DepositController extends Controller
     }
     public function baridi(Request $request): JsonResponse    
     {
+        $request->validate([
+            'amount' => 'required|numeric',
+            'price' => 'required|numeric',
+            'screenshot' => 'required|string',
+            'transaction_code' => 'required|numeric'
+        ]);
         $deposit = new Deposit;
         $deposit->user_id = Auth::user()->id;
         $deposit->admin_id = $request->admin_id;
+        $deposit->method = 'baridi';
         $amount = $request->input('amount');    
         $deposit->amount = $amount;
         $deposit->price = $request->price;
@@ -37,6 +44,30 @@ class DepositController extends Controller
         if ($request->hasFile('screenshot')) {
             $request_file = $request->file('screenshot');
             $path = '/baridi';
+            $NewPath = Storage::disk('local')->putFile($path, $request_file);
+            $deposit->screenshot = $NewPath;
+        }else{
+            $deposit->screenshot = 'no_screenshot';
+        }
+        $deposit->save();
+        return response()->json($deposit);
+    }
+    public function binance(Request $request)
+    {
+        $request->validate([
+            'amount' => 'required|numeric',
+            'screenshot' => 'required|string',
+        ]);
+        $deposit = new Deposit;
+        $deposit->user_id = Auth::user()->id;
+        $deposit->admin_id = $request->admin_id;
+        $deposit->method = 'binance';
+        $amount = $request->input('amount');    
+        $deposit->amount = $amount;
+        $deposit->transaction_code = 'no_code';
+        if ($request->hasFile('screenshot')) {
+            $request_file = $request->file('screenshot');
+            $path = '/binance';
             $NewPath = Storage::disk('local')->putFile($path, $request_file);
             $deposit->screenshot = $NewPath;
         }else{

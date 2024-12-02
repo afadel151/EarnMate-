@@ -1,5 +1,5 @@
 <script setup>
-import { Button, InputNumber,Dialog, InputText } from 'primevue';
+import { Button, InputNumber,Dialog, InputText, Toast, useToast } from 'primevue';
 import { ref } from "vue";
 import Tabs from "primevue/tabs";
 import TabList from "primevue/tablist";
@@ -20,6 +20,7 @@ const codeBaridi = ref("");
 const BinanceAdress = ref('');
 const adminid = ref(0);
 const Rip = ref('');
+const toast = useToast();
 async function withdrawBaridi() {
     if (priceStore.price != 0) {
     try {
@@ -30,6 +31,11 @@ async function withdrawBaridi() {
         });
         console.log(response.data);
         visible.value = false;
+        if (response.data == 'failed') {
+            toast.add({ severity: 'danger', summary: 'Info', detail: 'Failed to withdraw, please try tomorrow', life: 3000 });
+        }else{
+            toast.add({ severity: 'success', summary: 'Info', detail: 'Withdrawal requested successfully,your money is on the way', life: 3000 });
+        }
     } catch (error) {
         console.log(error);
         
@@ -45,7 +51,7 @@ const priceStore = usePriceStore()
 
 
 <template>
-
+    <Toast />
     <Button @click="visible = true" :disabled="props.user.balance < 5"  severity="secondary" label="Withdraw"  icon="pi 
 pi-arrow-down" />
 <Dialog v-model:visible="visible" modal header="Deposit" :style="{ width: '32rem' }">

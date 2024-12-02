@@ -9,8 +9,10 @@ use App\Models\Task;
 use App\Models\User;
 use App\Models\Withdrawal;
 use Carbon\Carbon;
+use Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -33,7 +35,6 @@ class UserController extends Controller
         if ($user->admin()->exists()) {
             return redirect(route('admin.dashboard'));
         }
-        $offers = Offer::active()->get();
         return Inertia::render('Dashboard2',[
             'friends' => $invitedFriends,
             'tasks' => $remainedtasks,
@@ -43,7 +44,20 @@ class UserController extends Controller
             'level' => $level
         ]);
     }
+    public function getDzdPrice()
+{
+    // Cache the price for one day
+    $price = Cache::remember('dzd_price', now()->endOfDay(), function () {
+        $response = Http::get('https://v6.exchangerate-api.com/v6/46f2bf6cd33a88da3966d7f3/latest/USD');
+        if ($response->failed()) {
+            abort(500, 'Failed to fetch DZD price.');
+        }
+        $data = $response->json();
+        return $data['conversion_rates']['DZD'] + 120; // Add any additional logic
+    });
 
+    return response()->json(['price' => $price]);
+}
     /**
      * Show the form for creating a new resource.
      */
@@ -67,7 +81,19 @@ class UserController extends Controller
      */
     public function leaderboard()
     {
-        return Inertia::render('LeaderBoard');
+        $users = User::all()->load('friends');
+        foreach ($users as $user) {
+                $withdrawedAmount = $user->withdrawals()
+                    ->where('status', 'completed') // Consider only completed withdrawals
+                    ->sum('amount'); // Sum the amount
+
+                $user->withdrawed = $withdrawedAmount ?? 0; // Ensure withdrawed is never null
+            }
+            $users = $users->sortByDesc('withdrawed')->values()->take(100);
+            return Inertia::render('LeaderBoard', [
+                'users' => $users,
+            ]
+        );
     }
     public function tasks()
     {

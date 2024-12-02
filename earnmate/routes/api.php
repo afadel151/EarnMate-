@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/api')->group(function (){
     Route::get('/user/withdrawals', [UserController::class, 'getUserWeeklyWithdrawals']);
+    Route::get('/dzd-price', [UserController::class, 'getDzdPrice']);
     Route::prefix('/levels')->group(function (){
         Route::get('/get-level', [LevelController::class, 'info'])->name('level.info');
         Route::post('/subscribe', [LevelController::class, 'subscribe']);
@@ -19,6 +20,7 @@ Route::prefix('/api')->group(function (){
     Route::prefix('/deposits')->group(function (){
         Route::get('/getrip',[DepositController::class, 'getrip']);
         Route::post('/baridi', [DepositController::class, 'baridi']);
+        Route::post('/binance', [DepositController::class, 'binance']);
     });
     Route::prefix('/withdrawals')->group(function (){
         Route::post('/withdraw_baridi', [WithdrawalController::class, 'withdraw_baridi']);

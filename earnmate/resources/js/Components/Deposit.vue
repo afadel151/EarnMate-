@@ -15,7 +15,7 @@ const codeBaridi = ref("");
 const adminrip = ref("");
 const adminid = ref(0);
 const candepositbaridi = ref(true);
-function sendBinance() { }
+
 import { usePriceStore } from "@/stores/priceStore";
 const priceStore = usePriceStore();
 onMounted(async () => {
@@ -34,8 +34,6 @@ onMounted(async () => {
 });
 async function sendBaridi() {
     if (priceStore.price != 0) {
-
-
         let fd = new FormData();
         fd.append("amount", Amount.value);
         fd.append("code", codeBaridi.value);
@@ -54,9 +52,30 @@ async function sendBaridi() {
         
     }
 }
+async function sendBinance() {
+    if (priceStore.price != 0) {
+        let fd = new FormData();
+        fd.append("amount", Amount.value);
+        fd.append("screenshot", screenshotBinance.value);
+        fd.append("admin_id", adminid.value);
+        try {
+            const response = await axiosClient.post("/deposits/binance", fd);
+            console.log(response.data);
+            visible.value = false;
+        } catch (error) {
+            console.log(error);
+        }
+    }else{
+        console.log('wait');
+        
+    }
+}
 const screenshot = ref(null);
-function onChange(e) {
+function onChangeBaridi(e) {
     screenshotBaridi.value = e.target.files[0];
+}
+function onChangeBinance(e) {
+    screenshotBinance.value = e.target.files[0];
 }
 watch(Amount, (data) => {
     DZDamount.value = (data ? data : 0) * priceStore.price
@@ -68,6 +87,7 @@ import Tab from "primevue/tab";
 import TabPanels from "primevue/tabpanels";
 import TabPanel from "primevue/tabpanel";
 import axios from "axios";
+import axiosClient from "@/axios";
 </script>
 
 <template>
@@ -115,7 +135,7 @@ import axios from "axios";
                         </div>
                         <div class="flex items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">code</label>
-                            <input name="file" type="file" class="w-full" @change="onChange" />
+                            <input name="file" type="file" class="w-full" @change="onChangeBaridi" />
                         </div>
                         <div class="flex justify-end gap-2">
                             <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
@@ -139,7 +159,7 @@ import axios from "axios";
                     </p>
                     <div class="flex items-center gap-4">
                         <label for="email" class="font-semibold w-24">Amount</label>
-                        <InputNumber :min="500" :max="2800" mode="currency" currency="USD" inputId="withoutgrouping"
+                        <InputNumber v-model="Amount" :min="500" :max="2800" mode="currency" currency="USD" inputId="withoutgrouping"
                             :useGrouping="false" fluid />
                     </div>
                     <div class="flex flex-col justify-center gap-2 mb-4 items-center w-full">
@@ -155,7 +175,7 @@ import axios from "axios";
                         </p>
                         <div class="flex items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">code</label>
-                            <input name="file" type="file" class="w-full" @change="onChange" />
+                            <input name="file" type="file" class="w-full" @change="onChangeBinance" />
                         </div>
                         <div class="flex justify-end w-full gap-2">
                             <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />

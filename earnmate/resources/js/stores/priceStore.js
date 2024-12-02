@@ -1,3 +1,4 @@
+import axiosClient from '@/axios';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
@@ -27,9 +28,10 @@ export const usePriceStore = defineStore('price', () => {
 
     loading.value = true;
     try {
-      const response = await fetch('https://v6.exchangerate-api.com/v6/46f2bf6cd33a88da3966d7f3/latest/USD');
-      const data = await response.json();
-      price.value = data.conversion_rates.DZD + 100; // Assuming API returns { price: 123.45 }
+      const response = await axiosClient.get('/dzd-price');
+      const data = await  response.data;
+      
+      price.value = data.price; // Assuming API returns { price: 123.45 }
       lastFetchedDate.value = new Date().toISOString(); // Update the last fetched date
     } catch (error) {
       console.error('Error fetching DZD price:', error);
