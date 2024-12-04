@@ -51,7 +51,7 @@ const submit = async () => {
 <template>
     <div>
         <Button icon="pi pi-plus" label="Add Task" @click="visible = true" />
-        <Dialog v-model:visible="visible" modal header="Create a new Task" :style="{ width: '40rem' }">
+        <Dialog v-model:visible="visible" modal header="Create a new Task" class="md:w-[40rem]">
             <div class="flex items-center gap-4 mb-4">
                 <label for="name" class="font-semibold w-32">Task name</label>
                 <InputText id="name"  v-model="form.name" class="flex-auto" autocomplete="off" />

@@ -94,7 +94,7 @@ const initFilters = () => {
 <template>
     <AdminLayout>
         <div class="p-10 pt-32 w-full flex flex-col justify-center items-center">
-            <DataTable v-model:filters="filters" class="w-[100%]" v-model:selection="selectedWithdrawals" :value="withdrawals" paginator
+            <DataTable v-model:filters="filters" class="w-[100%] border rounded-xl" v-model:selection="selectedWithdrawals" :value="withdrawals" paginator
                 :rows="10" dataKey="id" filterDisplay="menu" :globalFilterFields="[
                     'user.email',
                     'user.name',

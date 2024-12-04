@@ -3,27 +3,39 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import { Link } from '@inertiajs/vue3';
 import { Button } from 'primevue';
 import Footer from '@/Components/Footer.vue';
+import $ from "jquery";
+
+
 </script>
 
 <template>
-    <div class="h-screen w-screen">
-        <div class="w-screen h-[15%] flex bg-gray-100 justify-between items-center px-16  ">
-            <img src="/svgs/Group.svg" width="200" alt="">
-            <div class="flex justify-center items-center gap-3">
-                <Button variant="text" size="large" label="Advertise" severity="contrast" />
-                <Button variant="text" size="large" label="Advertise" severity="contrast" />
-                <Button variant="text" size="large" label="Advertise" severity="contrast" />
-                <Button variant="text" size="large" label="Advertise" severity="contrast" />
-                <Button rounded label="Log in" size="large" severity="help" />
-                <Button rounded label="Register" size="large" severity="contrast" outlined />
+    <div class="md:h-screen  md:w-screen bg-gray-100 ">
+        <div class="flex md:h-[15%] md:flex-row flex-col w-screen md:px-10  justify-between items-center">
+            <div
+                class=" flex flex-row  w-full md:w-fit px-10 md:px-0  h-32  bg-gray-100 justify-between items-center md:px-16  ">
+                <img src="/svgs/Group.svg" width="200" alt="">
+                <div class="md:hidden">
+                    <Button icon="pi pi-list" @click="$('#menu').slideToggle()" />
+                </div>
+            </div>
+            <div id="menu" class="md:block hidden">
+                <div  class="flex     justify-center md:flex-row flex-col items-center gap-3">
+                    <Button variant="text" size="large" label="About" severity="contrast" />
+                    <Link :href="route('login')">
+                    <Button rounded label="Sign  in" size="large" severity="help" />
+                    </Link>
+                    <Link :href="route('register')">
+                    <Button rounded label="Sign up" size="large" severity="contrast" />
+                    </Link>
+                </div>
             </div>
         </div>
-        <div class="flex w-screen  h-[85%]  gap-36 justify-center items-center bg-gray-100  ">
-            
-                <slot />
-            
+        <div class="md:flex w-screen md:h-[85%]   md:gap-36 justify-center items-center bg-gray-100  ">
+
+            <slot />
+
         </div>
-        <div class="w-screen h-[35%] ">
+        <div class="w-screen mt-10 h-[35%] ">
             <Footer />
         </div>
     </div>

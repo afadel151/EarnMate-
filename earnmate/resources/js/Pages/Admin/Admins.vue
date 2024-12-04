@@ -55,11 +55,11 @@ function add_admin(admin) {
 </script>
 <template>
     <AdminLayout>
-        <div class="p-20 w-full  pt-40  flex flex-col justify-center items-center">
+        <div class="md:p-20 p-5 w-full  md:pt-40  flex flex-col justify-center items-center">
             <div class="w-full mb-8 flex justify-center items-center">
                 <AddAdmin @addadmin="add_admin" />
             </div>
-            <DataTable v-model:filters="filters" class="w-[100%]" :value="admins" paginator :rows="10" dataKey="id"
+            <DataTable v-model:filters="filters" class="w-[100%] border" :value="admins" paginator :rows="10" dataKey="id"
                 filterDisplay="menu" :globalFilterFields="[
                     'user.email',
                     'user.name',

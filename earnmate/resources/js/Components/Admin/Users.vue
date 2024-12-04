@@ -78,7 +78,7 @@ const setChartOptions = () => {
 </script>
 
 <template>
-    <div class="h-full bg-white rounded-md  shadow-sm  flex justify-between p-5 items-center">
+    <div class="h-full bg-white rounded-md  shadow-md  flex justify-between p-5 items-center">
 
         <div class="h-full w-[30%] flex flex-col justify-between items-start">
             <span class="avatar-initial rounded bg-orange-100 w-14 h-14 flex justify-center items-center">

@@ -4,6 +4,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DepositController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
@@ -22,6 +23,7 @@ Route::prefix('/api')->group(function (){
         Route::post('/baridi', [DepositController::class, 'baridi']);
         Route::post('/binance', [DepositController::class, 'binance']);
     });
+    Route::post('/messages/add', [MessageController::class, 'add_user']);
     Route::prefix('/withdrawals')->group(function (){
         Route::post('/withdraw_baridi', [WithdrawalController::class, 'withdraw_baridi']);
     });
@@ -41,6 +43,12 @@ Route::prefix('/api')->group(function (){
             Route::post('/add', [TaskController::class, 'add']);
             Route::post('/edit_status',[TaskController::class,'edit_status']);
         });
+        Route::post('/messages/add', [MessageController::class, 'add_admin']);
+        Route::get('/messages/convs', [MessageController::class, 'get_conversations']);
+        
+        
+        // get_conversations
+        Route::get('/money_chart_data', [AdminController::class, 'getMoneyChartData']);
         Route::prefix('/withdrawals')->group(function(){
             Route::get('/', [WithdrawalController::class, 'get']);
             Route::post('/edit_status', [WithdrawalController::class, 'edit_status']);

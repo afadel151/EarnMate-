@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('admin_id')->default(0);
             $table->enum('sender',['admin','user']);
             $table->string('message');
-            $table->string('image')->default(null);
+            $table->string('image')->nullable()->default(null);
             $table->timestamps();
         });
     }

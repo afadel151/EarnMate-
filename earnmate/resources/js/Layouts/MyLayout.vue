@@ -3,9 +3,8 @@ import Sidebar from '@/Components/Sidebar.vue';
 </script>
 
 <template>
-    <div class=" md:bg-[#f2f5f7] md:mb-0 mb-20  md:min-w-screen flex md:flex-row flex-col justify-start  relative  ">
-        <div class="h-72 absolute bottom-10 right-10 w-72 bg-violet-200 blur-[200px] rounded-full"></div>
-        <div class="h-72 absolute bottom-10 left-10 w-72 bg-orange-200 blur-[200px] rounded-full"></div>
+    <div class=" bg-[radial-gradient(circle,rgba(0,0,0,0.075)_1.5px,transparent_1px)] bg-[length:10px_10px] md:mb-0 mb-20  md:min-w-screen flex md:flex-row flex-col justify-start  relative  ">
+        
         <div class="md:w-80 md:h-screen  md:sticky md:top-0">
             <Sidebar  />
         </div>

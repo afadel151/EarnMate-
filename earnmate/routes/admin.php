@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\OfferController;
 use App\Models\DoneTask;
 use App\Models\OfferSubscription;
 use App\Models\Subscription;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Translation\MessageCatalogue;
 
 Route::middleware( [\App\Http\Middleware\AdminMiddleware::class,'auth:sanctum'])->prefix('/admin')->group(function (){
     Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -36,7 +38,7 @@ Route::middleware( [\App\Http\Middleware\AdminMiddleware::class,'auth:sanctum'])
     });
     Route::prefix('/messages')->group(function () {
         Route::get('/', [AdminController::class, 'messages'])->name('admin.messages');
-
+        Route::get('/{id}',[MessageController::class, 'user'])->name('admin.messages.user');
     });
     Route::prefix('/admins')->group(function () {
         Route::get('/', [AdminController::class, 'admins'])->name('admin.admins');

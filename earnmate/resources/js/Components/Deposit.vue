@@ -36,7 +36,7 @@ async function sendBaridi() {
     if (priceStore.price != 0) {
         let fd = new FormData();
         fd.append("amount", Amount.value);
-        fd.append("code", codeBaridi.value);
+        fd.append("transaction_code", codeBaridi.value);
         fd.append("screenshot", screenshotBaridi.value);
         fd.append("admin_id", adminid.value);
         fd.append("price", priceStore.price);

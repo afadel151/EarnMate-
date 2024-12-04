@@ -45,19 +45,17 @@ class UserController extends Controller
         ]);
     }
     public function getDzdPrice()
-{
-    // Cache the price for one day
-    $price = Cache::remember('dzd_price', now()->endOfDay(), function () {
+    {
+        $price = Cache::remember('dzd_price', now()->endOfDay(), function () {
         $response = Http::get('https://v6.exchangerate-api.com/v6/46f2bf6cd33a88da3966d7f3/latest/USD');
         if ($response->failed()) {
             abort(500, 'Failed to fetch DZD price.');
         }
         $data = $response->json();
-        return $data['conversion_rates']['DZD'] + 120; // Add any additional logic
-    });
-
-    return response()->json(['price' => $price]);
-}
+        return $data['conversion_rates']['DZD'] + 120; 
+        });
+        return response()->json(['price' => $price]);
+    }
     /**
      * Show the form for creating a new resource.
      */

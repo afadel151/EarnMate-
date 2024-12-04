@@ -32,7 +32,7 @@ if (currentLevel != 'No_subscription') {
 
 <template>
     <div
-        class=" p-7 flex flex-col space-y-6 items-start  backdrop-blur-md bg-white/70 rounded-lg md:col-span-2 md:row-span-2 ">
+        class=" md:p-7 flex flex-col space-y-6 items-start  backdrop-blur-md bg-white/90 rounded-lg md:col-span-2 md:row-span-2 ">
         
             <div class="flex items-center w-full space-x-4">
             <span class="  w-16 h-16 flex justify-center items-center bg-blue-50">

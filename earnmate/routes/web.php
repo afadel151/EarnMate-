@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SocialController;
@@ -10,12 +10,10 @@ use App\Models\OfferSubscription;
 use App\Models\Subscription;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
-use Illuminate\Validation\ValidationException;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Mailgun\Mailgun;
 
 Route::get('/', function () {
     return Inertia::render('Landing', [
@@ -93,6 +91,9 @@ Route::middleware(['auth', 'auth:sanctum'])->group(function () {
     });
     Route::prefix('bonuses')->group(function (){
         Route::get('/', [UserController::class, 'bonuses'] )->name('bonuses');
+    });
+    Route::prefix('messages')->group(function (){
+        Route::get('/', [MessageController::class, 'index'] )->name('messages');
     });
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
     Route::get('/leaderboard', [UserController::class, 'leaderboard'])->name('leaderboard');

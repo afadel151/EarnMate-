@@ -21,7 +21,12 @@ export default {
                 'home2-bg': "url('/imgs/achievements-bg.png')",
             },
             boxShadow: {
-                'custom-purple': '0px 0px 40px 0px rgba(136, 4, 255, 0.36)',
+                'custom-purple': '0px 0px 40px 0px rgba(136, 4, 255, 0.18)',
+                'custom-purple-top': '0px -30px 40px 0px rgba(136, 4, 255, 0.18)',
+                'custom-purple-top-middle': '0px -30px 30px -20px rgba(136, 4, 255, 0.18)',
+                'custom-purple-top-right': '30px -30px 40px -20px rgba(136, 4, 255, 0.18)',
+                'custom-purple-top-left': '0px -30px 40px 5px rgba(136, 4, 255, 0.18)',
+               
             }
         },
     },

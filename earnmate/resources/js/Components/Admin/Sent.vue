@@ -6,7 +6,7 @@ const props = defineProps({
 </script>
 
 <template>
-     <div class="h-full bg-white rounded-md  shadow-sm w-full flex flex-col justify-between p-5 items-start">
+     <div class="h-full bg-white rounded-md  shadow-md w-full flex flex-col justify-between p-5 items-start">
         <span class="avatar-initial rounded bg-[#e7e7ff] w-14 h-14 flex justify-center items-center">
         <box-icon type='solid' color="#a2a1ff" size="md" name='credit-card'></box-icon></span>
         <p class="text-gray-500 font-semibold">sent</p>

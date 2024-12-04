@@ -97,8 +97,13 @@ function getPlatformColor(platform) {
         return "#46a5e0";
     } else if (platform == "discord") {
         return "#4e61ed";
+    } else if (platform == "snapchat") {
+        return "#edd900";
+    }else if (platform == "instagram") {
+        return "#d62d76";
     }
 }
+
 const chartData = ref([]);
 const offer = props.offer; // Assuming the single offer is passed as `offer`
 const remainingTime = ref(null);
@@ -130,7 +135,7 @@ const priceStore = usePriceStore();
         <div class="md:grid grid-cols-4 grid-rows-[1.5fr_1.2fr_1fr_1fr_1fr_1fr] md:gap-4  px-5 flex flex-col space-y-5  md:py-10 md:px-[12rem] ">
             <div class="col-span-4 flex flex-col space-y-6 md:block " :class="props.offer ? 'h-72' : ''">
                 <div v-if="!props.offer"
-                    class="w-full backdrop-blur-md bg-white/80 shadow-sm flex justify-center items-center rounded-md h-full">
+                    class="w-full backdrop-blur-md bg-white/80 shadow-md flex justify-center items-center rounded-md h-full">
                     <p class="text-xl text-gray-500">
                         No offer for today 
                     </p>
@@ -183,7 +188,7 @@ const priceStore = usePriceStore();
            
             <div class="row-start-2">
                 <div
-                    class="rounded-md relative md:py-5  md:pr-0 p-5 md:pl-5 backdrop-blur-sm h-full bg-white/80  space-y-1 shadow-sm flex flex-col justify-between items-start">
+                    class="rounded-md relative md:py-5  md:pr-0 p-5 md:pl-5 backdrop-blur-sm h-full bg-white/80  space-y-1 shadow-md flex flex-col justify-between items-start">
                     <div class="h-12 flex justify-start items-center w-full space-x-2">
                         <span class="avatar-initial rounded bg-[#eafae1] w-14 h-14 flex justify-center items-center">
                             <box-icon name="money-withdraw" color="#72de37" size="md"></box-icon>
@@ -200,7 +205,7 @@ const priceStore = usePriceStore();
             </div>
             <div class="row-start-2">
                 <div
-                    class="rounded-md md:py-5  md:pr-0 p-5 md:pl-  justify-between backdrop-blur-sm h-full bg-white/80  space-y-1 shadow-sm flex flex-col  items-start">
+                    class="rounded-md md:py-5  md:pr-0 p-5 md:pl-  justify-between backdrop-blur-sm h-full bg-white/80  space-y-1 shadow-md flex flex-col  items-start">
                     <div class="h-12 flex justify-start items-center w-full space-x-2">
                         <span class="avatar-initial rounded bg-[#f5e38829] w-14 h-14 flex justify-center items-center">
                             <box-icon type="solid" name="star" color="#fbed53" size="md"></box-icon>
@@ -218,7 +223,7 @@ const priceStore = usePriceStore();
             </div>
             <div class="row-start-2">
                 <div
-                    class="rounded-md relative md:py-5  md:pr-0 p-5 md:pl-  justify-between backdrop-blur-sm h-full bg-white/80  space-y-1 shadow-sm flex flex-col  items-start">
+                    class="rounded-md relative md:py-5  md:pr-0 p-5 md:pl-  justify-between backdrop-blur-sm h-full bg-white/80  space-y-1 shadow-md flex flex-col  items-start">
                     <div class="h-12 flex justify-start items-center w-full space-x-2">
                         <span class="avatar-initial rounded bg-[#6b6de61b] w-10 h-10 flex justify-center items-center">
                             <box-icon name="user-plus" color="blue" size="sm"></box-icon>
@@ -240,7 +245,7 @@ const priceStore = usePriceStore();
             </div>
             <div class="row-start-2">
                 <div
-                    class="rounded-md  md:py-5  md:pr-0 p-5 md:pl- justify-between backdrop-blur-sm h-full bg-white/80 space-y-1 shadow-sm flex flex-col  items-start">
+                    class="rounded-md  md:py-5  md:pr-0 p-5 md:pl- justify-between backdrop-blur-sm h-full bg-white/80 space-y-1 shadow-md flex flex-col  items-start">
                     <div class="h-12 flex justify-start items-center w-full space-x-2">
                         <span class="avatar-initial rounded bg-[#fcf9eb] w-10 h-10 flex justify-center items-center">
                             <box-icon type="solid" name="gift" color="#faec55" size="sm"></box-icon>
@@ -255,7 +260,7 @@ const priceStore = usePriceStore();
                 </div>
             </div>
             <div
-                class="col-span-2 p-6 backdrop-blur-sm bg-white/80 rounded-md py-10 shadow-sm flex justify-between flex-col items-center row-span-3 col-start-3 row-start-3">
+                class="col-span-2 p-6 backdrop-blur-sm bg-white/80 rounded-md py-10 shadow-md flex justify-between flex-col items-center row-span-3 col-start-3 row-start-3">
                 <div class="w-full flex flex-col items-start justify-start h-full">
                     <div class="flex flex-col h-full items-stretch space-y-2 justify-between">
                         <div class="h-12 flex justify-start items-center w-full space-x-2">
@@ -274,10 +279,10 @@ const priceStore = usePriceStore();
                 </div>
             </div>
             <div
-                class="col-span-2 backdrop-blur-sm rounded-md bg-white/80 shadow-sm row-span-6 col-start-1 row-start-3">
+                class="col-span-2 backdrop-blur-sm rounded-md bg-white/80 shadow-md row-span-6 col-start-1 row-start-3">
                 <div class="flex flex-col h-full px-10 p-6 items-stretch space-y-10 justify-start">
                     <div class="h-12 mt-4 flex justify-start items-center w-full space-x-2">
-                        <span class="avatar-initial rounded bg-[#f5918829] w-14 h-14 flex justify-center items-center">
+                        <span  class="avatar-initial rounded bg-[#f5918829] w-14 h-14 flex justify-center items-center">
                             <!-- <box-icon type='solid' name='star' ></box-icon> -->
                             <box-icon name="task" color="red" size="md"></box-icon>
                         </span>
@@ -291,7 +296,7 @@ const priceStore = usePriceStore();
                     </div>
                     <div v-else v-for="task in visibleTasks" :key="task.id"
                         class="w-full border-b h-20 flex justify-between items-center rounded-md">
-                        <span class="avatar-initial rounded bg-[#75727211] w-14 h-14 flex justify-center items-center">
+                        <span class="avatar-initial rounded  w-14 h-14 flex justify-center items-center">
                             <box-icon :name="`${task.platform}`" :color="getPlatformColor(task.platform)" type="logo"
                                 size="lg"></box-icon>
                         </span>
@@ -309,7 +314,7 @@ const priceStore = usePriceStore();
                 </div>
             </div>
             <div class="md:block hidden col-span-2 row-span-3 col-start-3 row-start-6">
-                <div class="h-full w-full backdrop-blur-sm rounded-md bg-white/80 shadow-sm">
+                <div class="h-full w-full backdrop-blur-sm rounded-md bg-white/80 shadow-md">
                     <div class="w-full flex justify-center items-center h-full">
                         <div>
                             <p class="text-3xl text-gray-500">

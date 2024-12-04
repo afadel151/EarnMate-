@@ -40,14 +40,14 @@ const submit =async  () => {
     <GuestLayout>
 
         <Head title="Log in" />      
-        <div class="w-full h-[75%] flex justify-center items-center space-x-36 px-[400px] ">
+        <div class="w-full h-[75%] flex md:flex-row flex-col justify-center items-center md:space-x-36 md:px-[400px] ">
             <div class="flex flex-col w-[70%] text-[#6a38ff] justify-center  h-full">
                 <p class="font-bold text-lg text-black">Log in</p>
-                <p class="text-7xl">Acess your account</p>
-                <p class="text-8xl font-black">and explore our service</p>
+                <p class="md:text-7xl text-6xl">Acess your account</p>
+                <p class="md:text-8xl text-7xl font-black">and explore our service</p>
                 <p></p>
             </div>
-            <form @submit.prevent="submit" class="w-[50%] shadow-custom-purple border-2 rounded-2xl flex flex-col justify-around py-10 items-center pb-20  h-full">
+            <form @submit.prevent="submit" class="md:w-[50%] w-[80%] shadow-custom-purple border-2 rounded-2xl flex space-y-5 md:mt-0 mt-10 flex-col justify-around md:py-5 py-10 items-center md:pb-10 pb-5  h-full">
                 <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full mt-5 " icon="pi pi-google" label="continue with Google"  severity="help" /></a>
                 <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full  " icon="pi pi-facebook" label="continue with Facebook"  severity="info" /></a>
 

@@ -78,14 +78,20 @@ class WithdrawalController extends Controller
     public function edit_status(Request $request)
     {
         $withdrawal = Withdrawal::find($request->id);
-        $withdrawal->update([
-            'status' => $request->status
-        ]);
-        if ($request->status == 'completed') {
-            $user = $withdrawal->user;
-            $user->update([
-                'balance' => $user->balance - $withdrawal->amount
+        $status = $withdrawal->status;
+        if ($status == 'pending') {
+            $withdrawal->update([
+                'status' => $request->status
             ]);
+            if ($request->status == 'completed') {
+                $user = $withdrawal->user;
+                $user->update([
+                    'balance' => $user->balance - $withdrawal->amount
+                ]);
+                $withdrawal->admin->update([
+                    'balance' => $withdrawal->admin->balance -  $withdrawal->amount
+                ]);
+            }
         }
         return response()->json($withdrawal);   
     }

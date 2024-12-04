@@ -93,11 +93,14 @@ class User extends Authenticatable
     public function invitation(): BelongsTo {
         return $this->belongsTo(Reference::class, 'referenced_id');
     }
-    public function getInviterAttribute()
+    public function getInviterAttribute()       
     {
         return $this->invitation()->exists() 
         ? $this->invitation()->user 
         : 'No_inviter';
-    }
-
+    }   
+    public function messages() : HasMany
+    {
+        return $this->hasMany(Message::class);
+    } 
 }

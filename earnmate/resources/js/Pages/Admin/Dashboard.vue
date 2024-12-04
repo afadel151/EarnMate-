@@ -10,6 +10,7 @@ import Users from '@/Components/Admin/Users.vue';
 import UsersByLevels from '@/Components/Admin/UsersByLevels.vue';
 import OtherAdmins from '@/Components/Admin/OtherAdmins.vue';
 import UsersByMethods from '@/Components/Admin/UsersByMethods.vue';
+import MoneyChart from '@/Components/Admin/MoneyChart.vue';
 const props = defineProps({
     admin:Object,
     admins: Array,
@@ -23,7 +24,8 @@ const props = defineProps({
     withdrawals_sum:Number,
     today_withdrawals_sum:Number,
     users_by_method: Array
-})
+});
+
 </script>
 
 <template>
@@ -31,8 +33,8 @@ const props = defineProps({
 
 
 
-        <div class="grid grid-cols-6 grid-rows-5 gap-4  p-10 px-[13rem]">
-            <div class="col-span-4 bg-white rounded-md shadow-sm  flex justify-between  items-end">
+        <div class="md:grid space-y-5 md:space-y-0 grid-cols-6 grid-rows-5 gap-4  p-10 md:px-[10rem]">
+            <div class="col-span-4 bg-white rounded-md shadow-md  flex justify-between  items-end">
 
                 <div class="w-[60%] h-full p-10  ">
                     <p class="text-4xl font-semibold text-violet-500">Hello {{ usePage().props.auth.user.name  }}</p>
@@ -56,7 +58,7 @@ const props = defineProps({
                 <Users :count="props.users_count" :today="props.users_today" /> 
              </div>
             <div class="col-span-4 row-span-2 col-start-1 row-start-2 bg-white">
-                      
+                      <MoneyChart />
             </div>
             <div class="col-span-2 row-span-2 col-start-5 row-start-4 ">
                 <UsersByLevels :levels="props.levels" />

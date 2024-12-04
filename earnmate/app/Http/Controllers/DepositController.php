@@ -30,7 +30,7 @@ class DepositController extends Controller
         $request->validate([
             'amount' => 'required|numeric',
             'price' => 'required|numeric',
-            'screenshot' => 'required|string',
+            'screenshot' => 'required',
             'transaction_code' => 'required|numeric'
         ]);
         $deposit = new Deposit;
@@ -40,7 +40,7 @@ class DepositController extends Controller
         $amount = $request->input('amount');    
         $deposit->amount = $amount;
         $deposit->price = $request->price;
-        $deposit->transaction_code = $request->code;
+        $deposit->transaction_code = $request->transaction_code;
         if ($request->hasFile('screenshot')) {
             $request_file = $request->file('screenshot');
             $path = '/baridi';
@@ -102,6 +102,9 @@ class DepositController extends Controller
                         'balance' => $newbalance
                     ]);
                 }
+                $deposit->admin->update([
+                    'balance' => $deposit->admin->balance +  $deposit->amount
+                ]);
             }else{
                 return response()->json($deposit);
             }

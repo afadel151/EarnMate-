@@ -27,12 +27,12 @@ onMounted(() => {
 <template>
     <MyLayout>
         <div
-            class="md:grid flex flex-col space-y-5 px-5 grid-cols-1 md:p-10 md:px-[12rem] font-['GeneralSans-Medium'] md:grid-cols-6 md:grid-rows-5 md:gap-5 md:h-full w-full">
+            class="md:grid flex flex-col space-y-5 md:space-y-0 px-5 grid-cols-1 md:p-10 md:px-[12rem] font-['GeneralSans-Medium'] md:grid-cols-6 md:grid-rows-5 md:gap-5 md:h-full w-full">
             <UserDetails :user="user" /> 
             <div
-                class="backdrop-blur-md bg-white/70 shadow-sm md:col-span-2 rounded-md md:row-span-1 p-5 md:col-start-3">
-                <div class="w-full h-full rounded-md p-2 ">
-                    <div class="col-span-2  rounded-lg flex flex-col md:space-y-0 space-y-3  justify-around h-full w-full items-start ">
+                class="backdrop-blur-md bg-white/70 shadow-sm  md:col-span-2 rounded-md md:row-span-1 p-5 md:col-start-3">
+                <div class="w-full h-full rounded-md  ">
+                    <div class="  rounded-lg flex flex-col md:space-y-0 space-y-3  justify-around h-full w-full items-start ">
                         <div class="h-12 flex justify-start items-center w-full  space-x-2">
                             <span
                                 class="avatar-initial rounded bg-[#eafae1] w-14  h-14 flex justify-center items-center">

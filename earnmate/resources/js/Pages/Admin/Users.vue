@@ -43,7 +43,7 @@ const filters = ref({
 </script>
 <template>
     <AdminLayout>
-        <div class="p-20 w-full  pt-40  flex flex-col justify-center items-center">
+        <div class="md:p-20 p-5 w-full  md:pt-40  flex flex-col justify-center items-center">
             <div class="w-full mb-8 flex justify-center items-center">
                 <AddAdmin @addadmin="add_admin" />
             </div>

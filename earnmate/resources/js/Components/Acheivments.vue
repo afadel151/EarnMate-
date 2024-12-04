@@ -1,10 +1,10 @@
 <template>
-    <div class="w-screen pt-24 md:px-80    bg-home2-bg bg-no-repeat bg-cover bg-[#dddeff] ">
+    <div id="acheivments" class="w-screen pt-24  md:px-80    bg-home2-bg bg-no-repeat bg-cover  ">
         <p class="text-5xl font-light text-center ">Achievments</p>
         <div class="w-full md:flex-row flex-col flex justify-around mt-24 items-center">
-            <p id="pub" class="bg-gradient-to-t from-[#6a38ff] to-[#6a38ff]/0 text-transparent bg-clip-text text-8xl font-black" >{{ tweened.pub.toFixed(0) }}+</p>
-            <p id="users" class="bg-gradient-to-b from-[#fbaf00]/0 to-[#fbaf00] text-transparent bg-clip-text text-8xl font-black" >{{ tweened.users.toFixed(0) }}+</p>
-            <p id="adv" class="bg-gradient-to-t from-[#1dd3b0]/0 to-[#1dd3b0] text-transparent bg-clip-text text-8xl font-black" >{{ tweened.adv.toFixed(0) }}+</p>
+            <p id="pub" class="bg-gradient-to-t from-[#6a38ff] to-[#6a38ff]/0 text-transparent bg-clip-text text-7xl font-black" >{{ tweened.pub.toFixed(0) }}+ user</p>
+            <p id="users" class="bg-gradient-to-b from-[#fbaf00]/0 to-[#fbaf00] text-transparent bg-clip-text text-7xl font-black" >{{ tweened.users.toFixed(0) }}+ task</p>
+            <p id="adv" class="bg-gradient-to-t from-[#1dd3b0]/0 to-[#1dd3b0] text-transparent bg-clip-text text-5xl font-black" >{{ tweened.adv.toFixed(0) }}+ partner</p>
 
         </div>
     </div>
