@@ -43,7 +43,7 @@ const props = defineProps({
                 <img src="/imgs/admin/man-with-laptop.png" class="w-56 mr-10" alt="">
             </div>
             <div class="col-start-5 ">
-                <Balance :balance="props.admin.balance"  />
+                <Balance :today="props.today_deposits_sum - props.today_withdrawals_sum" :balance="props.admin.balance"  />
             </div>
             <div class="col-start-6 ">
                 <Received :amount="props.deposits_sum" :today="props.today_deposits_sum" />

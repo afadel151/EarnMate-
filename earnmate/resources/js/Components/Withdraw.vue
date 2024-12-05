@@ -1,6 +1,6 @@
 <script setup>
-import { Button, InputNumber,Dialog, InputText, Toast, useToast } from 'primevue';
-import { ref } from "vue";
+import { Button, InputNumber, Dialog, InputText, Toast, useToast } from 'primevue';
+import { computed, ref } from "vue";
 import Tabs from "primevue/tabs";
 import TabList from "primevue/tablist";
 import Tab from "primevue/tab";
@@ -23,28 +23,36 @@ const Rip = ref('');
 const toast = useToast();
 async function withdrawBaridi() {
     if (priceStore.price != 0) {
-    try {
-        let response = await axiosClient.post('/withdrawals/withdraw_baridi',{
-            rip : Rip.value,
-            amount: AmountDzd.value,
-            price : priceStore.price
-        });
-        console.log(response.data);
-        visible.value = false;
-        if (response.data == 'failed') {
-            toast.add({ severity: 'danger', summary: 'Info', detail: 'Failed to withdraw, please try tomorrow', life: 3000 });
-        }else{
-            toast.add({ severity: 'success', summary: 'Info', detail: 'Withdrawal requested successfully,your money is on the way', life: 3000 });
+        try {
+            let response = await axiosClient.post('/withdrawals/withdraw_baridi', {
+                rip: Rip.value,
+                amount: AmountDzd.value,
+                price: priceStore.price
+            });
+            console.log(response.data);
+            visible.value = false;
+            if (response.data == 'failed') {
+                toast.add({ severity: 'danger', summary: 'Info', detail: 'Failed to withdraw, please try tomorrow', life: 3000 });
+            } else {
+                toast.add({ severity: 'success', summary: 'Info', detail: 'Withdrawal requested successfully,your money is on the way', life: 3000 });
+            }
+        } catch (error) {
+            console.log(error);
+
         }
-    } catch (error) {
-        console.log(error);
-        
-    }}else{
+    } else {
         console.log('wait');
-        
+
     }
 }
+const isValidRip = computed(() => /^\d{20}$/.test(Rip.value));
 
+    const validateRip = () => {
+      if (!/^\d*$/.test(Rip.value)) {
+        // Remove non-numeric characters
+        Rip.value = Rip.value.replace(/\D/g, "");
+      }
+    };
 const priceStore = usePriceStore()
 
 </script>
@@ -52,9 +60,9 @@ const priceStore = usePriceStore()
 
 <template>
     <Toast />
-    <Button @click="visible = true" :disabled="props.user.balance < 5"  severity="secondary" label="Withdraw"  icon="pi 
+    <Button @click="visible = true" :disabled="props.user.balance < 5" severity="secondary" label="Withdraw" icon="pi 
 pi-arrow-down" />
-<Dialog v-model:visible="visible" modal header="Deposit" :style="{ width: '32rem' }">
+    <Dialog v-model:visible="visible" modal header="Deposit" :style="{ width: '32rem' }">
         <Tabs value="0" class="w-full">
             <TabList class="w-full">
                 <Tab value="0" as="div" class="flex items-center gap-2">
@@ -75,18 +83,22 @@ pi-arrow-down" />
             <TabPanels>
                 <TabPanel value="0" as="p" class="m-0">
                     <div>
-                     
-                        <div class="flex items-center gap-4 mb-8">
-                            <label  class="font-semibold w-24">RIP :</label>
-                            <InputText v-model="Rip"  fluid />
+
+                        <div class="flex items-center gap-4 ">
+                            <label class="font-semibold w-24">RIP :</label>
+                            <InputText v-model="Rip" fluid @input="validateRip" :class="{ 'p-invalid': !isValidRip }" />
                         </div>
-                        <div class="flex items-center gap-4 mb-8">
+                        <small v-if="!isValidRip" class="p-error mb-8">
+                                RIP must contain exactly 20 numeric characters.
+                            </small>
+                        <div class="flex items-center gap-4 mt-8 mb-8">
                             <label for="email" class="font-semibold w-24">Amount</label>
-                            <InputNumber v-model="AmountDzd" :min="5" :max="props.user.balance" mode="currency" currency="USD"
-                                inputId="withoutgrouping" fluid />
-                           
+                            <InputNumber v-model="AmountDzd" :min="5" :max="props.user.balance" mode="currency"
+                                currency="USD" inputId="withoutgrouping" fluid />
+
                         </div>
-                        <p class="text-xl font-bold mb-8 ml-24"> ≈ {{ Math.floor((priceStore.price - 5) * AmountDzd) }} DZD</p>
+                        <p class="text-xl font-bold mb-8 ml-24"> ≈ {{ Math.floor((priceStore.price - 5) * AmountDzd) }}
+                            DZD</p>
                         <div class="flex justify-end w-full gap-2">
                             <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
                             <Button type="button" label="Send" @click="withdrawBaridi" />
@@ -106,16 +118,16 @@ pi-arrow-down" />
                         <span class="text-violet-500"> TRX (TRC20)</span>
                         network
                     </p>
-                    
+
                     <div class="flex flex-col justify-center gap-2 mb-4 items-center w-full">
                         <div class="flex w-full items-center gap-4">
-                        <label for="email" class="font-semibold w-24">Amount</label>
-                        <InputNumber :min="500" :max="2800" mode="currency" currency="USD" inputId="withoutgrouping"
-                            :useGrouping="false" fluid />
-                    </div>
+                            <label for="email" class="font-semibold w-24">Amount</label>
+                            <InputNumber :min="500" :max="2800" mode="currency" currency="USD" inputId="withoutgrouping"
+                                :useGrouping="false" fluid />
+                        </div>
                         <div class="flex w-full items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">Adress ;</label>
-                            <InputText v-model="BinanceAdress"  fluid />
+                            <InputText v-model="BinanceAdress" fluid />
                         </div>
                         <div class="flex justify-end w-full gap-2">
                             <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />

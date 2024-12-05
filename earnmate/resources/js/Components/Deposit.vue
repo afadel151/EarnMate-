@@ -1,11 +1,11 @@
 <script setup>
-import { Button } from "primevue";
+import { Button, Toast, useToast } from "primevue";
 import { Dialog, InputNumber } from "primevue";
 import { ref, onMounted, watch } from "vue";
 const props = defineProps({
     dzd_price: Number
 })
-import { useForm } from "@inertiajs/vue3";
+const toast = useToast();
 const visible = ref(false);
 const Amount = ref(0);
 const AmountUs = ref(0);
@@ -32,6 +32,7 @@ onMounted(async () => {
         console.log(error);
     }
 });
+// toast.add({ severity: 'info', summary: 'Info', detail: 'Already subscribed', life: 3000 });
 async function sendBaridi() {
     if (priceStore.price != 0) {
         let fd = new FormData();
@@ -42,14 +43,15 @@ async function sendBaridi() {
         fd.append("price", priceStore.price);
         try {
             const response = await axios.post("/api/deposits/baridi", fd);
-            console.log(response.data);
+            if (response.data == 'done') {
+                toast.add({ severity: 'success', summary: 'Info', detail: 'Deposited successfully', life: 3000 });
+            }
             visible.value = false;
         } catch (error) {
             console.log(error);
         }
     }else{
         console.log('wait');
-        
     }
 }
 async function sendBinance() {
@@ -67,7 +69,6 @@ async function sendBinance() {
         }
     }else{
         console.log('wait');
-        
     }
 }
 const screenshot = ref(null);
@@ -92,7 +93,7 @@ import axiosClient from "@/axios";
 
 <template>
     <Button @click="visible = true" label="Deposit" outlined icon="pi pi-arrow-up" />
-
+    <Toast />
     <Dialog v-model:visible="visible" modal header="Deposit" :style="{ width: '32rem' }">
         <Tabs value="0" class="w-full">
             <TabList class="w-full">

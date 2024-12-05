@@ -14,7 +14,7 @@ const props = defineProps({
 
         <p class="text-gray-500 font-semibold">received</p>
         <p class="text-2xl font-semibold text-gray-500">${{ props.amount }}</p>
-        <p class="text-green-500">{{ props.today }} today</p>
+        <p class="text-green-500">${{ props.today }} today</p>
     </div>
     
 </template>

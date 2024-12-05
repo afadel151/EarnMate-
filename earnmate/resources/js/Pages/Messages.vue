@@ -9,12 +9,10 @@ const props = defineProps({
 
 <template>
     <MyLayout>
-      <div class="relative  flex flex-col-reverse h-[calc(100vh-15rem)] overflow-y-auto bg-gray-100 p-4">
-        <div v-for="(message, index) in props.messages" :key="index" >
-          <div class="bg-white p-3 shadow-md rounded-md">
-            {{ message }}
-          </div>
+      <div class="h-[calc(100vh-112px)] md:h-screen md:py-10 pb-5  w-full md:px-[13rem]">
+            <div class=" rounded-2xl bg-slate-50    flex items-stretch   h-full w-full ">
+              <slot />
+            </div>
         </div>
-      </div>
     </MyLayout>
   </template>

@@ -77,6 +77,7 @@ Route::middleware(['auth', 'auth:sanctum'])->group(function () {
     Route::prefix('deposits')->group(function (){
         Route::get('/', [UserController::class, 'deposits'])->name('deposits');
     });
+    Route::get('/help', [UserController::class, 'help'])->name('help');
     Route::prefix('statistics')->group(function (){
         Route::get('/',[UserController::class, 'statistics'] )->name('statistics');
     });

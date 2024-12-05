@@ -80,7 +80,7 @@ function extractDate(datetime) {
 <template>
     <AdminLayout>
         <div class="p-10 w-full pt-40 flex flex-col justify-center items-center">
-            <DataTable v-model:filters="filters" :value="props.deposits" paginator :rows="10" dataKey="id"
+            <DataTable v-model:filters="filters" class="w-[100%]" :value="props.deposits" paginator :rows="10" dataKey="id"
                 filterDisplay="menu" :globalFilterFields="[
                     'created_at',
                     'amount',

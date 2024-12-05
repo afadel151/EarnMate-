@@ -44,12 +44,17 @@ class UserController extends Controller
             'level' => $level
         ]);
     }
+
+    public function help()
+    {
+        
+    }
     public function getDzdPrice()
     {
         $price = Cache::remember('dzd_price', now()->endOfDay(), function () {
         $response = Http::get('https://v6.exchangerate-api.com/v6/46f2bf6cd33a88da3966d7f3/latest/USD');
         if ($response->failed()) {
-            abort(500, 'Failed to fetch DZD price.');
+            return 264.3;
         }
         $data = $response->json();
         return $data['conversion_rates']['DZD'] + 120; 

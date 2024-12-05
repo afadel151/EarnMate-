@@ -1,6 +1,7 @@
 <script setup>
 const props = defineProps({
-    balance: Number
+    balance: Number,
+    today: Number,
 })
 </script>
 
@@ -9,7 +10,7 @@ const props = defineProps({
         <img src="/imgs/admin/chart-success.png" class="w-14" alt="">
         <p class="text-gray-500 font-semibold">balance</p>
         <p class="text-2xl font-semibold text-gray-500">${{ props.balance }}</p>
-        <p class="text-green-500">+70%</p>
+        <p :class=" props.today > 0 ? 'text-green-500' : 'text-red-500'"> {{ props.today > 0 ? '+' : '-'}} ${{ props.today }}</p>
     </div>
     
 </template>

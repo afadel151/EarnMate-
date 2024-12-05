@@ -26,6 +26,7 @@ const user = usePage().props.auth.user;
         <SidebarButton :href="'bonuses'" :label="'Bonuses'" :icon="'gift'" />
         <SidebarButton :href="'offers'" :label="'Offers'" :icon="'gift'" />
         <SidebarButton :href="'messages'" :label="'Messages'" :icon="'envelope'" />
+        <SidebarButton :href="'help'" :label="'Help'" :icon="'info-circle'" />
         <SidebarButton :href="'profile.edit'" :label="'Profile'" :icon="'cog'" />
     </div>
     <div class="hidden backdrop-blur-sm  bg-white/70 p-10 h-screen md:flex flex-col items-center px-4 py-4 space-y-4">
@@ -39,7 +40,8 @@ const user = usePage().props.auth.user;
             <SidebarButton :href="'tasks'" :label="'Tasks'" :icon="'list-check'" />
             <SidebarButton :href="'bonuses'" :label="'Bonuses'" :icon="'gift'" />
             <SidebarButton :href="'offers'" :label="'Offers'" :icon="'gift'" />
-
+            <SidebarButton :href="'messages'" :label="'Messages'" :icon="'envelope'" />
+            <SidebarButton :href="'help'" :label="'Help'" :icon="'info-circle'" />
             <SidebarButton :href="'profile.edit'" :label="'Profile'" :icon="'cog'" />
         </div>
 

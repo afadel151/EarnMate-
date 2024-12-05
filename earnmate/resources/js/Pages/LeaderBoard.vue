@@ -38,8 +38,8 @@ function extractDate(datetime) {
                 {{ users[2].name }}
               </p>
               <p class="text-base text-gray-600">Withdrawed: $ {{ users[2].withdrawed }}</p>
-              <p class="text-base text-gray-600">Balance: $ {{ users[2].balance }} </p>
-              <p class="text-base text-gray-600">Invited: {{ users[2].friends.length }} person</p>
+              <p class="text-base hidden md:block text-gray-600">Balance: $ {{ users[2].balance }} </p>
+              <p class="text-base hidden md:block text-gray-600">Invited: {{ users[2].friends.length }} person</p>
             </div>
           </div>
 
@@ -52,9 +52,9 @@ function extractDate(datetime) {
             </div>
             <div class="flex flex-col items-start px-5 space-y-3 justify-center h-full">
               <p class="text-4xl font-bold text-gray-700 w-full text-center overflow-hidden">{{ users[0].name }}</p>
-              <p class="text-lg text-gray-600">Withdrawed: {{ users[0].withdrawed }} DZD</p>
-              <p class="text-lg text-gray-600">Balance: $ {{ users[0].balance }} </p>
-              <p class="text-lg text-gray-600">Invited: {{ users[0].friends.length }} person</p>
+              <p class="text-lg text-gray-600">Withdrawed: ${{ users[0].withdrawed }}</p>
+              <p class="text-lg hidden md:block text-gray-600">Balance: $ {{ users[0].balance }} </p>
+              <p class="text-lg hidden md:block text-gray-600">Invited: {{ users[0].friends.length }} person</p>
             </div>
           </div>
 
@@ -70,8 +70,8 @@ function extractDate(datetime) {
             <div class="flex flex-col items-start px-5 space-y-3 justify-center h-full">
               <p class="text-3xl font-bold text-gray-700 w-full text-center overflow-hidden">{{ users[1].name }}</p>
               <p class="text-base text-gray-600">Withdrawed: ${{ users[1].withdrawed }}</p>
-              <p class="text-base text-gray-600">Balance: ${{ users[1].balance }} </p>
-              <p class="text-base text-gray-600">Invited: {{ users[1].friends.length }} person</p>
+              <p class="text-base hidden md:block text-gray-600">Balance: ${{ users[1].balance }} </p>
+              <p class="text-base hidden md:block text-gray-600">Invited: {{ users[1].friends.length }} person</p>
             </div>
           </div>
         </div>
@@ -80,9 +80,9 @@ function extractDate(datetime) {
             <table class="w-full text-center  rounded-">
               <tr class=" rounded- bg-[#c3aae133] text-gray-700">
                 <th class="px-4 py-2">Name</th>
-                <th class="px-4  py-2">Balance</th>
-                <th class="px-4 md:block hidden py-2">Joined</th>
-                <th class="px-4 md:block hidden py-2">Current Level</th>
+                <th class="px-4   py-2">Balance</th>
+                <th class="px-4 hidden md:table-cell  py-2">Joined</th>
+                <th class="px-4 hidden md:table-cell  py-2">Current Level</th>
                 <th class="px-4 py-2">Withdrawed</th>
                 <th class="px-4  py-2">Friends</th>
               </tr>
@@ -90,8 +90,8 @@ function extractDate(datetime) {
                 <tr v-for="user in users.slice(3)" :key="user.id" class=" text-gray-600">
                   <td class="px-4 py-2">{{ user.name }}</td>
                   <td class="px-4 py-2">$ {{ user.balance }}</td>
-                  <td class="px-4 md:block hidden py-2">{{ extractDate(user.created_at) }}</td>
-                  <td class="px-4 md:block hidden py-2">{{ user.current_level.level ?
+                  <td class="px-4 hidden md:table-cell py-2">{{ extractDate(user.created_at) }}</td>
+                  <td class="px-4 hidden md:table-cell  py-2">{{ user.current_level.level ?
                     user.current_level.level.level_number : 'Not subscribed' }}</td>
                   <td class="px-4 py-2">$ {{ user.withdrawed }}</td>
                   <td class="px-4 py-2">{{ user.friends.length }}</td>

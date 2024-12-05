@@ -14,6 +14,7 @@ class Deposit extends Model
         'status',
         'method',
         'price',
+        'screenshot'
     ];
     public function admin() : BelongsTo
     {

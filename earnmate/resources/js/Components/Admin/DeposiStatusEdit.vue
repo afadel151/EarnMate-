@@ -51,7 +51,7 @@ async function editStatus(){
             <Button v-for="status in statuses" :key="status" :label="status" @click="selectStatus(status)"  :severity="getSeverity(status)" class="hover:cursor-pointer w-full"  />
         </div>
     </Popover>
-    <Dialog v-model:visible="visible" modal header="Screenshot" class="w-[50%] h-[80%]">
+    <Dialog v-model:visible="visible" modal header="Screenshot" class="w-[5rem">
         <div class="flex justify-end gap-2">
             <p class="text-2xl text-gray-600 font-bold">Are you sure you want to change the status to {{ selectedStatus }}</p>
         </div>
@@ -61,3 +61,4 @@ async function editStatus(){
             </div>
     </Dialog>
 </template>
+

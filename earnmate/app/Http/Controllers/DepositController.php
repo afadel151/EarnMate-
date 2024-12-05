@@ -50,7 +50,7 @@ class DepositController extends Controller
             $deposit->screenshot = 'no_screenshot';
         }
         $deposit->save();
-        return response()->json($deposit);
+        return response()->json('done');
     }
     public function binance(Request $request)
     {
@@ -93,11 +93,13 @@ class DepositController extends Controller
             if ($old_status == 'pending') {
                 if ($deposit->method == 'baridi') {
                     $newbalance = $user->balance + $deposit->amount - $deposit->amount*10/100;
+                    \Log::info($newbalance);
                     $user->update([
                         'balance' => $newbalance
                     ]);
                 }else{
-                    $newbalance = $user->balance + $deposit->amount - $deposit->amount * 3 / 100;
+                    $newbalance = $user->balance + $deposit->amount - $deposit->amount * 5 / 100;
+                    \Log::info($newbalance);
                     $user->update([
                         'balance' => $newbalance
                     ]);

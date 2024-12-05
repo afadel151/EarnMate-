@@ -12,8 +12,8 @@ use Inertia\Inertia;
 class MessageController extends Controller
 {
     public function index(){
-        $messages = Auth::user()->messages;
-        return Inertia::render('Messages',[
+        $messages = Auth::user()->messages()->orderByDesc('id')->get();
+        return Inertia::render('Conversation',[
             'messages' => $messages
         ]);
     }
@@ -45,10 +45,9 @@ class MessageController extends Controller
     public function add_user(Request $request)
     {
         $request->validate([
-            'user_id' => 'required',
             'message' => 'required'
         ]);
-        $user_id = $request->user_id;
+        $user_id = Auth::user()->id;
         $message = $request->message;
         $message = Message::create([
             'user_id' => $user_id,
