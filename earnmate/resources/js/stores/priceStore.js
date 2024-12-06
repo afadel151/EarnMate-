@@ -29,7 +29,7 @@ export const usePriceStore = defineStore('price', () => {
     loading.value = true;
     try {
       const response = await axiosClient.get('/dzd-price');
-      const data = await  response.data;
+      const data =   response.data;
       price.value = data.price; // Assuming API returns { price: 123.45 }
       lastFetchedDate.value = new Date().toISOString(); // Update the last fetched date
     } catch (error) {

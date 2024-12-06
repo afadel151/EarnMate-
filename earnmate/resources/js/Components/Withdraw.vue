@@ -45,6 +45,43 @@ async function withdrawBaridi() {
 
     }
 }
+async function withdrawBinance()
+{
+    try {
+        let response = await axiosClient.post('/withdrawals/withdraw_binance', {
+                adress: BinanceAdress.value,
+                amount: AmountUs.value,
+            });
+            console.log(response.data);
+            visible.value = false;
+            if (response.data == 'failed') {
+                toast.add({ severity: 'error', summary: 'Info', detail: 'Failed to withdraw, please try tomorrow', life: 3000 });
+            } else {
+                toast.add({ severity: 'success', summary: 'Info', detail: 'Withdrawal requested successfully,your money is on the way', life: 3000 });
+            }
+    } catch (error) {
+        toast.add({ severity: 'error', summary: 'Info', detail: 'Error while withdrawing', life: 3000 });
+    }
+}
+const ByBitAdress = ref('');
+async function withdrawByBit()
+{
+    try {
+        let response = await axiosClient.post('/withdrawals/withdraw_bybit', {
+                adress: ByBitAdress.value,
+                amount: AmountUs.value,
+            });
+            console.log(response.data);
+            visible.value = false;
+            if (response.data == 'failed') {
+                toast.add({ severity: 'error', summary: 'Info', detail: 'Failed to withdraw, please try tomorrow', life: 3000 });
+            } else {
+                toast.add({ severity: 'success', summary: 'Info', detail: 'Withdrawal requested successfully,your money is on the way', life: 3000 });
+            }
+    } catch (error) {
+        toast.add({ severity: 'error', summary: 'Info', detail: 'Error while withdrawing', life: 3000 });
+    }
+}
 const isValidRip = computed(() => /^\d{20}$/.test(Rip.value));
 
     const validateRip = () => {
@@ -106,11 +143,6 @@ pi-arrow-down" />
                     </div>
                 </TabPanel>
                 <TabPanel value="1" as="p" class="m-0">
-                    <p class="text-xl text-gray-500 mb-8">
-                        This method will charge you of
-                        <span class="text-violet-500">5%</span>
-                    </p>
-
                     <p class="text-lg mb-8">
                         Withdraw your money using
                         <span class="text-violet-500"> USDT (TetherUS)</span>
@@ -121,32 +153,44 @@ pi-arrow-down" />
 
                     <div class="flex flex-col justify-center gap-2 mb-4 items-center w-full">
                         <div class="flex w-full items-center gap-4">
-                            <label for="email" class="font-semibold w-24">Amount</label>
-                            <InputNumber :min="500" :max="2800" mode="currency" currency="USD" inputId="withoutgrouping"
+                            <label for="email" class="font-semibold w-36">Amount</label>
+                            <InputNumber :min="5" v-model="AmountUs" :max="props.user.balance" mode="currency" currency="USD" inputId="withoutgrouping"
                                 :useGrouping="false" fluid />
                         </div>
                         <div class="flex w-full items-center gap-4 mb-8">
-                            <label for="email" class="font-semibold w-24">Adress ;</label>
+                            <label for="email" class="font-semibold w-36">Adress or Binance ID:</label>
                             <InputText v-model="BinanceAdress" fluid />
                         </div>
                         <div class="flex justify-end w-full gap-2">
                             <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
-                            <Button type="button" label="Send" @click="sendBinance" />
+                            <Button type="button" label="Send" @click="withdrawBinance" />
                         </div>
                     </div>
                 </TabPanel>
                 <TabPanel value="2">
-                    <p class="m-0">
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus qui blanditiis praesentium voluptatum deleniti
-                        atque corrupti quos dolores et quas molestias excepturi
-                        sint occaecati cupiditate non provident, similique sunt
-                        in culpa qui officia deserunt mollitia animi, id est
-                        laborum et dolorum fuga. Et harum quidem rerum facilis
-                        est et expedita distinctio. Nam libero tempore, cum
-                        soluta nobis est eligendi optio cumque nihil impedit quo
-                        minus.
+                    <p class="text-lg mb-8">
+                        Withdraw your money using
+                        <span class="text-violet-500"> USDT (TetherUS)</span>
+                        with
+                        <span class="text-violet-500"> TRX (TRC20)</span>
+                        network
                     </p>
+
+                    <div class="flex flex-col justify-center gap-2 mb-4 items-center w-full">
+                        <div class="flex w-full items-center gap-4">
+                            <label for="email" class="font-semibold w-36">Amount</label>
+                            <InputNumber :min="5" v-model="AmountUs" :max="props.user.balance" mode="currency" currency="USD" inputId="withoutgrouping"
+                                :useGrouping="false" fluid />
+                        </div>
+                        <div class="flex w-full items-center gap-4 mb-8">
+                            <label for="email" class="font-semibold w-36">Adress or Bybit ID:</label>
+                            <InputText v-model="ByBitAdress" fluid />
+                        </div>
+                        <div class="flex justify-end w-full gap-2">
+                            <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
+                            <Button type="button" label="Send" @click="withdrawByBit" />
+                        </div>
+                    </div>
                 </TabPanel>
             </TabPanels>
         </Tabs>

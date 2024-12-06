@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Deposit;
+use App\Models\DoneTask;
 use App\Models\Level;
 use App\Models\Offer;
+use App\Models\OfferSubscription;
 use App\Models\Reference;
+use App\Models\Subscription;
 use App\Models\User;
 use App\Models\Withdrawal;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -54,6 +58,51 @@ class AdminController extends Controller
         ]);
     }
 
+    public function schedule_offs(Request $request)
+    {
+        $offers = OfferSubscription::where('done', false)->where('status','confirmed')->get();
+        foreach ($offers as $offer) {
+            $level_days = $offer->offer->days;
+            if ($offer->created_at == Carbon::now()->subDays($level_days)) {
+                $offer->update([
+                    'done' => true
+                ]);
+                $user = $offer->user;
+                $user->update([
+                    'balance' => $user->balance + $offer->offer->amount + $offer->offer->amount*$offer->offer->percentage/100
+                ]);
+            }
+        }
+        return response()->json($offers->count());
+    }
+    public function schedule_subs(Request $request)
+     {
+        $subscriptions = Subscription::where('completed', false)
+        ->whereDate('created_at', Carbon::now()->subDays(5))
+        ->get();
+        foreach ($subscriptions as $subscription) {
+            $startDate = Carbon::now()->subDays(5);
+            $userTasks = DoneTask::where('user_id',$subscription->user_id)->where(function ($query) use ($startDate){
+                $query->whereDate('created_at','>=',$startDate)
+                        ->whereDate('created_at','<=',Carbon::today());
+            })->get();
+            $activeTasks = $userTasks->count() - $userTasks->where('status','confirmed')->count();
+            if ($activeTasks < 5) {
+                $subscription->update([
+                    'completed' => true
+                ]);
+                $user = $subscription->user;
+                $user->update([
+                    'balance' => $user->balance + $subscription->level->reward
+                ]);
+            }else {
+                $subscription->update([
+                    'completed' => true
+                ]);
+            }
+        }
+        return response()->json( $subscriptions->count());
+    }
     public function profile(Request $request)
     {
         return Inertia::render('Admin/Profile/Edit', [

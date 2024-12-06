@@ -27,6 +27,7 @@ import { usePage } from "@inertiajs/vue3";
             <SidebarButton :href="'admin.offers'" :label="'Offers'" :icon="'gift'" />
             <SidebarButton :href="'admin.offer_subscribers'" :label="'Offer Subs'" :icon="'gift'" />
             <SidebarButton :href="'admin.messages'" :label="'Messages'" :icon="'envelope'" />
+            <SidebarButton :href="'admin.config'" :label="'Config'" :icon="'cog'" />
 
         </div>
         <div class="hidden p-10 bg-gray-50 h-screen md:flex flex-col items-center px-4 py-4 space-y-4">
@@ -42,7 +43,7 @@ import { usePage } from "@inertiajs/vue3";
                 <SidebarButton :href="'admin.offers'" :label="'Offers'" :icon="'gift'" />
                 <SidebarButton :href="'admin.offer_subscribers'" :label="'Offer Subs'" :icon="'gift'" />
                 <SidebarButton :href="'admin.messages'" :label="'Messages'" :icon="'envelope'" />
-
+                <SidebarButton :href="'admin.config'" :label="'Config'" :icon="'cog'" />
             </div>
             <Link :href="route('admin.profile')">
             <div

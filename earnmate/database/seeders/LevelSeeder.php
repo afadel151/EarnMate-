@@ -16,51 +16,57 @@ class LevelSeeder extends Seeder
         Level::insert([
                 [
                     'level_number' => 1,
-                    'deposit_required' => 1000,
+                    'deposit_required' => 10,
                     'friends_required' => 0,
-                    'reward'=>500
+                    'reward'=>5
                 ],
                 [
                     'level_number' => 2,
-                    'deposit_required' => 2000,
+                    'deposit_required' => 20,
                     'friends_required' => 2,
-                    'reward'=>1000
+                    'reward'=>10
                 ],
                 [
                     'level_number' => 3,
-                    'deposit_required' => 5000,
+                    'deposit_required' => 40,
                     'friends_required' => 4,
-                    'reward'=>2500
+                    'reward'=>20
                 ],
                 [
                     'level_number' => 4,
-                    'deposit_required' => 8000,
+                    'deposit_required' => 80,
                     'friends_required' => 6,
-                    'reward'=>4000
+                    'reward'=>40
                 ],
                 [
                     'level_number' => 5,
-                    'deposit_required' => 12000,
+                    'deposit_required' => 150,
                     'friends_required' => 10,
-                    'reward'=>6000
+                    'reward'=>75
                 ],
                 [
                     'level_number' => 6,
-                    'deposit_required' => 18000,
+                    'deposit_required' => 250,
                     'friends_required' => 15,
-                    'reward'=>9000
+                    'reward'=>175
                 ],
                 [
                     'level_number' => 7,
-                    'deposit_required' => 24000,
+                    'deposit_required' => 500,
                     'friends_required' => 18,
-                    'reward'=>12000
+                    'reward'=>250
                 ],
                 [
                     'level_number' => 8,
-                    'deposit_required' => 30000,
+                    'deposit_required' => 900,
                     'friends_required' => 24,
-                    'reward'=>15000
+                    'reward'=>450
+                ],
+                [
+                    'level_number' => 9,
+                    'deposit_required' => 1500,
+                    'friends_required' => 28,
+                    'reward'=>750
                 ],
             ]);
     }

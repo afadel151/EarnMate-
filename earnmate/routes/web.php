@@ -98,6 +98,7 @@ Route::middleware(['auth', 'auth:sanctum'])->group(function () {
     });
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
     Route::get('/leaderboard', [UserController::class, 'leaderboard'])->name('leaderboard');
+    Route::get('/help', [UserController::class, 'help'])->name('help');
 });
 Route::get('/landing', function(){
     return Inertia::render('Landing');

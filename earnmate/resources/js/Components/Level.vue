@@ -42,11 +42,11 @@ async function subscribe(method) {
             toast.add({ severity: 'info', summary: 'Info', detail: 'Already subscribed', life: 3000 });
         }else if(response.data == 'insufficient_balance')
         {
-            toast.add({ severity: 'danger', summary: 'Info', detail: 'Insufficient balance', life: 3000 });
+            toast.add({ severity: 'error', summary: 'Info', detail: 'Insufficient balance', life: 3000 });
         }
         else if(response.data == 'less_friends')
         {
-            toast.add({ severity: 'info', summary: 'Info', detail: 'Need more Active friends', life: 3000 });
+            toast.add({ severity: 'warn', summary: 'Info', detail: 'Need more Active friends', life: 3000 });
         }else if(response.data == 'subscribed')
         {
             toast.add({ severity: 'success', summary: 'Info', detail: 'Subscribed', life: 3000 });
@@ -69,7 +69,7 @@ async function subscribe(method) {
                 </p>
 
                 <p class="text-lg font-semibold">
-                    💵 ${{ infos.deposit_required }}
+                    💵 ${{  infos.deposit_required }}
                 </p>
 
                 <div class="flex items-center gap-1">
@@ -90,7 +90,7 @@ async function subscribe(method) {
                 <h2 class="text-3xl font-bold text-gray-700">
                     🚀 Level {{ props.level }}
                 </h2>
-                <p class="text-xl text-gray-500 mt-2">Get $20 profit in 5 days!</p>
+                <p class="text-xl text-gray-500 mt-2">Get ${{ infos.reward }} profit in 5 days!</p>
             </div>
 
             <!-- Method 1 -->

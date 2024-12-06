@@ -65,8 +65,9 @@ class UserSeeder extends Seeder
         ];
         $admin = [
             'user_id' => 1,
-            'balance' => 0.00,
-            'RIP' => '12345678'
+            'baridi_balance' => 0.00,
+            'binance_balance' => 0.00,
+            'RIP' => '12345679'
         ];
         foreach ($users as $user) {
             User::create($user);

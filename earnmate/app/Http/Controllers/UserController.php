@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config;
 use App\Models\DoneTask;
 use App\Models\Offer;
 use App\Models\Subscription;
@@ -47,19 +48,11 @@ class UserController extends Controller
 
     public function help()
     {
-        
+        return Inertia::render('Help');
     }
     public function getDzdPrice()
     {
-        $price = Cache::remember('dzd_price', now()->endOfDay(), function () {
-        $response = Http::get('https://v6.exchangerate-api.com/v6/46f2bf6cd33a88da3966d7f3/latest/USD');
-        if ($response->failed()) {
-            return 264.3;
-        }
-        $data = $response->json();
-        return $data['conversion_rates']['DZD'] + 120; 
-        });
-        return response()->json(['price' => $price]);
+        return response()->json(['price' => Config::find(1)->dzd_price]);
     }
     /**
      * Show the form for creating a new resource.

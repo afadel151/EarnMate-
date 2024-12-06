@@ -12,7 +12,8 @@ class Admin extends Model
     protected $fillable = [
         'RIP',
         'user_id',
-        'balance'
+        'baridi_balance',
+        'binance_balance',
     ];
     public function user(): BelongsTo
     {

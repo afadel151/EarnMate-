@@ -13,8 +13,20 @@ return new class extends Migration
     {
         Schema::create('configs', function (Blueprint $table) {
             $table->id();
+            $table->integer('max_balance');
+            $table->integer('level_days');
+            $table->integer('baridi_tax_percentage');
+            $table->integer('binance_tax_percentage');
+            $table->integer('dzd_price');
             $table->timestamps();
         });
+        DB::table('configs')->insert([
+            'max_balance' => 1200,
+            'level_days' =>5,
+            'baridi_tax_percentage' => 10,
+            'binance_tax_percentage' => 5,
+            'dzd_price' => 254
+        ]);
     }
 
     /**

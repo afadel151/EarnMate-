@@ -29,7 +29,7 @@ const user = usePage().props.auth.user;
         <SidebarButton :href="'help'" :label="'Help'" :icon="'info-circle'" />
         <SidebarButton :href="'profile.edit'" :label="'Profile'" :icon="'cog'" />
     </div>
-    <div class="hidden backdrop-blur-sm  bg-white/70 p-10 h-screen md:flex flex-col items-center px-4 py-4 space-y-4">
+    <div class="hidden backdrop-blur-sm  bg-white/70 p-10 h-screen border-r md:flex flex-col items-center px-4 py-4 space-y-4">
         <img src="/svgs/logo2.svg" class="my-10" alt="" />
         <div class="flex-grow flex flex-col  items-stretch  space-y-4">
             <SidebarButton :href="'dashboard'" :label="'Dashboard'" :icon="'home'" />

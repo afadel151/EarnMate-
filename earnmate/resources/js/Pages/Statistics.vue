@@ -30,7 +30,7 @@ onMounted(() => {
             class="md:grid flex flex-col space-y-5 md:space-y-0 px-5 grid-cols-1 md:p-10 md:px-[12rem] font-['GeneralSans-Medium'] md:grid-cols-6 md:grid-rows-5 md:gap-5 md:h-full w-full">
             <UserDetails :user="user" /> 
             <div
-                class="backdrop-blur-md bg-white/70 shadow-sm  md:col-span-2 rounded-md md:row-span-1 p-5 md:col-start-3">
+                class="backdrop-blur-md bg-white/70 shadow-md  md:col-span-2 rounded-md md:row-span-1 p-5 md:col-start-3">
                 <div class="w-full h-full rounded-md  ">
                     <div class="  rounded-lg flex flex-col md:space-y-0 space-y-3  justify-around h-full w-full items-start ">
                         <div class="h-12 flex justify-start items-center w-full  space-x-2">
@@ -47,7 +47,7 @@ onMounted(() => {
                 </div>
             </div>
             <div
-                class="col-start-3 p-5 flex md:space-y-0 space-y-8 flex-col justify-around items-center row-start-2 col-span-2  backdrop-blur-md bg-white/70 shadow-sm rounded-md">
+                class="col-start-3 p-5 flex md:space-y-0 space-y-8 flex-col justify-around items-center row-start-2 col-span-2  backdrop-blur-md bg-white/70 shadow-md rounded-md">
                 <div class="h-12 flex justify-start items-center w-full  space-x-2">
                     <span class="avatar-initial rounded bg-orange-100 w-14  h-14 flex justify-center items-center">
                         <box-icon name='dollar' type='solid' color='#ffa600' size="md"></box-icon>
@@ -59,7 +59,7 @@ onMounted(() => {
                     <Withdraw :user="user" />
                 </div>
             </div>
-            <div class="bg-white z-10  shadow-sm md:col-span-4 row-span-3 rounded-md p-4 md:row-start-3">
+            <div class="bg-white z-10  shadow-md md:col-span-4 row-span-3 rounded-md p-4 md:row-start-3">
                 <div class="h-12 mt-4 p-4 flex justify-start items-center w-full  space-x-2">
                     <span class="avatar-initial rounded bg-[#f5918829] w-14  h-14 flex justify-center items-center">
                         <!-- <box-icon type='solid' name='star' ></box-icon> -->
@@ -70,7 +70,7 @@ onMounted(() => {
                 <History :tasks="props.tasks" />
             </div>
             <div
-                class="backdrop-blur-md bg-white/3  bg-white/70 shadow-sm md:col-span-2 rounded-md md:row-span-4 md:row-start-2 p-8 md:col-start-5">
+                class="backdrop-blur-md bg-white/3  bg-white/70 shadow-md md:col-span-2 rounded-md md:row-span-4 md:row-start-2 p-8 md:col-start-5">
                 <div class="flex flex-col h-full  justify-start gap-4 items-center w-full rounded-md">
                     <div class="h-12 flex justify-start items-center w-full  space-x-2">
                         <span class="avatar-initial rounded bg-[#f5e38829] w-14  h-14 flex justify-center items-center">
@@ -82,7 +82,7 @@ onMounted(() => {
                 </div>
             </div>
             <div
-                class="backdrop-blur-md bg-white/3 p-5   bg-white/70 shadow-sm md:col-span-2 rounded-md md:row-span-1 md:row-start-1 md:p-6 md:col-start-5">
+                class="backdrop-blur-md bg-white/3 p-5   bg-white/70 shadow-md md:col-span-2 rounded-md md:row-span-1 md:row-start-1 md:p-6 md:col-start-5">
                 <p class="text-xl text-gray-500 mb-8">{{ formattedDate }}</p>
                 <div class="w-full flex   justify-around items-center">
                     <img src="/imgs/admin/usdt-logo.png" class="w-10" alt="">

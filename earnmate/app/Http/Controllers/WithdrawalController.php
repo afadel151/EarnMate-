@@ -49,31 +49,39 @@ class WithdrawalController extends Controller
     }
     public function withdraw_binance(Request $request)
     {
-        $rip = $request->rip;
+        $adress = $request->adress;
         $amount = $request->amount;
-
-       
         if (Auth::user()->balance < $amount) {
             return response()->json('failed');
         }
         $withdrawal = new Withdrawal;
-        $withdrawal->destination = $rip;
-        $withdrawal->method = 'baridi';
+        $withdrawal->destination = $adress;
+        $withdrawal->method = 'binance';
         $withdrawal->amount = $amount;
         $withdrawal->user_id = Auth::user()->id;
         $withdrawal->processed_at = Carbon::now();
-        $admins = Admin::all();
-        foreach ($admins as $admin) {
-            $amounts = $admin->withdrawals()->whereDate('created_at', Date::today())
-                            ->sum('amount');
-            if ($amounts < 200000) {
-                $withdrawal->admin_id = $admin->id;
-                $withdrawal->status = 'pending';
-                $withdrawal->save();
-                return response()->json($withdrawal);
-            }
+        $withdrawal->admin_id = 1;
+        $withdrawal->status = 'pending';
+        $withdrawal->save();
+        return response()->json($withdrawal);
+    }
+    public function withdraw_bybit(Request $request)
+    {
+        $adress = $request->adress;
+        $amount = $request->amount;
+        if (Auth::user()->balance < $amount) {
+            return response()->json('failed');
         }
-        return response()->json('failed');
+        $withdrawal = new Withdrawal;
+        $withdrawal->destination = $adress;
+        $withdrawal->method = 'bybit';
+        $withdrawal->amount = $amount;
+        $withdrawal->user_id = Auth::user()->id;
+        $withdrawal->processed_at = Carbon::now();
+        $withdrawal->admin_id = 1;
+        $withdrawal->status = 'pending';
+        $withdrawal->save();
+        return response()->json($withdrawal);
     }
     public function edit_status(Request $request)
     {
@@ -88,9 +96,16 @@ class WithdrawalController extends Controller
                 $user->update([
                     'balance' => $user->balance - $withdrawal->amount
                 ]);
-                $withdrawal->admin->update([
-                    'balance' => $withdrawal->admin->balance -  $withdrawal->amount
-                ]);
+                if ($withdrawal->method == 'baridi') {
+                    $withdrawal->admin->update([
+                        'baridi_balance' => $withdrawal->admin->baridi_balance -  $withdrawal->amount
+                    ]);
+                }else {
+                    $withdrawal->admin->update([
+                        'binance_balance' => $withdrawal->admin->binance_balance -  $withdrawal->amount
+                    ]);
+                }
+                
             }
         }
         return response()->json($withdrawal);   

@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\DepositController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\MessageController;
@@ -9,6 +10,11 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WithdrawalController;
+use App\Models\DoneTask;
+use App\Models\OfferSubscription;
+use App\Models\Subscription;
+use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/api')->group(function (){
@@ -26,6 +32,8 @@ Route::prefix('/api')->group(function (){
     Route::post('/messages/add', [MessageController::class, 'add_user']);
     Route::prefix('/withdrawals')->group(function (){
         Route::post('/withdraw_baridi', [WithdrawalController::class, 'withdraw_baridi']);
+        Route::post('/withdraw_binance', [WithdrawalController::class, 'withdraw_binance']);
+        Route::post('/withdraw_bybit', [WithdrawalController::class, 'withdraw_bybit']);
     });
     Route::prefix('/tasks')->group(function(){
         Route::post('/confirm', [TaskController::class, 'confirm']);
@@ -38,6 +46,8 @@ Route::prefix('/api')->group(function (){
     });
     // withdraw_baridi
     Route::middleware(\App\Http\Middleware\AdminMiddleware::class)->prefix('/admin')->group(function () {
+        Route::get('/schedule/subscriptions', [AdminController::class, 'schedule_subs'])->name('schedule.subscription');
+        Route::get('/schedule/offer',[AdminController::class, 'schedule_offs'])->name('schedule.offers');
         Route::prefix('/tasks')->group(function(){
             Route::get('/', [TaskController::class, 'gettasks']);
             Route::post('/add', [TaskController::class, 'add']);
@@ -45,7 +55,7 @@ Route::prefix('/api')->group(function (){
         });
         Route::post('/messages/add', [MessageController::class, 'add_admin']);
         Route::get('/messages/convs', [MessageController::class, 'get_conversations']);
-        
+        Route::post('/config', [ConfigController::class, 'edit']);
         
         // get_conversations
         Route::get('/money_chart_data', [AdminController::class, 'getMoneyChartData']);
