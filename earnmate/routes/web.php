@@ -8,9 +8,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Models\DoneTask;
 use App\Models\OfferSubscription;
 use App\Models\Subscription;
-use App\Models\User;
 use Carbon\Carbon;
-
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
