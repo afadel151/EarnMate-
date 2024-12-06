@@ -6,7 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
-import { Button } from 'primevue';
+import { Button, Toast, useToast } from 'primevue';
 import store from '@/stores/tokenStore';
 defineProps({
     canResetPassword: {
@@ -23,22 +23,23 @@ const form = useForm({
     remember: false,
     _token: usePage().props.auth.crsf
 });
-
-const submit =async  () => {
+const toast = useToast();
+ 
+const submit = async  () => {
     try {
         let response = await axios.post('/login', {...form})
-        console.log(response.data);
         store.state.user.token = response.data;
         router.visit(route('dashboard'));
     } catch (error) {
-        console.log(error);
+        form.reset();
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Incorrect cridentials', life: 3000 });
     }
 };
 </script>
 
 <template>
     <GuestLayout>
-
+        <Toast />
         <Head title="Log in" />      
         <div class="w-full h-[75%] flex md:flex-row flex-col justify-center items-center md:space-x-36 md:px-[400px] ">
             <div class="flex flex-col w-[70%] text-[#6a38ff] justify-center  h-full">

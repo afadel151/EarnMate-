@@ -21,10 +21,10 @@ onMounted(() => {
 
 <template>
     <MyLayout>
-        <div class="w-full px-[15rem] pt-20 ">
-            <div class="bg-white w-full mb-10 pt-20 px-10 border rounded-xl">
+        <div class="w-full md:px-[15rem] md:pt-20 ">
+            <div class="bg-white w-full mb-10 md:pt-20 pt-10 px-10 border rounded-xl">
                 <div id="top" class="flex items-center">
-                    <img src="/svgs/logo2.svg" class="my-10 h-20" alt="" />
+                    <img src="/svgs/logo2.svg" class="my-10 hidden md:block h-20" alt="" />
                     <p class="text-6xl font-bold text-gray-700">: HELP</p>
                 </div>
                 <div class="mt-5">
@@ -50,32 +50,36 @@ onMounted(() => {
                 </div>
                 <div id="levels" class="mt-10 text-lg">
                     <p class="text-4xl font-bold text-gray-700">#Levels</p>
-                    <p class="text-xl mt-5 pl-5">Levels are the foundation of Toro. Each level determines:
+                    <p class="text-xl mt-5 md:pl-5">Levels are the foundation of Toro. Each level determines:
                     </p>
-                    <ul class="pl-10 mt-4">
+                    <ul class="md:pl-10 mt-4">
                         <li>
-                            <div class="flex items-center">
-                                <div class="h-2 w-2 rounded-full mr-2 bg-slate-800"></div>
+                            <p>
+                                <span>●</span>
                                 <strong> Deposit Requirement:</strong> The amount you need to invest.
-                            </div>
+                            </p>
+                                
                         </li>
                         <li>
-                            <div class="flex items-center">
-                                <div class="h-2 w-2 rounded-full mr-2 bg-slate-800"></div>
+                            <p>
+                                <span>●</span>
                                 <strong> Profit Percentage:</strong> a percentage of your deposit returned as profit
-                                after task completion.
-                            </div>
+                                after task completion.                          
+                             </p>
+                           
+                                
+                           
                         </li>
                         <li>
-                            <div class="flex items-center">
-                                <div class="h-2 w-2 rounded-full mr-2 bg-slate-800"></div>
+                            <p>
+                                <span>●</span>
                                 <strong> Task Requirement:</strong> The minimum number of tasks you must complete to
                                 qualify for profit.
-                            </div>
+                            </p>
                         </li>
                     </ul>
-                    <p class="text-2xl pl-5 mt-5">Key Points:</p>
-                    <ol class="pl-10 mt-4">
+                    <p class="text-2xl md:pl-5 mt-5">Key Points:</p>
+                    <ol class="md:pl-10 mt-4">
                         <li>
                             <strong>1. Subscription:</strong> To join a level, make the required deposit and complete
                             all tasks within the specified time.
@@ -87,7 +91,7 @@ onMounted(() => {
                         <li>
                             <strong>3. Advanced Levels::</strong> Unlock higher levels by sharing your registration link
                             with others. Each referral must:
-                            <ul class="mt-2 pl-5">
+                            <ul class="mt-2 md:pl-5">
                                 <li class="flex items-center">
                                     <div class="h-2 w-2 rounded-full mr-2 bg-slate-800"></div> Register using your link.
                                 </li>
@@ -98,8 +102,8 @@ onMounted(() => {
                             </ul>
                         </li>
                     </ol>
-                    <p class="text-2xl pl-5 mt-5  font-bold">Example :</p>
-                    <ol class="pl-10 mt-4">
+                    <p class="text-2xl md:pl-5 mt-5  font-bold">Example :</p>
+                    <ol class="md:pl-10 mt-4">
                         <li>
                             <strong>1. Level 1:</strong> Deposit $10, Profit 50%, Complete all tasks.
                         </li>
@@ -110,23 +114,24 @@ onMounted(() => {
                 </div>
                 <div id="offers" class="mt-10 text-lg">
                     <p class="text-4xl font-bold text-gray-700">#Offers</p>
-                    <p class="text-xl mt-5 pl-5">Toro frequently provides special offers with:
+                    <p class="text-xl md:mt-5 pl-5">Toro frequently provides special offers with:
                     </p>
-                    <ul class="pl-10 mt-4">
+                    <ul class="md:pl-10 mt-4">
                         <li>
-                            <div class="flex items-center">
-                                <div class="h-2 w-2 rounded-full mr-2 bg-slate-800"></div>
+                            <p>
+                                <span>●</span>
+                                
                                 <strong> Higher Profit Margins:</strong> Earn a greater percentage on your deposit..
-                            </div>
+                            </p>
                         </li>
                         <li>
-                            <div class="flex items-center">
-                                <div class="h-2 w-2 rounded-full mr-2 bg-slate-800"></div>
+                            <p>
+                                <span>●</span>
                                 <strong> Shorter Periods:</strong> Complete fewer tasks over a shorter timeframe.
-                            </div>
+                            </p>
                         </li>
                     </ul>
-                    <p class="text-xl mt-5 pl-5">These offers are limited-time opportunities and appear on your
+                    <p class="text-xl mt-5 md:pl-5">These offers are limited-time opportunities and appear on your
                         dashboard. Stay alert for updates
                         to make the most of them!
 
@@ -134,11 +139,11 @@ onMounted(() => {
                 </div>
                 <div id="tasks" class="mt-10 text-lg">
                     <p class="text-4xl font-bold text-gray-700">#Tasks</p>
-                    <p class="text-xl mt-5 pl-5">Tasks are the core of Toro’s earning mechanism. Each task is designed
+                    <p class="text-xl mt-5 md:pl-5">Tasks are the core of Toro’s earning mechanism. Each task is designed
                         by our partners and tailored to their needs.
                     </p>
-                    <p class="text-2xl pl-5 mt-5  font-bold">Completing Tasks :</p>
-                    <ol class="pl-10 mt-4">
+                    <p class="text-2xl md:pl-5 mt-5  font-bold">Completing Tasks :</p>
+                    <ol class="md:pl-10 mt-4">
                         <li>
                             <strong>1. </strong> Access your task list on the dashboard.
                         </li>
@@ -149,8 +154,8 @@ onMounted(() => {
                             <strong>3. </strong> Submit your work for approval.
                         </li>
                     </ol>
-                    <p class="text-2xl pl-5 mt-5  font-bold">Task Completion Tips :</p>
-                    <ol class="pl-10 mt-4">
+                    <p class="text-2xl md:pl-5 mt-5  font-bold">Task Completion Tips :</p>
+                    <ol class="md:pl-10 mt-4">
                         <li>
                             <strong>1. </strong> Ensure accuracy and adhere to guidelines.
                         </li>
@@ -164,10 +169,10 @@ onMounted(() => {
                 </div>
                 <div id="deposits" class="mt-10 text-lg">
                     <p class="text-4xl font-bold text-gray-700">#Deposits</p>
-                    <p class="text-xl mt-5 pl-5">Deposits allow you to subscribe to levels and participate in Toro.
+                    <p class="text-xl mt-5 md:pl-5">Deposits allow you to subscribe to levels and participate in Toro.
                     </p>
-                    <p class="text-2xl pl-5 mt-5  font-bold">How It Works :</p>
-                    <ol class="pl-10 mt-4">
+                    <p class="text-2xl md:pl-5 mt-5  font-bold">How It Works :</p>
+                    <ol class="md:pl-10 mt-4">
                         <li>
                             <strong>1. </strong> Choose a level.
                         </li>
@@ -184,10 +189,10 @@ onMounted(() => {
                 </div>
                 <div id="withdrawals" class="mt-10 text-lg">
                     <p class="text-4xl font-bold text-gray-700">#Withdrawals</p>
-                    <p class="text-xl mt-5 pl-5">Once you complete all tasks for your level within the given timeframe,
+                    <p class="text-xl mt-5 md:pl-5">Once you complete all tasks for your level within the given timeframe,
                         you can withdraw:
                     </p>
-                    <ol class="pl-10 mt-4">
+                    <ol class="md:pl-10 mt-4">
                         <li>
                             <strong>1. </strong> Your initial deposit.
                         </li>
@@ -195,8 +200,8 @@ onMounted(() => {
                             <strong>2. </strong>Your profit based on the level's percentage.
                         </li>
                     </ol>
-                    <p class="text-2xl pl-5 mt-5  font-bold">Withdrawal Process :</p>
-                    <ol class="pl-10 mt-4">
+                    <p class="text-2xl md:pl-5 mt-5  font-bold">Withdrawal Process :</p>
+                    <ol class="md:pl-10 mt-4">
                         <li>
                             <strong>1. </strong> click on the "Withdraw" button on your Statistics page.
                         </li>
@@ -218,10 +223,10 @@ onMounted(() => {
                 </div>
                 <div id="methods" class="mt-10 text-lg">
                     <p class="text-4xl font-bold text-gray-700">#Payment methods</p>
-                    <p class="text-xl mt-5 pl-5">Toro supports multiple payment methods to ensure a seamless experience.
+                    <p class="text-xl mt-5 md:pl-5">Toro supports multiple payment methods to ensure a seamless experience.
                     </p>
-                    <p class="text-3xl mt-5 font-bold pl-5 mb-4">1-Example of Deposit using binance.</p>
-                    <div class="pl-20">
+                    <p class="text-3xl mt-5 font-bold md:pl-5 mb-4">1-Example of Deposit using binance.</p>
+                    <div class="md:pl-20">
                         <p class="text-2xl font-bold text-gray-900 mb-4">1 Open binance app and select Wallets section
                         </p>
                         <div class="mockup-phone ml-10">
@@ -231,7 +236,7 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
-                    <div class="pl-20 mt-5">
+                    <div class="md:pl-20 mt-5">
                         <p class="text-2xl font-bold text-gray-900 mb-4">2 Go to spot section and search for USDT </p>
                         <div class="mockup-phone ml-10">
                             <div class="camera"></div>
@@ -240,7 +245,7 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
-                    <div class="pl-20 mt-5">
+                    <div class="md:pl-20 mt-5">
                         <p class="text-2xl font-bold text-gray-900 mb-4">3 Click withdraw </p>
                         <div class="mockup-phone ml-10">
                             <div class="camera"></div>
@@ -249,7 +254,7 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
-                    <div class="pl-20 mt-5">
+                    <div class="md:pl-20 mt-5">
                         <p class="text-2xl font-bold text-gray-900 mb-4">4 Select send via Email/Phone/ID </p>
                         <div class="mockup-phone ml-10">
                             <div class="camera"></div>
@@ -258,7 +263,7 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
-                    <div class="pl-20 mt-5">
+                    <div class="md:pl-20 mt-5">
                         <p class="text-2xl font-bold text-gray-900 mb-4">5 Enter the ID provided by the app and the
                             amount you wish to deposit and click send </p>
                         <div class="mockup-phone ml-10">
@@ -268,8 +273,8 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
-                    <p class="text-3xl mt-5 font-bold pl-5 mb-4">2-Example of Deposit using bybit.</p>
-                    <div class="pl-20">
+                    <p class="text-3xl mt-5 font-bold md:pl-5 mb-4">2-Example of Deposit using bybit.</p>
+                    <div class="md:pl-20">
                         <p class="text-2xl font-bold text-gray-900 mb-4">1 Open binance app and select Assets section
                             and click withdraw </p>
                         <div class="mockup-phone ml-10">
@@ -279,7 +284,7 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
-                    <div class="pl-20 mt-5">
+                    <div class="md:pl-20 mt-5">
                         <p class="text-2xl font-bold text-gray-900 mb-4">2 Search for usdt </p>
                         <div class="mockup-phone ml-10">
                             <div class="camera"></div>
@@ -288,7 +293,7 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
-                    <div class="pl-20 mt-5">
+                    <div class="md:pl-20 mt-5">
                         <p class="text-2xl font-bold text-gray-900 mb-4">2 Enter the ID provided by the app and the
                             amount you wish to deposit and click send </p>
                         <div class="mockup-phone ml-10">
@@ -301,10 +306,10 @@ onMounted(() => {
                 </div>
                 <div id="contact" class="mt-10 text-lg">
                     <p class="text-4xl font-bold text-gray-700">#Contact Admin</p>
-                    <p class="text-xl mt-5 pl-5">Need assistance? Our support team is here to help..</p>
-                    <p class="text-3xl mt-5 font-bold pl-5 mb-4">1- Use the "Contact Admin" page on your dashboard to
+                    <p class="text-xl mt-5 md:pl-5">Need assistance? Our support team is here to help..</p>
+                    <p class="text-3xl mt-5 font-bold md:pl-5 mb-4">1- Use the "Contact Admin" page on your dashboard to
                         Report issues.</p>
-                    <div class="pl-20">
+                    <div class="md:pl-20">
                         <div class="mockup-phone ml-10">
                             <div class="camera"></div>
                             <div class="display w-80 ">
@@ -315,9 +320,9 @@ onMounted(() => {
                 </div>
                 <div id="bonus" class="mt-10 text-lg">
                     <p class="text-4xl font-bold text-gray-700">#Bonuse</p>
-                    <p class="text-xl mt-5 pl-5">Toro rewards users who help grow the community.</p>
-                    <p class="text-2xl pl-5 mt-5  font-bold">Referral Bonuses:</p>
-                    <ol class="pl-10 mt-4">
+                    <p class="text-xl mt-5 md:pl-5">Toro rewards users who help grow the community.</p>
+                    <p class="text-2xl md:pl-5 mt-5  font-bold">Referral Bonuses:</p>
+                    <ol class="md:pl-10 mt-4">
                         <li>
                             <strong>1.</strong> Share your unique registration link with others.
                         </li>
@@ -325,8 +330,8 @@ onMounted(() => {
                             <strong>2.</strong> Earn 10% of the referred user’s first level deposit.
                         </li>
                     </ol>
-                    <p class="text-xl pl-5 mt-5  font-bold">Bonus Rules :</p>
-                    <ol class="pl-10 mt-4">
+                    <p class="text-xl md:pl-5 mt-5  font-bold">Bonus Rules :</p>
+                    <ol class="md:pl-10 mt-4">
                         <li>
                             <strong>1.</strong> Referrals must be active users (subscribe to a level at least once).
                         </li>
