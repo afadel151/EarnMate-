@@ -117,8 +117,7 @@ class DepositController extends Controller
         if ($request->status == 'confirmed' ) {
             if ($old_status == 'pending') {
                 if ($deposit->method == 'baridi') {
-                    $newbalance = $user->balance + $deposit->amount - $deposit->amount*Config::find(1)->baridi_percentage/100;
-                    \Log::info($newbalance);
+                    $newbalance = $user->balance + $deposit->amount - $deposit->amount * Config::find(1)->baridi_tax_percentage/100;
                     $user->update([
                         'balance' => $newbalance
                     ]);
@@ -126,7 +125,7 @@ class DepositController extends Controller
                         'baridi_balance' => $deposit->admin->baridi_balance +  $deposit->amount
                     ]);
                 }else{
-                    $newbalance = $user->balance + $deposit->amount - $deposit->amount * Config::find(1)->binance_percentage / 100;
+                    $newbalance = $user->balance + $deposit->amount - $deposit->amount * Config::find(1)->binance_tax_percentage / 100;
                     \Log::info($newbalance);
                     $user->update([
                         'balance' => $newbalance

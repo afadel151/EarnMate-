@@ -31,11 +31,11 @@ async function submit(){
 <template>
     <AdminLayout>
         <Toast/>
-        <div class="h-full w-full flex justify-center items-center">
-            <div class="w-[50rem] bg-white p-10 rounded-2xl shadow-custom-purple">
+        <div class="h-full md:px-0 md:pt-0 pt-20 p px-5 w-full flex justify-center items-center">
+            <div class="md:w-[50rem] w-full bg-white p-10 rounded-2xl shadow-custom-purple">
                 <p class="text-4xl font-bold text-gray-600 mb-8">Config </p>
                 <div class="flex items-center gap-4 mb-4">
-                    <label for="name" class="font-semibold w-52">Admin max balance :</label>
+                    <label for="name" class="font-semibold w-52">Max balance :</label>
                     <InputNumber currency="USD"  mode="currency" :withoutGrouping="false"  id="name" v-model="form.max_balance" class="flex-auto" autocomplete="off" />
                 </div>
                 <div class="flex items-center gap-4 mb-8">

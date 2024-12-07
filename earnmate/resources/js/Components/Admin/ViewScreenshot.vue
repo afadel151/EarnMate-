@@ -1,16 +1,40 @@
 <script setup>
 import { Dialog } from 'primevue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Image from 'primevue/image';
+import axiosClient from '@/axios';
 const props = defineProps({
     src: String
 })
 const visible = ref(false);
+const fd = new FormData;
+fd.append('path',props.src);
+async function getImage() {
+    try {
+        
+        const response = await axiosClient.post('/get_image', fd, {
+                    responseType: 'blob', // Important for handling binary data
+                });
+        const blob = new Blob([response.data], { type: response.headers['content-type'] });
+        imageUrl.value = URL.createObjectURL(blob); // Create a URL for the image
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+async function showImage() {
+            await getImage();
+            visible.value = true;
+        }
+const imageUrl = ref(null);
+onMounted(()=>{
+    getImage();
+});
 </script>
 
 <template>
-   <img :src="props.src == 'no_screenshot' ? '/laravel/public/imgs/admin/no_screenshot.jpg' : `/laravel/public/${props.src}`" @click="props.src == 'no_screenshot' ? visible = false : visible = true" class="w-20" alt="">
+<button @click="showImage">Show Image</button>
     <Dialog v-model:visible="visible" modal header="Screenshot" class="w-[50%] h-[80%]">
-        <Image :src="props.src == 'no_screenshot' ? '/laravel/public/imgs/admin/no_screenshot.jpg' : `/laravel/public/${props.src}`" ></Image>
+        <img v-if="imageUrl" :src="imageUrl" alt="Loaded Image" />
     </Dialog>
 </template>

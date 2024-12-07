@@ -15,6 +15,7 @@ use App\Models\OfferSubscription;
 use App\Models\Subscription;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/api')->group(function (){
@@ -44,7 +45,15 @@ Route::prefix('/api')->group(function (){
         Route::post('/binance', [OfferController::class, 'binance']);
         Route::post('/bybit', [OfferController::class, 'bybit']);
     });
-    // withdraw_baridi
+    Route::post('/get_image', function (Request $request) {
+        $path = $request->path;
+        if (Storage::disk('local')->exists($path)) {
+            \Log::info($path);
+            return response()->file(Storage::disk('local')->path($path));
+        }
+        return response()->file(Storage::disk('local')->path('no_screenshot.jpg'));
+    });
+
     Route::middleware(\App\Http\Middleware\AdminMiddleware::class)->prefix('/admin')->group(function () {
         Route::get('/schedule/subscriptions', [AdminController::class, 'schedule_subs'])->name('schedule.subscription');
         Route::get('/schedule/offer',[AdminController::class, 'schedule_offs'])->name('schedule.offers');

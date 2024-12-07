@@ -8,7 +8,7 @@
                 </video>
             </div>
             <div class="landing md:w-[40%]  flex flex-col space-y-10  md:space-y-3 items-stretch  h-full ">
-                <div class="h-[50%] pl-5 w-full flex flex-col justify-center md:space-y-12 space-y-4 items-start rounded-[40px] ">
+                <div class="h-[50%] md:pl-5 w-full flex flex-col justify-center md:space-y-12 space-y-4 items-start rounded-[40px] ">
                         <div class="flex items-center space-x-4">
                             <img src="/svgs/megaphone-1.svg" alt="">
                             <p class="text-4xl font-bold text-gray-900">Advertise</p>
@@ -18,7 +18,7 @@
                         </p>
                         <button class="text-gray-800 p-2 px-4 text-xl bg-[#b7f763] rounded-full">Learn more</button>
                 </div>
-                 <div class="h-[50%] pl-5 w-full flex flex-col justify-center md:space-y-12 space-y-4 items-start rounded-[40px] ">
+                 <div class="h-[50%] md:pl-5 w-full flex flex-col justify-center md:space-y-12 space-y-4 items-start rounded-[40px] ">
                         <div class="flex items-center space-x-4">
                             <img src="/svgs/pay-per-click-1-1.svg" alt="">
                             <p class="text-4xl font-bold text-gray-900">Make  money</p>
