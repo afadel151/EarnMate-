@@ -41,45 +41,45 @@ const submit = async  () => {
     <GuestLayout>
         <Toast />
         <Head title="Log in" />      
-        <div class="w-full h-[75%] flex md:flex-row flex-col justify-center items-center md:space-x-36 md:px-[400px] ">
-            <div class="flex flex-col w-[70%] text-[#6a38ff] justify-center  h-full">
-                <p class="font-bold text-lg text-black">Log in</p>
-                <p class="md:text-7xl text-6xl">Acess your account</p>
-                <p class="md:text-8xl text-7xl font-black">and explore our service</p>
+        <div class="flex md:flex-row flex-col justify-center items-center md:space-x-36 md:px-[400px] w-full h-[75%]">
+            <div class="flex flex-col justify-center w-[70%] h-full text-[#6a38ff]">
+                <p class="font-bold text-black text-lg">Log in</p>
+                <p class="text-6xl md:text-7xl">Acess your account</p>
+                <p class="font-black text-7xl md:text-8xl">and explore our service</p>
                 <p></p>
             </div>
-            <form @submit.prevent="submit" class="md:w-[50%] w-[80%] shadow-custom-purple border-2 rounded-2xl flex space-y-5 md:mt-0 mt-10 flex-col justify-around md:py-5 py-10 items-center md:pb-10 pb-5  h-full">
-                <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full mt-5 " icon="pi pi-google" label="continue with Google"  severity="help" /></a>
-                <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full  " icon="pi pi-facebook" label="continue with Facebook"  severity="info" /></a>
+            <form @submit.prevent="submit" class="flex flex-col justify-around items-center space-y-5 border-2 shadow-custom-purple mt-10 md:mt-0 py-10 md:py-5 pb-5 md:pb-10 rounded-2xl w-[80%] md:w-[50%] h-full">
+                <a href="/auth/google/redirect" class="px-10 w-full"><Button class="mt-5 w-full" icon="pi pi-google" label="continue with Google"  severity="help" /></a>
+                <a href="/auth/facebook/redirect" class="px-10 w-full"><Button class="w-full" icon="pi pi-facebook" label="continue with Facebook"  severity="info" /></a>
 
-                <div class="w-full px-10">
+                <div class="px-10 w-full">
                     <InputLabel for="email" class="text-xl" value="Your e-mail" />
 
-                    <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus
+                    <TextInput id="email" type="email" class="block mt-1 w-full" v-model="form.email" required autofocus
                         autocomplete="username" />
 
                     <InputError class="mt-2" :message="form.errors.email" />
                 </div>
 
-                <div class=" w-full px-10">
+                <div class="px-10 w-full">
                     <InputLabel for="password" class="text-xl" value="password" />
 
-                    <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required
+                    <TextInput id="password" type="password" class="block mt-1 w-full" v-model="form.password" required
                         autocomplete="current-password" />
 
                     <InputError class="mt-2" :message="form.errors.password" />
                 </div>
 
-                <div class=" block w-full px-10">
+                <div class="block px-10 w-full">
                     <label class="flex items-center">
                         <Checkbox name="remember" :checked="form.remember" />
-                        <span class="ms-2 text-sm text-gray-600">Remember me</span>
+                        <span class="text-gray-600 text-sm ms-2">Remember me</span>
                     </label>
                 </div>
 
-                <div class="mt-4 flex items-center w-full px-10 justify-end">
+                <div class="flex justify-end items-center mt-4 px-10 w-full">
                     <Link v-if="canResetPassword" :href="route('password.request')"
-                        class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        class="rounded-md focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-gray-600 text-sm hover:text-gray-900 underline focus:outline-none">
                     Forgot your password?
                     </Link>
 
