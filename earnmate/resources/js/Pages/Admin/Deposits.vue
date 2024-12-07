@@ -117,7 +117,7 @@ function extractDate(datetime) {
                 </Column>
                 <Column field="method" header="Method" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        <img :src="`/imgs/admin/${data.method}.png`" class="w-14" alt="">
+                        <img :src="`/laravel/public/imgs/admin/${data.method}.png`" class="w-14" alt="">
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />

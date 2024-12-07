@@ -9,22 +9,21 @@
                 <img src="/imgs/united-kingdom.png" class="md:w-20 w-16 mt-5 h-fit" alt="">
             </div>
             <div class="flex  flex-col justify-center items-start space-y-2">
-                <p class="text-xl text-violet-400">Company</p>
-                <p>Company</p>
-                <p>Company</p>
-                <p>Company</p>
+                <p class="text-xl text-violet-400">General</p>
+                <p>Start</p>
+                <p>Login</p>
+                <p>Register</p>
             </div>
             <div class="flex flex-col justify-center items-start space-y-2">
-                <p class="text-xl text-violet-400">Company</p>
-                <p>Company</p>
-                <p>Company</p>
-                <p>Company</p>
+                <p class="text-xl text-violet-400">Support</p>
+                <p>Contact</p>
+                <p>Email</p>
             </div>
             <div class="flex flex-col justify-center items-start space-y-2">
-                <p class="text-xl text-violet-400">Company</p>
-                <p>Company</p>
-                <p>Company</p>
-                <p>Company</p>
+                <p class="text-xl text-violet-400">Help</p>
+                <p>Page</p>
+                <p>Github</p>
+                <p>Service</p>
             </div>
             
         </div>

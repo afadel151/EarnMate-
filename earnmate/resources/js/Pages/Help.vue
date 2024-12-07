@@ -229,7 +229,7 @@ onMounted(() => {
                     <div class="md:pl-20">
                         <p class="text-2xl font-bold text-gray-900 mb-4">1 Open binance app and select Wallets section
                         </p>
-                        <div class="mockup-phone ml-10">
+                        <div class="mockup-phone ">
                             <div class="camera"></div>
                             <div class="display w-80">
                                 <img src="/imgs/guide/binance-1.PNG" alt="">
@@ -238,7 +238,7 @@ onMounted(() => {
                     </div>
                     <div class="md:pl-20 mt-5">
                         <p class="text-2xl font-bold text-gray-900 mb-4">2 Go to spot section and search for USDT </p>
-                        <div class="mockup-phone ml-10">
+                        <div class="mockup-phone ">
                             <div class="camera"></div>
                             <div class="display w-80">
                                 <img src="/imgs/guide/binance-2.PNG" alt="">
@@ -247,7 +247,7 @@ onMounted(() => {
                     </div>
                     <div class="md:pl-20 mt-5">
                         <p class="text-2xl font-bold text-gray-900 mb-4">3 Click withdraw </p>
-                        <div class="mockup-phone ml-10">
+                        <div class="mockup-phone ">
                             <div class="camera"></div>
                             <div class="display w-80">
                                 <img src="/imgs/guide/binance-3.PNG" alt="">
@@ -256,7 +256,7 @@ onMounted(() => {
                     </div>
                     <div class="md:pl-20 mt-5">
                         <p class="text-2xl font-bold text-gray-900 mb-4">4 Select send via Email/Phone/ID </p>
-                        <div class="mockup-phone ml-10">
+                        <div class="mockup-phone ">
                             <div class="camera"></div>
                             <div class="display w-80">
                                 <img src="/imgs/guide/binance-4.PNG" alt="">
@@ -266,7 +266,7 @@ onMounted(() => {
                     <div class="md:pl-20 mt-5">
                         <p class="text-2xl font-bold text-gray-900 mb-4">5 Enter the ID provided by the app and the
                             amount you wish to deposit and click send </p>
-                        <div class="mockup-phone ml-10">
+                        <div class="mockup-phone ">
                             <div class="camera"></div>
                             <div class="display w-80">
                                 <img src="/imgs/guide/binance-5.PNG" alt="">
@@ -277,7 +277,7 @@ onMounted(() => {
                     <div class="md:pl-20">
                         <p class="text-2xl font-bold text-gray-900 mb-4">1 Open binance app and select Assets section
                             and click withdraw </p>
-                        <div class="mockup-phone ml-10">
+                        <div class="mockup-phone ">
                             <div class="camera"></div>
                             <div class="display w-80">
                                 <img src="/imgs/guide/bybit-1.PNG" alt="">
@@ -286,7 +286,7 @@ onMounted(() => {
                     </div>
                     <div class="md:pl-20 mt-5">
                         <p class="text-2xl font-bold text-gray-900 mb-4">2 Search for usdt </p>
-                        <div class="mockup-phone ml-10">
+                        <div class="mockup-phone ">
                             <div class="camera"></div>
                             <div class="display w-80">
                                 <img src="/imgs/guide/bybit-3.PNG" alt="">
@@ -296,7 +296,7 @@ onMounted(() => {
                     <div class="md:pl-20 mt-5">
                         <p class="text-2xl font-bold text-gray-900 mb-4">2 Enter the ID provided by the app and the
                             amount you wish to deposit and click send </p>
-                        <div class="mockup-phone ml-10">
+                        <div class="mockup-phone ">
                             <div class="camera"></div>
                             <div class="display w-80">
                                 <img src="/imgs/guide/bybit-4.PNG" alt="">
@@ -310,7 +310,7 @@ onMounted(() => {
                     <p class="text-3xl mt-5 font-bold md:pl-5 mb-4">1- Use the "Contact Admin" page on your dashboard to
                         Report issues.</p>
                     <div class="md:pl-20">
-                        <div class="mockup-phone ml-10">
+                        <div class="mockup-phone ">
                             <div class="camera"></div>
                             <div class="display w-80 ">
                                 <img src="/imgs/guide/contact_admin.png" alt="">

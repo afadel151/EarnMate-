@@ -49,8 +49,8 @@ const submit = async  () => {
                 <p></p>
             </div>
             <form @submit.prevent="submit" class="md:w-[50%] w-[80%] shadow-custom-purple border-2 rounded-2xl flex space-y-5 md:mt-0 mt-10 flex-col justify-around md:py-5 py-10 items-center md:pb-10 pb-5  h-full">
-                <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full mt-5 " icon="pi pi-google" label="continue with Google"  severity="help" /></a>
-                <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full  " icon="pi pi-facebook" label="continue with Facebook"  severity="info" /></a>
+                <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full mt-5 " icon="pi pi-google" label="Google"  severity="help" /></a>
+                <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full  " icon="pi pi-facebook" label="Facebook"  severity="info" /></a>
 
                 <div class="w-full px-10">
                     <InputLabel for="email" class="text-xl" value="Your e-mail" />

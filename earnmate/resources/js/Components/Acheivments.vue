@@ -1,5 +1,5 @@
 <template>
-    <div id="acheivments" class="w-screen pt-24  md:px-80    bg-home2-bg bg-no-repeat bg-cover  ">
+    <div id="achievments" class="w-screen pt-24  md:px-80 bg-white ">
         <p class="text-5xl font-light text-center ">Achievments</p>
         <div class="w-full md:flex-row flex-col flex justify-around mt-24 items-center">
             <p id="pub" class="bg-gradient-to-t from-[#6a38ff] to-[#6a38ff]/0 text-transparent bg-clip-text text-7xl font-black" >{{ tweened.pub.toFixed(0) }}+ user</p>

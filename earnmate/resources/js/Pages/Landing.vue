@@ -28,7 +28,7 @@ import Footer from '@/Components/Footer.vue';
 
 <template>
     <div id="app" class="w-screen   bg-home-bg bg-no-repeat bg-cover bg-[#0a1f59]">
-        <div class="h-fit mb-10   w-full">
+        <div class="h-fit mb-10 pb-10  w-full">
             <div
                 class="w-screen md:border-b-0 border-b-2 border-indigo-500    h-28 flex justify-between items-center md:px-16  px-10 ">
                 <img src="/svgs/logo.svg" width="200" alt="">
@@ -38,20 +38,19 @@ import Footer from '@/Components/Footer.vue';
                         size="l/arge" variant="text" />
                 </div>
                 <div class="md:flex justify-center  hidden items-center gap-3">
+                    <Button variant="text" size="large" label="Why us" severity="secondary" />
+                    <Button variant="text" size="large" label="Achievments" severity="secondary" />
+                    <Button variant="text" size="large" label="Testimonals" severity="secondary" />
                     <Button variant="text" size="large" label="Advertise" severity="secondary" />
-                    <Button variant="text" size="large" label="Advertise" severity="secondary" />
-                    <Button variant="text" size="large" label="Advertise" severity="secondary" />
-                    <Button variant="text" size="large" label="Advertise" severity="secondary" />
-
                 </div>
 
             </div>
             <div id="menu" class="hidden mt-5 ">
                 <div class="md:hidden  justify-center flex  items-center flex-col w-full  gap-3">
-                    <Button variant="text" size="large" label="Why us" severity="secondary" />
-                    <Button variant="text" size="large" label="Achievments" severity="secondary" />
-                    <Button variant="text" size="large" label="Testimonals" severity="secondary" />
-                    <Button variant="text" size="large" label="Advertise" severity="secondary" />
+                    <a href="#whyus"><Button variant="text" size="large" label="Why us" severity="secondary" /></a>
+                    <a href="#achievments"><Button variant="text" size="large" label="Achievments" severity="secondary" /></a>
+                    <a href="#services"><Button variant="text" size="large" label="Testimonals" severity="secondary" /></a>
+                    <a href="#partners"><Button variant="text" size="large" label="Advertise" severity="secondary" /></a>
                 </div>
             </div>
             <div
@@ -98,9 +97,9 @@ import Footer from '@/Components/Footer.vue';
                 </video>
             </div>
         </div>
-        <div class="md:h-[600px] h-[1400px] px-10 w-full">
+        <div class="pb-10 px-10 w-full">
             <p class="text-center text-gray-50 text-4xl">Why Us</p>
-            <div class="w-full h-[400px] gap-10 mt-10 grid md:grid-cols-3  md:px-72">
+            <div class="w-full gap-10 mt-10 grid md:grid-cols-3  md:px-72">
                 <div class="w-full p-10 flex flex-col justify-around items-stretch h-full rounded-3xl bg-[#0a1f59]">
                     <div class="top flex gap-[24px] box-border justify-center items-center">
                         <img class="item__icon" src="/svgs/traffic-1.svg" alt="Global and Direct Traffic">
@@ -142,8 +141,8 @@ import Footer from '@/Components/Footer.vue';
                         and maintain control over the service delivery chain..</p>
                 </div>
             </div>
-        </div>
-        <div class="bg-white">
+        </div> 
+        <div class="bg-white pb-10">
             <Acheivments />
             <Services />
             <Partners />

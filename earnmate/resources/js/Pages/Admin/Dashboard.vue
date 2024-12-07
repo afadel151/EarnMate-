@@ -63,12 +63,12 @@ async function SchduleOffs()
                 <div class="w-[60%] h-full flex flex-col justify-between items-start p-10  ">
                     <p class="text-4xl font-semibold text-violet-500">Hello {{ usePage().props.auth.user.name  }}</p>
                     <p class="text-2xl text-gray-500">Welcome again !</p>
-                    <div class="flex items-center space-x-4">
+                    <div class="flex items-center flex-col space-y-2 mt-2">
                     <Button label="Subscriptions" icon="pi pi-stopwatch"  @click="SchduleSubs"/>
                     <Button label="Subscriptions" outlined icon="pi pi-gift" @click="SchduleOffs" />
                 </div>
                 </div>
-                <img src="/imgs/admin/man-with-laptop.png" class="w-56 mr-10" alt="">
+                <img src="/imgs/admin/man-with-laptop.png" class="w-40 " alt="">
             </div>
             <div class="col-start-5 ">
                 <Balance :today="props.today_deposits_sum - props.today_withdrawals_sum" :balance="props.admin.balance"  />
