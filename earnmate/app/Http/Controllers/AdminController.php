@@ -222,7 +222,6 @@ class AdminController extends Controller
             $deposits = $this->fetchGroupedData(Deposit::class, 'confirmed', $startDate, $endDate);
             $withdrawals = $this->fetchGroupedData(Withdrawal::class, 'completed', $startDate, $endDate);
         } catch (\Exception $e) {
-            \Log::error('Error fetching data: '.$e->getMessage());
 
             return response()->json(['error' => 'Unable to fetch data'], 500);
         }

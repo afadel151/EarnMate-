@@ -56,7 +56,7 @@ class OfferController extends Controller
         if ($request->hasFile('screenshot')) {
             $request_file = $request->file('screenshot');
             $path = '/baridi';
-            $NewPath = Storage::disk('local')->putFile($path, $request_file);
+            $NewPath = Storage::disk('google')->putFile($path, $request_file);
             $subscription->screenshot = $NewPath;
         }else{
             $subscription->screenshot = 'no_screenshot';
@@ -78,7 +78,7 @@ class OfferController extends Controller
         if ($request->hasFile('screenshot')) {
             $request_file = $request->file('screenshot');
             $path = '/binance';
-            $NewPath = Storage::disk('local')->putFile($path, $request_file);
+            $NewPath = Storage::disk('google')->putFile($path, $request_file);
             $subscription->screenshot = $NewPath;
         }else{
             $subscription->screenshot = 'no_screenshot';
@@ -98,7 +98,7 @@ class OfferController extends Controller
         if ($request->hasFile('screenshot')) {
             $request_file = $request->file('screenshot');
             $path = '/bybit';
-            $NewPath = Storage::disk('local')->putFile($path, $request_file);
+            $NewPath = Storage::disk('google')->putFile($path, $request_file);
             $subscription->screenshot = $NewPath;
         }else{
             $subscription->screenshot = 'no_screenshot';
@@ -114,7 +114,7 @@ class OfferController extends Controller
             'status' => $request->status
         ]);
         if ($sub->screenshot != 'no_screenshot') {
-            Storage::disk('local')->delete($sub->screenshot);
+            Storage::disk('google')->delete($sub->screenshot);
         }else {
             
             $sub->update([

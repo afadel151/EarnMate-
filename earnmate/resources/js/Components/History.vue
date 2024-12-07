@@ -69,7 +69,9 @@ const getSeverity = (product) => {
         
         <Column class="w-[20%]" field="link" header="Link">
             <template #body="slotProps">
-                 {{ slotProps.data.task.link }}
+                 <a :href="`${slotProps.data.task.link}`">
+                    <Button label="Proceed" />
+                 </a>
             </template>
         </Column>
         <Column class="w-[20%]" field="status" header="Status">

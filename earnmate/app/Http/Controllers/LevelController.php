@@ -46,7 +46,7 @@ class LevelController extends Controller
                     $subscription->level_id = $level->id;
                     $subscription->save();
                     $user->balance = $user->balance - $level->deposit_required;
-                    \Log::info($user->balance - $level->deposit_required);
+                   
                     $user->save();
                 });
                 if (!Bonus::where('friend_id',$user->id)->exists() && $user->inviter != 'No_inviter') {

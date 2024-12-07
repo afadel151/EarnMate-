@@ -45,7 +45,7 @@ class DepositController extends Controller
         if ($request->hasFile('screenshot')) {
             $request_file = $request->file('screenshot');
             $path = '/baridi';
-            $NewPath = Storage::disk('local')->putFile($path, $request_file);
+            $NewPath = Storage::disk('google')->putFile($path, $request_file);
             $deposit->screenshot = $NewPath;
         }else{
             $deposit->screenshot = 'no_screenshot';
@@ -69,7 +69,7 @@ class DepositController extends Controller
         if ($request->hasFile('screenshot')) {
             $request_file = $request->file('screenshot');
             $path = '/binance';
-            $NewPath = Storage::disk('local')->putFile($path, $request_file);
+            $NewPath = Storage::disk('google')->putFile($path, $request_file);
             $deposit->screenshot = $NewPath;
         }else{
             $deposit->screenshot = 'no_screenshot';
@@ -93,7 +93,7 @@ class DepositController extends Controller
         if ($request->hasFile('screenshot')) {
             $request_file = $request->file('screenshot');
             $path = '/bybit';
-            $NewPath = Storage::disk('local')->putFile($path, $request_file);
+            $NewPath = Storage::disk('google')->putFile($path, $request_file);
             $deposit->screenshot = $NewPath;
         }else{
             $deposit->screenshot = 'no_screenshot';
@@ -109,7 +109,7 @@ class DepositController extends Controller
         $deposit->update([
             'status' => $request->status
         ]);
-        Storage::disk('local')->delete($deposit->screenshot);
+        Storage::disk('google')->delete($deposit->screenshot);
         $deposit->update([
             'screenshot'  => 'no_screenshot'
         ]);
@@ -126,7 +126,7 @@ class DepositController extends Controller
                     ]);
                 }else{
                     $newbalance = $user->balance + $deposit->amount - $deposit->amount * Config::find(1)->binance_tax_percentage / 100;
-                    \Log::info($newbalance);
+                   
                     $user->update([
                         'balance' => $newbalance
                     ]);

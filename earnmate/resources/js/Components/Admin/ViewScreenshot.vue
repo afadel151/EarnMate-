@@ -34,7 +34,7 @@ onMounted(()=>{
 
 <template>
 <button @click="showImage">Show Image</button>
-    <Dialog v-model:visible="visible" modal header="Screenshot" class="w-[50%] h-[80%]">
+    <Dialog v-model:visible="visible" modal header="Screenshot" class="md:w-[50%] w-[90%] h-[80%]">
         <img v-if="imageUrl" :src="imageUrl" alt="Loaded Image" />
     </Dialog>
 </template>

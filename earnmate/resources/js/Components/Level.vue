@@ -84,7 +84,7 @@ async function subscribe(method) {
         </button>
 
         <Dialog v-model:visible="visible" modal :header="'Level ' + props.level"
-            class="md:w-[50rem] w-[40rem] rounded-lg shadow-lg bg-gradient-to-br from-gray-50 to-gray-100">
+            class="md:w-[50rem] w-[28rem] rounded-lg shadow-lg bg-gradient-to-br from-gray-50 to-gray-100">
             <!-- Header Section -->
             <div class="p-6 text-center">
                 <h2 class="text-3xl font-bold text-gray-700">
@@ -112,7 +112,7 @@ async function subscribe(method) {
             </div>
 
             <!-- Method 2 -->
-            <div class="flex items-center justify-between gap-4 p-6 bg-white rounded-lg shadow-md mb-4">
+            <div v-show="props.level != 1" class="flex items-center justify-between gap-4 p-6 bg-white rounded-lg shadow-md mb-4">
                 <div class="flex items-center gap-2">
                     <p class="font-semibold text-lg text-gray-600 w-32">Method 2:</p>
                     <p class="text-lg text-gray-700">

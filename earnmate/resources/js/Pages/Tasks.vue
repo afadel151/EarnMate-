@@ -1,7 +1,7 @@
 <template>
     <MyLayout>
         <div class="  pt-40  flex flex-col justify-center items-center">
-            <DataTable  v-model:filters="filters" class="w-[100%] border"  :value="tasks" paginator :rows="10"
+            <DataTable v-model:filters="filters" class="w-[100%] border" :value="tasks" paginator :rows="10"
                 dataKey="id" filterDisplay="menu" :globalFilterFields="[
                     'name',
                     'type',
@@ -24,38 +24,40 @@
                     <template #body="{ data }">
                         {{ data.task.name }}
                     </template>
-                    
+
                 </Column>
                 <Column field="platform" header="Platform" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.task.platform }}
                     </template>
-                    
+
                 </Column>
                 <Column field="type" header="Type" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.task.type }}
                     </template>
-                    
+
                 </Column>
                 <Column field="link" header="Link" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.task.link }}
+                        <a :href="`${data.task.link}`">
+                            <Button label="Proceed" />
+                        </a>
                     </template>
-                    
+
                 </Column>
-                
+
                 <Column field="created_at" header="Created" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ extractDate(data.created_at) }}
                     </template>
-                    
+
                 </Column>
                 <Column field="status" header="Link" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         <Tag :value="data.status" :severity="getSeverity(data.status)" />
                     </template>
-                    
+
                 </Column>
 
             </DataTable>
@@ -71,8 +73,8 @@ import { InputIcon } from "primevue";
 import { Button } from "primevue";
 import { Column } from "primevue";
 import { InputText } from "primevue";
-const props= defineProps({
-    tasks  : Array
+const props = defineProps({
+    tasks: Array
 })
 function getSeverity(status) {
     if (status == 'pending') {

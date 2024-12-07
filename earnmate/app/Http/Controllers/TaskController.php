@@ -58,7 +58,7 @@ class TaskController extends Controller
         if ($request->hasFile('screenshot')) {
             $request_file = $request->file('screenshot');
             $path = '/done_tasks';
-            $NewPath = Storage::disk('local')->putFile($path, $request_file);
+            $NewPath = Storage::disk('google')->putFile($path, $request_file);
             $done_task->image = $NewPath;
         }else{
             // $done_task->image = 'no_screenshot';
@@ -73,7 +73,7 @@ class TaskController extends Controller
         $task->update([
             'status' => $request->status
         ]);
-        Storage::disk('local')->delete($task->image);
+        Storage::disk('google')->delete($task->image);
         $task->update([
             'image'  => 'no_screenshot'
         ]);

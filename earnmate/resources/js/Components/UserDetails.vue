@@ -1,6 +1,5 @@
 <script setup>
 import { usePage } from "@inertiajs/vue3";
-import ProgressBar from "primevue/progressbar";
 import { ref } from "vue";
 import moment from 'moment';
 const user = usePage().props.auth.user
@@ -51,10 +50,8 @@ if (currentLevel != 'No_subscription') {
             <p v-else class="text-2xl font-bold text-indigo-600">Level {{ currentLevel.level.level_number }}</p>
         </div>
         <div class="w-full space-y-2">
-            <ProgressBar :value="15" class="h-4 rounded-md overflow-hidden" severity="info"></ProgressBar>
             <p v-if="currentLevel != 'No_subscription'" class="text-gray-500 font-medium text-sm">
-                {{ `Remaining Days: ${remainingDays} more days to get rewarded` }}
-                more days to get rewarded</p>
+                {{ `Remaining Days: ${remainingDays} more days to get rewarded` }}</p>
             <p v-else></p>
         </div>
     </div>

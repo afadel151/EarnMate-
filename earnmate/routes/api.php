@@ -10,11 +10,6 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WithdrawalController;
-use App\Models\DoneTask;
-use App\Models\OfferSubscription;
-use App\Models\Subscription;
-use Carbon\Carbon;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,9 +42,13 @@ Route::prefix('/api')->group(function (){
     });
     Route::post('/get_image', function (Request $request) {
         $path = $request->path;
-        if (Storage::disk('local')->exists($path)) {
-            \Log::info($path);
-            return response()->file(Storage::disk('local')->path($path));
+        if (Storage::disk('google')->exists($path)) {
+    
+            $fileContent = Storage::disk('google')->get($path);
+            $mimeType = Storage::disk('google')->mimeType($path);
+    
+            return response($fileContent)
+                ->header('Content-Type', $mimeType);
         }
         return response()->file(Storage::disk('local')->path('no_screenshot.jpg'));
     });

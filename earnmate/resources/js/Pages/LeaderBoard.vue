@@ -12,7 +12,7 @@ function extractDate(datetime) {
 
 <template>
   <MyLayout>
-    <div class="relative w-full z-0 p-10 pt-36 md:px-32 lg:px-48">
+    <div class="relative w-full z-0  pt-36 md:px-32 lg:px-48">
       <!-- Background Blur Effect -->
       <div
         class="absolute -z-10 h-52 w-52 top-10 right-1/2 transform translate-x-1/2 bg-violet-500 rounded-full blur-[200px]">
@@ -75,15 +75,14 @@ function extractDate(datetime) {
             </div>
           </div>
         </div>
-        <div class="z-10 bg-white shadow-custom-purple  md:rounded-xl ">
-          <div class="overflow-x-auto ">
-            <table class="w-full text-center  rounded-">
+        <div class="z-10 bg-white shadow-custom-purple w-full  md:rounded-xl ">
+          <div class="overflow-x-auto w-full">
+            <table class="w-full text-center  ">
               <thead>
-
-                <tr class=" rounded- bg-[#c3aae133] text-gray-700">
+                <tr class="  bg-[#c3aae133] text-gray-700">
                   <th class="px-4 py-2">Name</th>
                 <th class="px-4   py-2">Balance</th>
-                <th class="px-4 hidden md:table-cell  py-2">Joined</th>
+                <th class="px-4 table-cell  py-2">Joined</th>
                 <th class="px-4 hidden md:table-cell  py-2">Current Level</th>
                 <th class="px-4 py-2">Withdrawed</th>
                 <th class="px-4  py-2">Friends</th>
@@ -93,7 +92,7 @@ function extractDate(datetime) {
                 <tr v-for="user in users.slice(3)" :key="user.id" class=" text-gray-600">
                   <td class="px-4 py-2">{{ user.name }}</td>
                   <td class="px-4 py-2">$ {{ user.balance }}</td>
-                  <td class="px-4 hidden md:table-cell py-2">{{ extractDate(user.created_at) }}</td>
+                  <td class="px-4 table-cell py-2">{{ extractDate(user.created_at) }}</td>
                   <td class="px-4 hidden md:table-cell  py-2">{{ user.current_level.level ?
                     user.current_level.level.level_number : 'Not subscribed' }}</td>
                   <td class="px-4 py-2">$ {{ user.withdrawed }}</td>

@@ -131,7 +131,9 @@ function getSeverity(status) {
                 <Column field="task.link" header="Link" sortable >
                     <template #body="{ data }">
 
-                        {{ data.task.link }}
+                        <a :href="`${data.task.link}`">
+                            <Button label="Proceed" />
+                        </a>
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />
