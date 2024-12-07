@@ -16,45 +16,45 @@ class LevelSeeder extends Seeder
         Level::insert([
                 [
                     'level_number' => 1,
-                    'deposit_required' => 10,
+                    'deposit_required' => 5,
                     'friends_required' => 0,
-                    'reward'=>5
+                    'reward'=>2.5
                 ],
                 [
                     'level_number' => 2,
-                    'deposit_required' => 20,
+                    'deposit_required' => 10,
                     'friends_required' => 2,
-                    'reward'=>10
+                    'reward'=>5
                 ],
                 [
                     'level_number' => 3,
-                    'deposit_required' => 40,
+                    'deposit_required' => 20,
                     'friends_required' => 4,
-                    'reward'=>20
+                    'reward'=>10
                 ],
                 [
                     'level_number' => 4,
-                    'deposit_required' => 80,
+                    'deposit_required' => 50,
                     'friends_required' => 6,
-                    'reward'=>40
+                    'reward'=>25
                 ],
                 [
                     'level_number' => 5,
-                    'deposit_required' => 150,
+                    'deposit_required' => 100,
                     'friends_required' => 10,
-                    'reward'=>75
+                    'reward'=>50
                 ],
                 [
                     'level_number' => 6,
-                    'deposit_required' => 250,
+                    'deposit_required' => 200,
                     'friends_required' => 15,
-                    'reward'=>175
+                    'reward'=>100
                 ],
                 [
                     'level_number' => 7,
-                    'deposit_required' => 500,
+                    'deposit_required' => 400,
                     'friends_required' => 18,
-                    'reward'=>250
+                    'reward'=>200
                 ],
                 [
                     'level_number' => 8,
