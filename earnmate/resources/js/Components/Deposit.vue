@@ -50,10 +50,9 @@ async function sendBaridi() {
             }
             visible.value = false;
         } catch (error) {
-            console.log(error);
+            toast.add({ severity: 'error', summary: 'Info', detail: 'Error depositing', life: 3000 });
         }
     }else{
-        toast.add({ severity: 'error', summary: 'Error', detail: 'Error', life: 3000 });
         console.log('wait');
     }
 }
@@ -65,10 +64,12 @@ async function sendBinance() {
         fd.append("screenshot", screenshotBinance.value);
         try {
             const response = await axiosClient.post("/deposits/binance", fd);
-            console.log(response.data);
+            if (response.data == 'done') {
+                toast.add({ severity: 'success', summary: 'Info', detail: 'Deposited successfully', life: 3000 });
+            }
             visible.value = false;
         } catch (error) {
-            console.log(error);
+            toast.add({ severity: 'error', summary: 'Info', detail: 'Error depositing', life: 3000 });
         }
     }else{
         console.log('wait');
@@ -82,10 +83,12 @@ async function sendBybit() {
         fd.append("screenshot", screenshotBybit.value);
         try {
             const response = await axiosClient.post("/deposits/bybit", fd);
-            console.log(response.data);
+            if (response.data == 'done') {
+                toast.add({ severity: 'success', summary: 'Info', detail: 'Deposited successfully', life: 3000 });
+            }
             visible.value = false;
         } catch (error) {
-            console.log(error);
+            toast.add({ severity: 'error', summary: 'Info', detail: 'Error depositing', life: 3000 });
         }
     }else{
         console.log('wait');

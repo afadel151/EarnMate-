@@ -62,7 +62,7 @@ class OfferController extends Controller
             $subscription->screenshot = 'no_screenshot';
         }
         $subscription->save();
-        return response()->json($subscription);
+        return response()->json('done');
 
     }
     public function binance(Request $request)
@@ -84,7 +84,7 @@ class OfferController extends Controller
             $subscription->screenshot = 'no_screenshot';
         }
         $subscription->save();
-        return response()->json($subscription);
+        return response()->json('done');
     }
     public function bybit(Request $request)
     {
@@ -104,7 +104,7 @@ class OfferController extends Controller
             $subscription->screenshot = 'no_screenshot';
         }
         $subscription->save();
-        return response()->json($subscription);
+        return response()->json('done');
     }
 
     public function edit_status(Request $request)
