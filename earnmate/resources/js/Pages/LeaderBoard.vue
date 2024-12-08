@@ -38,7 +38,6 @@ function extractDate(datetime) {
                 {{ users[2].name }}
               </p>
               <p class="text-base text-gray-600">Withdrawed: $ {{ users[2].withdrawed }}</p>
-              <p class="text-base hidden md:block text-gray-600">Balance: $ {{ users[2].balance }} </p>
               <p class="text-base hidden md:block text-gray-600">Invited: {{ users[2].friends.length }} person</p>
             </div>
           </div>
@@ -53,7 +52,6 @@ function extractDate(datetime) {
             <div class="flex flex-col items-start px-5 space-y-3 justify-center h-full">
               <p class="text-4xl font-bold text-gray-700 w-full text-center overflow-hidden">{{ users[0].name }}</p>
               <p class="text-lg text-gray-600">Withdrawed: ${{ users[0].withdrawed }}</p>
-              <p class="text-lg hidden md:block text-gray-600">Balance: $ {{ users[0].balance }} </p>
               <p class="text-lg hidden md:block text-gray-600">Invited: {{ users[0].friends.length }} person</p>
             </div>
           </div>
@@ -70,7 +68,6 @@ function extractDate(datetime) {
             <div class="flex flex-col items-start px-5 space-y-3 justify-center h-full">
               <p class="text-3xl font-bold text-gray-700 w-full text-center overflow-hidden">{{ users[1].name }}</p>
               <p class="text-base text-gray-600">Withdrawed: ${{ users[1].withdrawed }}</p>
-              <p class="text-base hidden md:block text-gray-600">Balance: ${{ users[1].balance }} </p>
               <p class="text-base hidden md:block text-gray-600">Invited: {{ users[1].friends.length }} person</p>
             </div>
           </div>

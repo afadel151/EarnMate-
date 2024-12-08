@@ -1,5 +1,5 @@
 <template>
-    <div class="h-[12rem] bg-white rounded-md shadow-sm w-full flex flex-col justify-between p-5 items-start">
+    <div class="h-[12rem] bg-white rounded-md shadow-md w-full flex flex-col justify-between p-5 items-start">
         <span class="avatar-initial rounded bg-[#fce7e9] w-14 h-14 flex justify-center items-center">
             <box-icon name="wallet" color="#f04361" size="md" type="solid"></box-icon>
         </span>

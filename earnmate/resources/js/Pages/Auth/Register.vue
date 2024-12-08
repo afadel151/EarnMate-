@@ -53,8 +53,6 @@ import InputGroupAddon from 'primevue/inputgroupaddon';
                 class="md:w-[50%] w-[80%] shadow-custom-purple border-2 py-5 rounded-2xl flex flex-col justify-around md:mt-0 mt-10   items-center  h-full">
                 <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full mt-5 " icon="pi pi-google"
                         label="Google" severity="help" /></a>
-                <a href="/auth/facebook/redirect" class="w-full px-10"><Button class="w-full mt-5 " icon="pi pi-facebook"
-                        label="Facebook" severity="info" /></a>
                
                 <div class="w-full mt-5 px-10">
                     <InputLabel for="name" value="Name" />

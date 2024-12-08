@@ -23,11 +23,12 @@ import { usePage } from "@inertiajs/vue3";
             <SidebarButton :href="'admin.withdrawals'" :label="'Withdrawals'" :icon="'cog'" />
             <SidebarButton :href="'admin.done_tasks'" :label="'Done tasks'" :icon="'cog'" />
             <SidebarButton :href="'admin.admins'" :label="'Admins'" :icon="'cog'" />
-            <SidebarButton :href="'admin.users'" :label="'Users'" :icon="'cog'" />
+            <SidebarButton :href="'admin.users'" :label="'Users'" :icon="'users'" />
             <SidebarButton :href="'admin.offers'" :label="'Offers'" :icon="'gift'" />
             <SidebarButton :href="'admin.offer_subscribers'" :label="'Offer Subs'" :icon="'gift'" />
             <SidebarButton :href="'admin.messages'" :label="'Messages'" :icon="'envelope'" />
             <SidebarButton :href="'admin.config'" :label="'Config'" :icon="'cog'" />
+            <SidebarButton :href="'admin.profile'" :label="'Profile'" :icon="'user'" />
 
         </div>
         <div class="hidden p-10 bg-gray-50 h-screen md:flex flex-col items-center px-4 py-4 space-y-4">
@@ -39,22 +40,14 @@ import { usePage } from "@inertiajs/vue3";
                 <SidebarButton :href="'admin.withdrawals'" :label="'Withdrawals'" :icon="'cog'" />
                 <SidebarButton :href="'admin.done_tasks'" :label="'Done tasks'" :icon="'cog'" />
                 <SidebarButton :href="'admin.admins'" :label="'Admins'" :icon="'cog'" />
-                <SidebarButton :href="'admin.users'" :label="'Users'" :icon="'cog'" />
+                <SidebarButton :href="'admin.users'" :label="'Users'" :icon="'users'" />
                 <SidebarButton :href="'admin.offers'" :label="'Offers'" :icon="'gift'" />
                 <SidebarButton :href="'admin.offer_subscribers'" :label="'Offer Subs'" :icon="'gift'" />
                 <SidebarButton :href="'admin.messages'" :label="'Messages'" :icon="'envelope'" />
                 <SidebarButton :href="'admin.config'" :label="'Config'" :icon="'cog'" />
+                <SidebarButton :href="'admin.profile'" :label="'Profile'" :icon="'user'" />
             </div>
-            <Link :href="route('admin.profile')">
-            <div
-                class="h-fit flex justify-between bg-white/30 rounded-xl items-center w-full backdrop-blur-sm justify-self-end">
-                <img src="/imgs/user-1.jpg" class="w-14 rounded-full" alt="" />
-                <div class="h-full text-gray-600 overflow-x-hidden flex flex-col justify-center items-start py-4 ml-1">
-                    <p class="text-lg">Fadel Akram</p>
-                    <p>af8356207@gmail.com</p>
-                </div>
-            </div>
-            </Link>
+            
 
         </div>
     </span>

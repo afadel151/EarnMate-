@@ -15,7 +15,8 @@ class DepositController extends Controller
     public function getrip():JsonResponse
     {
         $respose = new \stdClass;
-        
+        $config = Config::find(1);
+        $respose->config = $config;
         $admins = Admin::all();
         foreach ($admins  as $admin) {
             if ($admin->baridi_balance < Config::find(1)->max_balance) {
@@ -57,11 +58,11 @@ class DepositController extends Controller
     {
         $request->validate([
             'amount' => 'required|numeric',
-            'screenshot' => 'required|string',
+            'screenshot' => 'required',
         ]);
         $deposit = new Deposit;
         $deposit->user_id = Auth::user()->id;
-        $deposit->admin_id = $request->admin_id;
+        $deposit->admin_id = 1;
         $deposit->method = 'binance';
         $amount = $request->input('amount');    
         $deposit->amount = $amount;
@@ -81,11 +82,11 @@ class DepositController extends Controller
     {
         $request->validate([
             'amount' => 'required|numeric',
-            'screenshot' => 'required|string',
+            'screenshot' => 'required',
         ]);
         $deposit = new Deposit;
         $deposit->user_id = Auth::user()->id;
-        $deposit->admin_id = $request->admin_id;
+        $deposit->admin_id = 1;
         $deposit->method = 'bybit';
         $amount = $request->input('amount');    
         $deposit->amount = $amount;
@@ -105,7 +106,6 @@ class DepositController extends Controller
     {
         $deposit = Deposit::find($request->id);
         $old_status = $deposit->status;
-
         $deposit->update([
             'status' => $request->status
         ]);

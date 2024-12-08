@@ -26,13 +26,13 @@ function extractDate(datetime) {
 
         
         <div class="flex flex-col space-y-5  p-10 px-[13rem]">
-            <div class="col-span-4 bg-white rounded-md shadow-sm flex justify-between items-end">
+            <div class="col-span-4 bg-white rounded-md shadow-md flex justify-between items-end">
                 <div class="w-[70%] h-full p-10">
                     <p class="text-4xl font-semibold text-violet-500">Profile: {{ props.user.name }}</p>
                     <p class="text-2xl font-semibold text-violet-500">Email: {{ props.user.email }}</p>
                     <p class="text-xl text-gray-500">Member since {{ extractDate(props.user.created_at) }}</p>
                 </div>
-                <img src="/imgs/admin/man-with-laptop.png" class="w-40 mr-10" alt="props.User Profile" />
+                <img src="/imgs/admin/man-with-laptop.png" class="md:w-40 w-32 md:mr-10" alt="props.User Profile" />
             </div>
 
            

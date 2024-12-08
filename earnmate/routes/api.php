@@ -24,6 +24,7 @@ Route::prefix('/api')->group(function (){
         Route::get('/getrip',[DepositController::class, 'getrip']);
         Route::post('/baridi', [DepositController::class, 'baridi']);
         Route::post('/binance', [DepositController::class, 'binance']);
+        Route::post('/bybit', [DepositController::class, 'bybit']);
     });
     Route::post('/messages/add', [MessageController::class, 'add_user']);
     Route::prefix('/withdrawals')->group(function (){

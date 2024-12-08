@@ -1,6 +1,7 @@
 <script setup>
 import Level from '@/Components/Level.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
+import { Link } from '@inertiajs/vue3';
 import { FilterMatchMode, FilterOperator } from "@primevue/core/api";
 import axios from "axios";
 import { DataTable, Select, Tag } from "primevue";
@@ -40,6 +41,7 @@ const filters = ref({
         constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }],
     },
 });
+
 </script>
 <template>
     <AdminLayout>
@@ -86,7 +88,9 @@ const filters = ref({
 
                 <Column field="email" header="Email" sortable >
                     <template #body="{ data }">
-                        {{ data.email }}
+                        <Link :href="route('admin.user',{id:data.id})">
+                            {{ data.email }}
+                        </Link>
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Enail" />

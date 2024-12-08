@@ -8,7 +8,6 @@ import Sidebar from '@/Components/Sidebar.vue';
         <div class="md:w-80 md:h-screen  md:sticky md:top-0">
             <Sidebar  />
         </div>
-
         <div class="  md:w-full   ">
             <slot />
         </div>

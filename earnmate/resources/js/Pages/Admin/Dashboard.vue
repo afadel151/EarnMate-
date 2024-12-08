@@ -71,7 +71,7 @@ async function SchduleOffs()
                 <img src="/imgs/admin/man-with-laptop.png" class="w-40 " alt="">
             </div>
             <div class="col-start-5 ">
-                <Balance :today="props.today_deposits_sum - props.today_withdrawals_sum" :balance="props.admin.balance"  />
+                <Balance :today="props.today_deposits_sum - props.today_withdrawals_sum" :balance="props.admin"  />
             </div>
             <div class="col-start-6 ">
                 <Received :amount="props.deposits_sum" :today="props.today_deposits_sum" />

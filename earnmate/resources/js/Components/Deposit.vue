@@ -11,30 +11,32 @@ const Amount = ref(0);
 const AmountUs = ref(0);
 const screenshotBaridi = ref(null);
 const screenshotBinance = ref(null);
+const screenshotBybit = ref(null);
 const codeBaridi = ref("");
 const adminrip = ref("");
 const adminid = ref(0);
 const candepositbaridi = ref(true);
-
+const config = ref(null);
 import { usePriceStore } from "@/stores/priceStore";
 const priceStore = usePriceStore();
 onMounted(async () => {
     try {
         let response = await axios.get("/api/deposits/getrip");
-
         if (response.data == "full") {
             candepositbaridi.value = false;
+            toast.add({ severity: 'error', summary: 'Error', detail: 'Can\'t deposit right now, wait anathor time', life: 3000 });
         } else {
             adminrip.value = response.data.rip;
             adminid.value = response.data.admin_id;
+            config.value = response.data.config;
         }
     } catch (error) {
         console.log(error);
     }
 });
-// toast.add({ severity: 'info', summary: 'Info', detail: 'Already subscribed', life: 3000 });
 async function sendBaridi() {
     if (priceStore.price != 0) {
+        Processing.value=true;
         let fd = new FormData();
         fd.append("amount", Amount.value);
         fd.append("transaction_code", codeBaridi.value);
@@ -57,12 +59,29 @@ async function sendBaridi() {
 }
 async function sendBinance() {
     if (priceStore.price != 0) {
+        Processing.value=true;
         let fd = new FormData();
         fd.append("amount", Amount.value);
         fd.append("screenshot", screenshotBinance.value);
-        fd.append("admin_id", adminid.value);
         try {
             const response = await axiosClient.post("/deposits/binance", fd);
+            console.log(response.data);
+            visible.value = false;
+        } catch (error) {
+            console.log(error);
+        }
+    }else{
+        console.log('wait');
+    }
+}
+async function sendBybit() {
+    if (priceStore.price != 0) {
+        Processing.value=true;
+        let fd = new FormData();
+        fd.append("amount", Amount.value);
+        fd.append("screenshot", screenshotBybit.value);
+        try {
+            const response = await axiosClient.post("/deposits/bybit", fd);
             console.log(response.data);
             visible.value = false;
         } catch (error) {
@@ -78,6 +97,9 @@ function onChangeBaridi(e) {
 }
 function onChangeBinance(e) {
     screenshotBinance.value = e.target.files[0];
+}
+function onChangeBybit(e) {
+    screenshotBybit.value = e.target.files[0];
 }
 watch(Amount, (data) => {
     DZDamount.value = (data ? data : 0) * priceStore.price
@@ -98,6 +120,8 @@ async function copyURL(url) {
       toast.add({ severity: 'danger', summary: 'Info', detail: 'Can\'t copy', life: 3000 });
     }
   }
+
+const Processing = ref(false);
 </script>
 
 <template>
@@ -126,11 +150,11 @@ async function copyURL(url) {
                     <div v-if="candepositbaridi">
                         <p class="text-xl text-gray-500 mb-8">
                             This method will charge you of
-                            <span class="text-violet-500">12%</span>
+                            <span class="text-violet-500">{{ config.baridi_tax_percentage }}%</span>
                         </p>
                         <div class="flex items-center gap-4 mb-8">
                             <label class="font-semibold w-24">RIP :</label>
-                            <InputNumber :default-value="adminrip" readonly fluid />
+                            <Button label="Copy RIP"  icon="pi pi-clipboard" @click="copyURL(adminrip)" />
                         </div>
                         <div class="flex items-center gap-4 mb-2">
                             <label for="email" class="font-semibold  w-24">Amount</label>
@@ -148,8 +172,8 @@ async function copyURL(url) {
                             <input name="file" type="file" class="w-full" @change="onChangeBaridi" />
                         </div>
                         <div class="flex justify-end gap-2">
-                            <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
-                            <Button type="button" label="Send" @click="sendBaridi" />
+                            <Button type="button" label="Cancel"  :disabled="Processing"  severity="secondary" @click="visible = false" />
+                            <Button type="button" label="Send" :disabled="Processing" @click="sendBaridi" />
                         </div>
                     </div>
                     <div v-else>Can't deposit with this method right now</div>
@@ -157,7 +181,7 @@ async function copyURL(url) {
                 <TabPanel value="1"  class="m-0">
                     <p class="text-xl text-gray-500 mb-4">
                         This method will charge you of
-                        <span class="text-violet-500">5%</span>
+                        <span class="text-violet-500">{{ config.binance_tax_percentage }}%</span>
                     </p>
 
                     <p class="text-lg">
@@ -199,15 +223,15 @@ async function copyURL(url) {
                             <input name="file" type="file" class="w-full" @change="onChangeBinance" />
                         </div>
                         <div class="flex justify-end w-full gap-2">
-                            <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
-                            <Button type="button" label="Send" @click="sendBinance" />
+                            <Button type="button" label="Cancel"  :disabled="Processing"  severity="secondary" @click="visible = false" />
+                            <Button type="button" label="Send"  :disabled="Processing"  @click="sendBinance" />
                         </div>
                     </div>
                 </TabPanel>
                 <TabPanel value="2">
                     <p class="text-xl text-gray-500 mb-8">
                         This method will charge you of
-                        <span class="text-violet-500">5%</span>
+                        <span class="text-violet-500">{{ config.binance_tax_percentage }}%</span>
                     </p>
 
                     <p class="text-lg">
@@ -237,11 +261,11 @@ async function copyURL(url) {
                         </div>
                         <div class="flex items-center gap-4 mb-8">
                             <label for="email" class="font-semibold w-24">code</label>
-                            <input name="file" type="file" class="w-full" @change="onChangeBinance" />
+                            <input name="file" type="file" class="w-full" @change="onChangeBybit" />
                         </div>
                         <div class="flex justify-end w-full gap-2">
-                            <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
-                            <Button type="button" label="Send" @click="sendBinance" />
+                            <Button type="button" label="Cancel"  :disabled="Processing"  severity="secondary" @click="visible = false" />
+                            <Button type="button" label="Send"  :disabled="Processing"  @click="sendBybit" />
                         </div>
                     </div>
                         
