@@ -165,7 +165,7 @@ async function copyURL(url) {
       toast.add({ severity: 'danger', summary: 'Info', detail: 'Can\'t copy', life: 3000 });
     }
   }
-const requiredAmount = ref(props.offer.required_amount);
+const requiredAmount = ref(props.offer ? props.offer.required_amount : null);
 </script>
 
 <template>

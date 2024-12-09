@@ -1,6 +1,6 @@
 <script setup>
 import { usePage } from "@inertiajs/vue3";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import moment from 'moment';
 const user = usePage().props.auth.user
 const currentLevel = user.current_level
@@ -25,8 +25,23 @@ if (currentLevel != 'No_subscription') {
         console.log(' Remainings :', remainingDays.value);
 
     }
-
 }
+const createdAt = ref(user.created_at);
+const daysAgo = computed(() => {
+  const createdAtDate = new Date(createdAt.value);
+  const currentDate = new Date();
+  const timeDifference = currentDate - createdAtDate;
+  const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  if (daysDifference === 0) {
+    return "today";
+  } else if (daysDifference < 0) {
+    return "in the future";
+  }
+  return daysDifference;
+});
+
+
 </script>
 
 <template>
@@ -39,7 +54,7 @@ if (currentLevel != 'No_subscription') {
             </span>
             <div>
                 <p class="text-2xl font-bold text-gray-600">User</p>
-                <p class="text-lg text-gray-500">Joined 20 days ago</p>
+                <p class="text-lg text-gray-500">Joined {{ daysAgo }} days ago</p>
             </div>
         </div>
         <p class="text-4xl font-extrabold text-gray-800 tracking-tight">{{ user.name }}</p>

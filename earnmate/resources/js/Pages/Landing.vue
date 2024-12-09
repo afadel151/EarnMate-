@@ -49,8 +49,8 @@ import Footer from '@/Components/Footer.vue';
                 <div class="md:hidden  justify-center flex  items-center flex-col w-full  gap-3">
                     <a href="#whyus"><Button variant="text" size="large" label="Why us" severity="secondary" /></a>
                     <a href="#achievments"><Button variant="text" size="large" label="Achievments" severity="secondary" /></a>
-                    <a href="#services"><Button variant="text" size="large" label="Testimonals" severity="secondary" /></a>
-                    <a href="#partners"><Button variant="text" size="large" label="Advertise" severity="secondary" /></a>
+                    <a href="#services"><Button variant="text" size="large" label="Services" severity="secondary" /></a>
+                    <a href="#partners"><Button variant="text" size="large" label="Partners" severity="secondary" /></a>
                 </div>
             </div>
             <div
@@ -97,7 +97,7 @@ import Footer from '@/Components/Footer.vue';
                 </video>
             </div>
         </div>
-        <div class="pb-10 px-10 w-full">
+        <div id="whyus" class="pb-10 px-10 w-full">
             <p class="text-center text-gray-50 text-4xl">Why Us</p>
             <div class="w-full gap-10 mt-10 grid md:grid-cols-3  md:px-72">
                 <div class="w-full p-10 flex flex-col justify-around items-stretch h-full rounded-3xl bg-[#0a1f59]">
@@ -143,9 +143,9 @@ import Footer from '@/Components/Footer.vue';
             </div>
         </div> 
         <div class="bg-white pb-10">
-            <Acheivments />
-            <Services />
-            <Partners />
+            <Acheivments id="achievments" />
+            <Services id="services" />
+            <Partners id="partners" />
         </div>
         <Footer />
     </div>

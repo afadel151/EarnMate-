@@ -20,7 +20,6 @@ import $ from "jquery";
             </div>
             <div id="menu" class="md:block hidden">
                 <div  class="flex     justify-center md:flex-row flex-col items-center gap-3">
-                    <Button variant="text" size="large" label="About" severity="contrast" />
                     <Link :href="route('login')">
                     <Button rounded label="Sign  in" size="large" severity="help" />
                     </Link>
@@ -30,18 +29,25 @@ import $ from "jquery";
                 </div>
             </div>
         </div>
-        <div class="md:flex w-screen md:h-[85%]   md:gap-36 justify-center items-center bg-gray-100  ">
+        <div class="md:flex overflow-x-hidden scroll-hide   md:h-[90%] pb-10    md:gap-36 justify-center items-center bg-gray-100  ">
 
             <slot />
 
         </div>
-        <div class="w-screen mt-10 h-[35%] ">
+        <div class="w-screen  h-[35%] ">
             <Footer />
         </div>
     </div>
 </template>
-<style>
-::-webkit-scrollbar {
-    display: none;
+<style scoped>
+.scroll-hide {
+  overflow: scroll; /* Enable scrolling */
+  -ms-overflow-style: none; /* Hide scrollbar in Internet Explorer */
+  scrollbar-width: none; /* Hide scrollbar in Firefox */
 }
+
+.scroll-hide::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in WebKit browsers */
+}
+
 </style>

@@ -42,7 +42,7 @@ import InputGroupAddon from 'primevue/inputgroupaddon';
 
 <template>
     <GuestLayout>
-        <div class="w-full h-[75%] flex md:flex-row flex-col justify-center items-center md:space-x-36 md:px-[400px] ">
+        <div class="w-full h-fit flex md:flex-row flex-col justify-center items-center md:space-x-36 md:px-[400px] ">
             <div class="flex flex-col w-[70%] text-[#6a38ff] justify-center  h-full">
                 <p class="font-bold text-lg text-black">Register</p>
                 <p class="md:text-7xl text-6xl">Register and enjoy</p>

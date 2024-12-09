@@ -127,6 +127,7 @@ const calculateRemainingTime = () => {
 };
 import { usePriceStore } from "@/stores/priceStore";
 import axiosClient from "@/axios";
+import { Link } from "@inertiajs/vue3";
 const priceStore = usePriceStore();
 
 </script>
@@ -197,10 +198,7 @@ const priceStore = usePriceStore();
                     </div>
                     <p class="text-2xl font-bold text-gray-600">${{ props.user.balance }}</p>
                     <p class="font-bold text-gray-500"> ≈ {{ props.user.balance * priceStore.price }} DZD</p>
-                    <p class="text-green-400 text-2xl">
-                        <i class="pi hover:-translate-y-2 duration-200 pi-arrow-up"></i>
-                        150
-                    </p>
+                    
                 </div>
             </div>
             <div class="row-start-2">
@@ -215,10 +213,13 @@ const priceStore = usePriceStore();
 
                     <p class="text-2xl text-gray-600 font-bold">{{ props.level != 'No_subscription' ? 'Level ' +
                         props.level.level.level_number : 'Unsubscribed' }}</p>
-                    <p class="text-2xl text-gray-600">
-                        <i class="pi pi-arrow-right mr-5 text-red-400 hover:translate-x-2 duration-200"></i>
-                        See other levels
-                    </p>
+                        <Link :href="route('statistics')">
+                        
+                            <p class="text-2xl text-gray-600">
+                                <i class="pi pi-arrow-right mr-5 text-red-400 hover:translate-x-2 duration-200"></i>
+                                See other levels
+                            </p>
+                        </Link>
                 </div>
             </div>
             <div class="row-start-2">
@@ -234,10 +235,7 @@ const priceStore = usePriceStore();
                     <p class="text-2xl font-bold text-gray-600">
                         {{ props.friends }} FRIENDS
                     </p>
-                    <p class="text-slate-500 text-2xl">
-                        <i class="pi hover:-translate-y-2 duration-200 pi-arrow-up"></i>
-                        1 Friend
-                    </p>
+                    
                     <div class="absolute top-6 right-8">
                         <InvieDialog />
                     </div>
@@ -253,10 +251,7 @@ const priceStore = usePriceStore();
                         <p class="text-2xl text-gray-500">Bonus</p>
                     </div>
                     <p class="text-2xl font-bold text-gray-600">{{ props.bonus }}</p>
-                    <p class="text-green-400 text-2xl">
-                        <i class="pi hover:-translate-y-2 duration-200 pi-arrow-up"></i>
-                        30DA
-                    </p>
+                   
                 </div>
             </div>
             <div

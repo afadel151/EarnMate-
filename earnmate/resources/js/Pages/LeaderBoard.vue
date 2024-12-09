@@ -12,8 +12,8 @@ function extractDate(datetime) {
 
 <template>
   <MyLayout>
-    <div class="relative w-full z-0  pt-36 md:px-32 lg:px-48">
-      <!-- Background Blur Effect -->
+    <div class="relative w-full  z-0 px-4 pt-36 md:px-32 lg:px-48">
+    <!-- Background Blur Effect -->
       <div
         class="absolute -z-10 h-52 w-52 top-10 right-1/2 transform translate-x-1/2 bg-violet-500 rounded-full blur-[200px]">
       </div>
@@ -21,7 +21,7 @@ function extractDate(datetime) {
       <div class="z-30 w-full h-full">
         <div class="flex items-end justify-center w-full ">
           <div
-            class="relative h-52 w-56 bg-white rounded-t-3xl shadow-custom-purple-top-left border-2 border-b-0 border-transparent">
+            class="relative h-52 w-32 md:w-40 bg-white rounded-t-3xl shadow-custom-purple-top-left border-2 border-b-0 border-transparent">
             <div
               class="absolute inset-0 -z-10 bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-400 rounded-t-3xl p-[2px]">
               <div class="bg-white h-full w-full rounded-t-3xl"></div>
@@ -34,41 +34,41 @@ function extractDate(datetime) {
             </div>
 
             <div class="flex flex-col space-y-2 items-start px-5 justify-center h-full">
-              <p class="text-3xl font-bold text-gray-700 w-full text-center overflow-hidden">
+              <p class="text-2xl md:text-3xl font-bold text-gray-700 w-full text-center  overflow-hidden">
                 {{ users[2].name }}
               </p>
-              <p class="text-base text-gray-600">Withdrawed: $ {{ users[2].withdrawed }}</p>
-              <p class="text-base hidden md:block text-gray-600">Invited: {{ users[2].friends.length }} person</p>
+              <p class="text-base text-gray-600  text-center w-full"><i class="pi pi-wallet"></i> $ {{ users[2].withdrawed }}</p>
+              <p class="text-base  md:block w-full text-center text-gray-600"><i class="pi pi-users"></i> {{ users[2].friends.length }} person</p>
             </div>
           </div>
 
           <!-- First Place -->
           <div
-            class="relative h-72 w-64 rounded-t-3xl shadow-custom-purple-top-middle border-2 border-b-0  border-slate-300 bg-white">
+            class="relative h-72 w-36 md:w-48 rounded-t-3xl shadow-custom-purple-top-middle border-2 border-b-0  border-slate-300 bg-white">
             <!-- Crown -->
             <div class="absolute top-[-4rem] md:top-[-6rem] left-1/2 transform -translate-x-1/2">
               <img src="/imgs/crown.png" alt="Crown" class="w-32 scale-150 bg-transparent " />
             </div>
             <div class="flex flex-col items-start px-5 space-y-3 justify-center h-full">
-              <p class="text-4xl font-bold text-gray-700 w-full text-center overflow-hidden">{{ users[0].name }}</p>
-              <p class="text-lg text-gray-600">Withdrawed: ${{ users[0].withdrawed }}</p>
-              <p class="text-lg hidden md:block text-gray-600">Invited: {{ users[0].friends.length }} person</p>
+              <p class="text-3xl md:text-4xl font-bold text-gray-700 w-full text-center overflow-hidden">{{ users[0].name }}</p>
+              <p class="text-lg text-gray-600  text-center w-full"><i class="pi pi-wallet"></i> ${{ users[0].withdrawed }}</p>
+              <p class="text-lg  md:block text-gray-600 w-full text-center"><i class="pi pi-users"></i> {{ users[0].friends.length }} person</p>
             </div>
           </div>
 
           <!-- Second Place -->
           <div
-            class="relative h-60 w-56 rounded-t-3xl shadow-custom-purple-top-right  border-2 border-b-0 border-slate-300 bg-white">
+            class="relative  h-60 w-36 md:w-40 rounded-t-3xl shadow-custom-purple-top-right  border-2 border-b-0 border-slate-300 bg-white">
             <!-- Badge -->
             <div class="absolute md:w-fit w-32  top-[-1.5rem] left-2/3 md:left-1/2 transform -translate-x-1/2">
               <span class="inline-block px-3 py-1 text-sm font-bold text-white bg-gray-500 rounded-full">
                 2nd Place
               </span>
             </div>
-            <div class="flex flex-col items-start px-5 space-y-3 justify-center h-full">
-              <p class="text-3xl font-bold text-gray-700 w-full text-center overflow-hidden">{{ users[1].name }}</p>
-              <p class="text-base text-gray-600">Withdrawed: ${{ users[1].withdrawed }}</p>
-              <p class="text-base hidden md:block text-gray-600">Invited: {{ users[1].friends.length }} person</p>
+            <div class="flex shadow-indigo-300  flex-col items-start px-5 space-y-3 justify-center h-full">
+              <p class="text-2xl md:text-3xl font-bold text-gray-700 w-full text-center overflow-hidden">{{ users[1].name }}</p>
+              <p class="text-base text-gray-600  text-center w-full"><i class="pi pi-wallet"></i> ${{ users[1].withdrawed }}</p>
+              <p class="text-base  md:block w-full text-center text-gray-600"><i class="pi pi-users"></i> {{ users[1].friends.length }} person</p>
             </div>
           </div>
         </div>
