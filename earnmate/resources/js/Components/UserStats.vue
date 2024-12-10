@@ -1,8 +1,8 @@
 <template>
-    <div class="h-[12rem] bg-white rounded-md shadow-md w-full flex flex-col justify-between p-5 items-start">
+    <div class=" bg-white rounded-md shadow-md w-full flex flex-col justify-between p-5 items-start">
         <div >
             <p class="text-gray-500 font-semibold">Current Level</p>
-            <p class="text-2xl font-semibold text-violet-500"> {{props.currentLevel}} </p>
+            <p class="text-2xl font-semibold text-violet-500"> {{props.currentLevel.level ? props.currentLevel.level.level_number : 'No subscription'}} </p>
         </div>
         <div >
             <p class="text-gray-500 font-semibold">Bonuses Earned</p>
@@ -23,7 +23,7 @@
 
 const props = defineProps({
     currentLevel: {
-        type: [Number, String],
+        type: Object,
         required: true,
     },
     bonuses: {

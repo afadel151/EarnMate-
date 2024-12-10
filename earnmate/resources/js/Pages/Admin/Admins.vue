@@ -107,7 +107,7 @@ function add_admin(admin) {
                 </Column>
                 <Column field="balance" header="Balance" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.balance }}
+                        {{ data.baridi_balance  }}
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Enail" />

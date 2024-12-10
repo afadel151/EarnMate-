@@ -172,7 +172,7 @@ const requiredAmount = ref(props.offer ? props.offer.required_amount : null);
     <Toast/>
     <Button v-if="isOfferActive && !Subscribed && !CloseSubscription" @click="visible = true" :label="'Subscribe'"
         icon="pi pi-plus" />
-    <p class="text-5xl font-bold text-white" v-if="Subscribed">Subscribed ✅</p>
+    <p class="text-5xl font-bold md:text-white text-violet-500" v-if="Subscribed">Subscribed ✅</p>
     <Dialog v-model:visible="visible" modal header="Deposit" :style="{ width: '32rem' }">
         <Tabs
             :value="props.offer.method == 'all' || props.offer.method == 'baridi' ? '0' : props.offer.method == 'binance' ? '1' : '2'"

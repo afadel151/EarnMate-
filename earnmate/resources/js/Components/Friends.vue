@@ -4,16 +4,16 @@
             <box-icon name="group" color="#02c2ed" size="md" type="solid"></box-icon>
         </span>
         <p class="text-gray-500 font-semibold">Friends</p>
-        <p class="text-2xl font-semibold text-gray-500"> count </p>
+        <p class="text-2xl font-semibold text-gray-500"> {{ count }} </p>
     </div>
 </template>
 
 <script setup>
 const props =  defineProps({
-        count: {
+        friends: {
             type: Number,
             required: true,
         },
     })
-
+const count = props.friends.length;
 </script>

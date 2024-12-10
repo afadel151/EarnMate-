@@ -18,6 +18,6 @@ const props =  defineProps({
 });
 let totalD = 0;
 props.deposits.forEach(w => {
-    totalD += w.amount;
+    totalD += parseFloat(w.amount);
 });
 </script>

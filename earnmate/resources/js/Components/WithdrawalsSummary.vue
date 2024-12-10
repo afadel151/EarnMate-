@@ -14,6 +14,6 @@ const props = defineProps({
 })
 let total = 0;
 props.withdrawals.forEach(w => {
-    total = total + w.amount;
+    total = total + parseFloat(w.amount);
 });
 </script>

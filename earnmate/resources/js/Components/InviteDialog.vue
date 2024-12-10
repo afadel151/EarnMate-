@@ -11,7 +11,7 @@ const visible = ref(false);
 const code = usePage().props.auth.user.code;
 async function copyURL() {
     try {
-      await navigator.clipboard.writeText('127.0.0.1:8000/register?code='+code);
+      await navigator.clipboard.writeText('https://toroapp.free.nf/register?code='+code);
       toast.add({ severity: 'success', summary: 'Info', detail: 'Copied to clipboard',size: 'small', life: 3000 });
     } catch($e) {
       toast.add({ severity: 'danger', summary: 'Info', detail: 'Can\'t copy', life: 3000 });

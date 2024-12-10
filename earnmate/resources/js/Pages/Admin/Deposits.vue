@@ -11,6 +11,7 @@ import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { ref, onMounted } from "vue";
 import ViewScreenshot from "@/Components/Admin/ViewScreenshot.vue";
 import DeposiStatusEdit from "@/Components/Admin/DeposiStatusEdit.vue";
+import { Link } from "@inertiajs/vue3";
 
 const props = defineProps({
     deposits: {
@@ -20,6 +21,12 @@ const props = defineProps({
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     amount: {
+        operator: FilterOperator.AND,
+        constraints: [
+            { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        ],
+    },
+    name:{
         operator: FilterOperator.AND,
         constraints: [
             { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -58,6 +65,12 @@ const initFilters = () => {
                 { value: null, matchMode: FilterMatchMode.STARTS_WITH },
             ],
         },
+        name:{
+        operator: FilterOperator.AND,
+            constraints: [
+                { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+            ],
+        },
         method: {
             operator: FilterOperator.AND,
             constraints: [
@@ -76,6 +89,7 @@ function extractDate(datetime) {
     const date = new Date(datetime);
     return date.toISOString().split("T")[0];
 }
+
 </script>
 <template>
     <AdminLayout>
@@ -106,7 +120,16 @@ function extractDate(datetime) {
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Date" />
                     </template>
                 </Column>
-               
+                <Column field="name" header="User" sortable style="min-width: 14rem">
+                    <template #body="{ data }">
+                        <Link :href="route('admin.user',{id:data.user.id})">
+                            {{ data.user.email }}
+                        </Link>
+                    </template>
+                    <template #filter="{ filterModel }">
+                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Date" />
+                    </template>
+                </Column>
                 <Column field="amount" header="Amount" sortable style="min-width: 14rem">
                     <template #body="{ data }">
                         {{ data.method == 'baridi' ? data.amount * data.price : data.amount }}
@@ -117,7 +140,7 @@ function extractDate(datetime) {
                 </Column>
                 <Column field="method" header="Method" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        <img :src="`/laravel/public/imgs/admin/${data.method}.png`" class="w-14" alt="">
+                        <img :src="`/imgs/admin/${data.method}.png`" class="w-14" alt="">
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Link" />

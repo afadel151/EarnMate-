@@ -114,7 +114,7 @@ class AdminController extends Controller
     public function deposits()
     {
         $deposits = Deposit::where('admin_id', Admin::where('user_id', Auth::user()->id)->first()->id)->orderBy('created_at')->get();
-
+        $deposits->load('user');
         return Inertia::render('Admin/Deposits', ['deposits' => $deposits]);
     }
 
@@ -208,7 +208,8 @@ class AdminController extends Controller
         return Inertia::render('Admin/User', [
             'user' => $user,
             'offers' => $offer_gain,
-            'bonus' => $bonus
+            'bonus' => $bonus,
+            'tasks'=> $tasks
         ]);
     }
 

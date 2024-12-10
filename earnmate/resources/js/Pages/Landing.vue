@@ -54,8 +54,8 @@ import Footer from '@/Components/Footer.vue';
                 </div>
             </div>
             <div
-                class="w-screen md:mt-0 mt-20 px-10 md:flex-row flex-col space-y-3 flex justify-center items-center md:px-72 md:h-[800px]  ">
-                <div class="landing md:w-[50%]">
+                class="w-screen md:mt-0 mt-20 px-10 md:flex-row flex-col space-y-3 flex justify-center items-center md:px-[10%] md:h-[800px]  ">
+                <div class="landing md:w-[50%] md:mb-0 mb-20">
                     <h1
                         class="md:text-[80px] text-[60px]  head_title font-normal leading-[120%] bg-gradient-to-r from-white to-[#c886ff] bg-clip-text text-transparent mt-0 mb-4">
                         Play, watch, complete tasks and make money
@@ -92,21 +92,21 @@ import Footer from '@/Components/Footer.vue';
 
                 </div>
                 <video autoplay muted loop
-                    class="object-contain overflow-cli brightness-110 md:h-[80%] md:w-[50%] p m-0 p-0 rounded-xl">
+                    class="object-contain  overflow-cli brightness-110 md:h-[80%] md:w-[50%] m-0 p-0 rounded-xl">
                     <source src="/vids/32s4zc_1.mp4" type="video/mp4">
                 </video>
             </div>
         </div>
         <div id="whyus" class="pb-10 px-10 w-full">
             <p class="text-center text-gray-50 text-4xl">Why Us</p>
-            <div class="w-full gap-10 mt-10 grid md:grid-cols-3  md:px-72">
+            <div class="w-full gap-10 mt-10 grid md:grid-cols-3  md:px-[10%]">
                 <div class="w-full p-10 flex flex-col justify-around items-stretch h-full rounded-3xl bg-[#0a1f59]">
                     <div class="top flex gap-[24px] box-border justify-center items-center">
                         <img class="item__icon" src="/svgs/traffic-1.svg" alt="Global and Direct Traffic">
                         <h3 class="text-2xl text-wrap font-old text-white">
                             Global and Direct Traffic </h3>
                     </div>
-                    <p class="text-xl font-semibold text-[#f1e1ff]">At Toro, our primary focus is to deliver direct,
+                    <p class="md:text-xl mt-10 text-lg font-semibold text-[#f1e1ff]">At Toro, our primary focus is to deliver direct,
                         high-quality traffic to websites, apps, games,youtube and telegram channels, and
                         many social media platforms on a global scale. By accessing a diverse and international
                         audience, our
@@ -119,7 +119,7 @@ import Footer from '@/Components/Footer.vue';
                         <h3 class="text-2xl text-wrap font-old text-white">
                             Transparency and Responsivity </h3>
                     </div>
-                    <p class="text-xl font-semibold text-[#f1e1ff]">We believe that transparency and responsiveness are
+                    <p class="md:text-xl text-lg mt-10  font-semibold text-[#f1e1ff]">We believe that transparency and responsiveness are
                         the
                         cornerstone of building successful and fruitful partnerships. Our company places great emphasis
                         on
@@ -132,7 +132,7 @@ import Footer from '@/Components/Footer.vue';
                         <h3 class="text-2xl text-wrap font-old text-white">
                             In-house Technological Solutions </h3>
                     </div>
-                    <p class="text-xl font-semibold text-[#f1e1ff]">With our in-house technological solutions, we have
+                    <p class="md:text-xl text-lg mt-10  font-semibold text-[#f1e1ff]">With our in-house technological solutions, we have
                         gained a
                         competitive edge that allows us to deliver comprehensive services without compromising on
                         quality. By

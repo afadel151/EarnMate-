@@ -166,7 +166,7 @@ const Processing = ref(false);
                         </div>
                         <div class="flex items-center gap-4 mb-2">
                             <label for="email" class="font-semibold  w-24">Amount</label>
-                            <InputNumber v-model="Amount" mode="currency" currency="USD" inputId="withoutgrouping"
+                            <InputNumber v-model="Amount" :min="5" mode="currency" currency="USD" inputId="withoutgrouping"
                                 :useGrouping="false" fluid />
 
                         </div>
@@ -201,7 +201,7 @@ const Processing = ref(false);
                     </p>
                     <div class="flex items-center gap-4">
                         <label for="email" class="font-semibold w-24">Amount</label>
-                        <InputNumber v-model="Amount" :min="500" :max="2800" mode="currency" currency="USD" inputId="withoutgrouping"
+                        <InputNumber v-model="Amount" :min="5"  mode="currency" currency="USD" inputId="withoutgrouping"
                             :useGrouping="false" fluid />
                     </div>
                     <div class="flex flex-col justify-center gap-2 mb-4 items-center w-full">
@@ -251,7 +251,7 @@ const Processing = ref(false);
                     </p>
                     <div class="flex items-center gap-4">
                         <label for="email" class="font-semibold w-24">Amount</label>
-                        <InputNumber v-model="Amount" :min="500" :max="2800" mode="currency" currency="USD" inputId="withoutgrouping"
+                        <InputNumber v-model="Amount" :min="5"  mode="currency" currency="USD" inputId="withoutgrouping"
                             :useGrouping="false" fluid />
                     </div>
                     <div class="flex flex-col justify-center gap-2 mb-4 items-center w-full">

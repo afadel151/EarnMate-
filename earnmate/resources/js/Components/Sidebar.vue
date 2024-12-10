@@ -10,7 +10,7 @@ const user = usePage().props.auth.user;
 
 <template>
     <div class="md:hidden pr-8 pl-4  shadow-md flex  justify-between  items-center space-x-1 bg-white  h-28  mb-5  w-screen">
-        <img src="/svgs/logo2.svg" class="my-10" alt="" />
+        <img src="/svgs/logo2.svg" class="my-10 w-48" alt="" />
         <div class="flex items-center space-x-5">
             <p class="text-xl bg-violet-500   p-2 text-white  rounded-md">${{ user.balance }}</p>
         <Button icon="pi pi-list" size="" @click="$('#menu').slideToggle()" />
