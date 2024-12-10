@@ -27,7 +27,7 @@ onMounted(() => {
 <template>
     <MyLayout>
         <div
-            class="md:grid flex flex-col space-y-5 md:space-y-0 px-5 grid-cols-1 md:p-10 md:px-[12rem] font-['GeneralSans-Medium'] md:grid-cols-6 md:grid-rows-5 md:gap-5 md:h-full w-full">
+            class="md:grid flex flex-col space-y-5 md:space-y-0 px-5 grid-cols-1 md:p-10 2xl:px-[12rem] font-['GeneralSans-Medium'] md:grid-cols-6 md:grid-rows-5 md:gap-5 md:h-full w-full">
             <UserDetails :user="user" /> 
             <div
                 class="backdrop-blur-md bg-white/70 shadow-md  md:col-span-2 rounded-md md:row-span-1 p-5 md:col-start-3">

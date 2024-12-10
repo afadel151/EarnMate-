@@ -41,7 +41,7 @@ const submit = async  () => {
     <GuestLayout>
         <Toast />
         <Head title="Log in" />      
-        <div class="flex md:flex-row flex-col justify-center items-center md:space-x-36 md:px-[400px] w-full h-fit">
+        <div class="flex md:flex-row flex-col justify-center items-center md:space-x-36 md:px-[15%] w-full h-fit">
             <div class="flex flex-col justify-center w-[60%] h-full text-[#6a38ff]">
                 <p class="font-bold text-black text-lg">Log in</p>
                 <p class="text-6xl md:text-7xl">Acess your account</p>
@@ -49,7 +49,7 @@ const submit = async  () => {
                 <p></p>
             </div>
 
-            <form @submit.prevent="submit" class="flex flex-col justify-between items-center space-y-5 border-2 shadow-custom-purple mt-10 md:mt-0 py-10 md:py-5 pb-5 md:pb-10 rounded-2xl w-[80%] md:w-[60%] h-full">
+            <form @submit.prevent="submit" class="flex flex-col justify-between items-center space-y-5 border-2 shadow-custom-purple mt-10 md:mt-0 py-10 md:py-5 pb-5 md:pb-10 rounded-2xl w-[80%] md:w-[40%] h-full">
                 <a href="/auth/google/redirect" class="px-10 w-full"><Button class="mt-5 w-full" icon="pi pi-google" label="Google"  severity="help" /></a>
                
 

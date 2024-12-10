@@ -14,7 +14,7 @@ class WithdrawalController extends Controller
     public function get(Request $request)
     {
         $admin_id = Admin::where('user_id', Auth::user()->id)->first()->id;
-        $withdrawals = Withdrawal::where('admin_id',$admin_id)->get()->load('admin.user', 'user')->toArray();
+        $withdrawals = Withdrawal::where('admin_id',$admin_id)->get()->sortByDesc('created_at')->load('admin.user', 'user')->toArray();
         return response()->json($withdrawals);
     }
     public function withdraw_baridi(Request $request)

@@ -31,7 +31,7 @@ class UserController extends Controller
         
         $bonus = $user->bonuses()->sum('amount');
         $donetasks = Auth::user()->tasks()->pluck('task_id')->toArray();
-        $remainedtasks = Task::whereNotIn('id',$donetasks)->get();
+        $remainedtasks = Task::whereNotIn('id',$donetasks)->whereDate('created_at',Carbon::today())->get();
         $offer = Offer::whereDate('start_date','>=',Carbon::today())->first();
         if ($user->admin()->exists()) {
             return redirect(route('admin.dashboard'));
@@ -80,10 +80,10 @@ class UserController extends Controller
         $users = User::all()->load('friends');
         foreach ($users as $user) {
                 $withdrawedAmount = $user->withdrawals()
-                    ->where('status', 'completed') // Consider only completed withdrawals
-                    ->sum('amount'); // Sum the amount
+                    ->where('status', 'completed') 
+                    ->sum('amount'); 
 
-                $user->withdrawed = $withdrawedAmount ?? 0; // Ensure withdrawed is never null
+                $user->withdrawed = $withdrawedAmount ?? 0; 
             }
             $users = $users->sortByDesc('withdrawed')->values()->take(100);
             return Inertia::render('LeaderBoard', [

@@ -29,12 +29,12 @@ import $ from "jquery";
                 </div>
             </div>
         </div>
-        <div class="md:flex overflow-x-hidden scroll-hide   md:h-[90%] pb-10    md:gap-36 justify-center items-center bg-gray-100  ">
+        <div class="md:flex   md:h-[90%] pb-10    md:gap-36 justify-center items-center bg-gray-100  ">
 
             <slot />
 
         </div>
-        <div class="w-screen  h-[35%] ">
+        <div class="w-screen   ">
             <Footer />
         </div>
     </div>

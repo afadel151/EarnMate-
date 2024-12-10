@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
     {
        $this->callOnce(LevelSeeder::class);
        $this->callOnce(UserSeeder::class);
+       $this->callOnce(WithdrawalSeeder::class);
+       $this->callOnce(SubscriptionSeeder::class);
     }
 }

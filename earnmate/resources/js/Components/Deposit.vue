@@ -52,6 +52,8 @@ async function sendBaridi() {
         } catch (error) {
             toast.add({ severity: 'error', summary: 'Info', detail: 'Error depositing', life: 3000 });
         }
+        Processing.value=false;
+
     }else{
         console.log('wait');
     }
@@ -71,6 +73,8 @@ async function sendBinance() {
         } catch (error) {
             toast.add({ severity: 'error', summary: 'Info', detail: 'Error depositing', life: 3000 });
         }
+        Processing.value=false;
+
     }else{
         console.log('wait');
     }
@@ -90,6 +94,7 @@ async function sendBybit() {
         } catch (error) {
             toast.add({ severity: 'error', summary: 'Info', detail: 'Error depositing', life: 3000 });
         }
+        Processing.value=false;
     }else{
         console.log('wait');
     }
@@ -129,7 +134,7 @@ const Processing = ref(false);
 
 <template>
     <Button @click="visible = true" label="Deposit" outlined icon="pi pi-arrow-up" />
-    <Toast />
+    <Toast class="w-20" />
     <Dialog v-model:visible="visible" modal header="Deposit" :style="{ width: '35rem' }">
         <Tabs value="0" class="w-full">
             <TabList class="w-full">
@@ -171,7 +176,7 @@ const Processing = ref(false);
                             <InputNumber v-model="codeBaridi" fluid />
                         </div>
                         <div class="flex items-center gap-4 mb-8">
-                            <label for="email" class="font-semibold w-24">code</label>
+                            <label for="email" class="font-semibold w-24">Screenshot</label>
                             <input name="file" type="file" class="w-full" @change="onChangeBaridi" />
                         </div>
                         <div class="flex justify-end gap-2">
@@ -222,7 +227,7 @@ const Processing = ref(false);
                             </p>
                         </div>
                         <div class="flex items-center gap-4 mb-8">
-                            <label for="email" class="font-semibold w-24">code</label>
+                            <label for="email" class="font-semibold w-24">Screenshot</label>
                             <input name="file" type="file" class="w-full" @change="onChangeBinance" />
                         </div>
                         <div class="flex justify-end w-full gap-2">
@@ -263,7 +268,7 @@ const Processing = ref(false);
                             </p>
                         </div>
                         <div class="flex items-center gap-4 mb-8">
-                            <label for="email" class="font-semibold w-24">code</label>
+                            <label for="email" class="font-semibold w-24">Screenshot</label>
                             <input name="file" type="file" class="w-full" @change="onChangeBybit" />
                         </div>
                         <div class="flex justify-end w-full gap-2">
@@ -277,3 +282,4 @@ const Processing = ref(false);
         </Tabs>
     </Dialog>
 </template>
+

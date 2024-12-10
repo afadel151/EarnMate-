@@ -213,7 +213,7 @@ const requiredAmount = ref(props.offer ? props.offer.required_amount : null);
                             <InputNumber required v-model="codeBaridi" fluid />
                         </div>
                         <div class="flex items-center gap-4 mb-8">
-                            <label for="email" class="font-semibold w-24">code</label>
+                            <label for="email" class="font-semibold w-24">Screenshot</label>
                             <input name="file" type="file" required class="w-full" @change="onChangeBaridi" />
                         </div>
                         <div class="flex justify-end gap-2">

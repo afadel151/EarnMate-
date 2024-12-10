@@ -42,15 +42,15 @@ import InputGroupAddon from 'primevue/inputgroupaddon';
 
 <template>
     <GuestLayout>
-        <div class="w-full h-fit flex md:flex-row flex-col justify-center items-center md:space-x-36 md:px-[400px] ">
-            <div class="flex flex-col w-[70%] text-[#6a38ff] justify-center  h-full">
+        <div class="w-full  flex md:flex-row flex-col justify-center items-center md:space-x-36 md:px-[100px] ">
+            <div class="flex flex-col w-[70%] text-[#6a38ff] justify-center  ">
                 <p class="font-bold text-lg text-black">Register</p>
                 <p class="md:text-7xl text-6xl">Register and enjoy</p>
                 <p class="md:text-8xl text-7xl font-black">all the benefits our platform has to offer.</p>
                 <p></p>
             </div>
             <form @submit.prevent="submit"
-                class="md:w-[50%] w-[80%] shadow-custom-purple border-2 py-5 rounded-2xl flex flex-col justify-around md:mt-0 mt-10   items-center  h-full">
+                class="md:w-[40%] w-[80%] shadow-custom-purple border-2 py-5 rounded-2xl flex flex-col justify-around md:mt-0 mt-10   items-center  h-full">
                 <a href="/auth/google/redirect" class="w-full px-10"><Button class="w-full mt-5 " icon="pi pi-google"
                         label="Google" severity="help" /></a>
                

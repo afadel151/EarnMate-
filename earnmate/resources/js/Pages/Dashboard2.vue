@@ -144,7 +144,6 @@ const priceStore = usePriceStore();
                 <div v-else
                     class="w-full backdrop-blur-md  justify-between bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg md:p-8 px-1 flex  items-center rounded-lg md:space-x-8 h-full">
                     <!-- Left Image Section -->
-                    <img src="/imgs/special_offer.png" class="md:h-48 md:w-fit w-48  object-cover   " alt="Special Offer" />
 
                     <div class="space-y-4">
                         <p class="md:text-5xl text-2xl font-bold">
@@ -189,7 +188,7 @@ const priceStore = usePriceStore();
            
             <div class="row-start-2">
                 <div
-                    class="rounded-md relative md:py-5  md:pr-0 p-5 md:pl-5 backdrop-blur-sm h-full bg-white/80  space-y-1 shadow-md flex flex-col justify-between items-start">
+                    class="rounded-md relative md:py-5  md:pr-0 p-5 md:pl-5 backdrop-blur-sm h-full bg-white/80 md:space-y-2  space-y-3 shadow-md flex flex-col justify-between items-start">
                     <div class="h-12 flex justify-start items-center w-full space-x-2">
                         <span class="avatar-initial rounded bg-[#eafae1] w-14 h-14 flex justify-center items-center">
                             <box-icon name="money-withdraw" color="#72de37" size="md"></box-icon>
@@ -203,7 +202,7 @@ const priceStore = usePriceStore();
             </div>
             <div class="row-start-2">
                 <div
-                    class="rounded-md md:py-5  md:pr-0 p-5 md:pl-  justify-between backdrop-blur-sm h-full bg-white/80  space-y-1 shadow-md flex flex-col  items-start">
+                    class="rounded-md md:py-5  md:pr-0 p-5 md:pl-  justify-between backdrop-blur-sm h-full bg-white/80  md:space-y-2  space-y-3 shadow-md flex flex-col  items-start">
                     <div class="h-12 flex justify-start items-center w-full space-x-2">
                         <span class="avatar-initial rounded bg-[#f5e38829] w-14 h-14 flex justify-center items-center">
                             <box-icon type="solid" name="star" color="#fbed53" size="md"></box-icon>
@@ -224,7 +223,7 @@ const priceStore = usePriceStore();
             </div>
             <div class="row-start-2">
                 <div
-                    class="rounded-md relative md:py-5  md:pr-0 p-5 md:pl-  justify-between backdrop-blur-sm h-full bg-white/80  space-y-1 shadow-md flex flex-col  items-start">
+                    class="rounded-md relative md:py-5  md:pr-0 p-5 md:pl-  justify-between backdrop-blur-sm h-full bg-white/80  md:space-y-2  space-y-3 shadow-md flex flex-col  items-start">
                     <div class="h-12 flex justify-start items-center w-full space-x-2">
                         <span class="avatar-initial rounded bg-[#6b6de61b] w-10 h-10 flex justify-center items-center">
                             <box-icon name="user-plus" color="blue" size="sm"></box-icon>
@@ -243,7 +242,7 @@ const priceStore = usePriceStore();
             </div>
             <div class="row-start-2">
                 <div
-                    class="rounded-md  md:py-5  md:pr-0 p-5 md:pl- justify-between backdrop-blur-sm h-full bg-white/80 space-y-1 shadow-md flex flex-col  items-start">
+                    class="rounded-md  md:py-5  md:pr-0 p-5 md:pl- justify-between backdrop-blur-sm h-full bg-white/80 md:space-y-2  space-y-3 shadow-md flex flex-col  items-start">
                     <div class="h-12 flex justify-start items-center w-full space-x-2">
                         <span class="avatar-initial rounded bg-[#fcf9eb] w-10 h-10 flex justify-center items-center">
                             <box-icon type="solid" name="gift" color="#faec55" size="sm"></box-icon>
@@ -256,8 +255,8 @@ const priceStore = usePriceStore();
             </div>
             <div
                 class="col-span-2 p-6 backdrop-blur-sm bg-white/80 rounded-md py-10 shadow-md flex justify-between flex-col items-center row-span-3 col-start-3 row-start-3">
-                <div class="w-full flex flex-col items-start justify-start h-full">
-                    <div class="flex flex-col h-full items-stretch space-y-2 justify-between">
+                <div class="w-full flex flex-col md:space-y-2  space-y-3 items-start justify-start h-full">
+                    <div class="flex flex-col h-full items-stretch md:space-y-2  space-y-3 justify-between">
                         <div class="h-12 flex justify-start items-center w-full space-x-2">
                             <span
                                 class="avatar-initial rounded bg-[#e8e8ff] w-14 h-14 flex justify-center items-center">

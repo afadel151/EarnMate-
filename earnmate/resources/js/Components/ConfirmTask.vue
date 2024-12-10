@@ -15,6 +15,7 @@ async function confirmTask() {
     try {
         let response = await axiosClient.post('/tasks/confirm', fd);
         console.log(response.data);
+        emit('task_confirmed',props.task_id)
         visible.value = false;
     } catch (error) {
         console.log(error);

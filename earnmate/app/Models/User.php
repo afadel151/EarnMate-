@@ -26,7 +26,7 @@ class User extends Authenticatable
         'password',
         'code',
         'google_id',
-        'balance'
+        'balance',
     ];
     protected $appends = ['current_level','inviter'];
     /**
