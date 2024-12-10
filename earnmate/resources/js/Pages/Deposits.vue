@@ -83,22 +83,14 @@ function getSeverity(status) {
                 
                 <Column field="amount" header="Amount" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.amount }}
+                        {{ data.method == 'baridi' ? data.amount*data.price + ' DZD' : '$ '+data.amount }}
                     </template>
-                    
                 </Column>
-
-
                 <Column field="method" header="Method" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-
-                        {{ data.method }}
+                        <img :src="`/imgs/admin/${data.method}.png`" class="w-14" alt="">
                     </template>
-                    
                 </Column>
-
-
-
                 <Column field="status" header="Status" sortable style="min-width: 14rem">
                     <template #body="{ data }">
 

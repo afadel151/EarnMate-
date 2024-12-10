@@ -95,7 +95,7 @@ function getSeverity(status) {
                 </Column>
                 <Column field="amount" header="Amount" sortable >
                     <template #body="{ data }">
-                        {{ data.method == 'baridi' ? data.amount + ' DZD' : '$ '+data.amount }}
+                        {{ data.method == 'baridi' ? data.amount + 'DZD' : '$'+data.amount }}
                     </template>
                     
                 </Column>

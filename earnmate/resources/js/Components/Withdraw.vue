@@ -86,11 +86,10 @@ const isValidRip = computed(() => /^\d{20}$/.test(Rip.value));
 
     const validateRip = () => {
       if (!/^\d*$/.test(Rip.value)) {
-        // Remove non-numeric characters
         Rip.value = Rip.value.replace(/\D/g, "");
       }
     };
-const priceStore = usePriceStore()
+const priceStore = usePriceStore();
 
 </script>
 

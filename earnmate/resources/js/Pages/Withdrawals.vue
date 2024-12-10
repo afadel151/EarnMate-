@@ -12,6 +12,7 @@ import { ref, onMounted } from "vue";
 
 import Tag from 'primevue/tag';
 import Footer from '@/Components/Footer.vue';
+import { usePriceStore } from '@/stores/priceStore';
 const props = defineProps({
     withdrawals: {
         type: Array,
@@ -85,7 +86,7 @@ function getSeverity(status) {
                
                 <Column field="amount" header="Amount" sortable style="min-width: 14rem">
                     <template #body="{ data }">
-                        {{ data.amount }}
+                        {{ data.method == 'baridi' ? data.amount*data.price + ' DZD' : '$ '+data.amount }}
                     </template>
                     
                 </Column>
@@ -94,7 +95,7 @@ function getSeverity(status) {
                 <Column field="method" header="Method" sortable style="min-width: 14rem">
                     <template #body="{ data }">
 
-                        {{ data.method }}
+                        <img :src="`/imgs/admin/${data.method}.png`" class="w-14" alt="">
                     </template>
                     
                 </Column>

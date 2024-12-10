@@ -33,7 +33,7 @@ async function editStatus(s){
         });
         refwithdrawal.value.status = response.data.status;
         console.log(response.data);
-        
+        visible.value = false;
     } catch (error) {
         console.log(error);   
     }
