@@ -93,8 +93,7 @@ class AdminController extends Controller
                 ]);
                 $user = $subscription->user;
                 $user->update([
-                    'balance' => $user->balance + $subscription->level->reward
-                ]);
+                    'balance' => $user->balance + $subscription->level->reward + ($subscription->method == 'regular' ? $subscription->level->deposit_required : Level::find($subscription->level_id + 1)->deposit_required),                 ]);
             }else {
                 $subscription->update([
                     'completed' => true

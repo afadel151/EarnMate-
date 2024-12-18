@@ -29,7 +29,6 @@ class LevelController extends Controller
     {
         $user = $user = User::find(Auth::user()->id);
         $level = Level::find($request->level_id);
-        
         if ($user->current_level != 'No_subscription') {
             return response()->json('already_subscribed');
         }
@@ -73,7 +72,7 @@ class LevelController extends Controller
             $activeFriends = Auth::user()->friends->whereIn('referenced_id',$subscriptions)->count();
             $subscriptions = new Subscription;
             $subscriptions->user_id = $user->id;
-            $subscriptions->level_id = $nextLevel->id;
+            $subscriptions->level_id = $level->id;
             $subscriptions->save();
             $user->balance = $user->balance - $nextLevel->deposit_required;
             $user->save();
