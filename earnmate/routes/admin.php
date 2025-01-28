@@ -37,6 +37,10 @@ Route::middleware( [\App\Http\Middleware\AdminMiddleware::class,'auth:sanctum'])
         Route::get('/', [AdminController::class, 'offers'])->name('admin.offers');
         Route::get('/subscribers', [OfferController::class, 'subscribers'])->name('admin.offer_subscribers');
     });
+    Route::prefix('/invite_offers')->group(function () {
+        Route::get('/', [AdminController::class, 'invitation_offers'])->name('admin.invitation_offers');
+    });
+    // invitation_offers
     Route::prefix('/messages')->group(function () {
         Route::get('/', [AdminController::class, 'messages'])->name('admin.messages');
         Route::get('/{id}',[MessageController::class, 'user'])->name('admin.messages.user');

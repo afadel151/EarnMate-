@@ -9,9 +9,9 @@ import { InputIcon } from "primevue";
 import { Button } from "primevue";
 import { Column } from "primevue";
 import { InputText } from "primevue";
-import { ref } from "vue";
-import Popover from 'primevue/popover';
+import { computed, ref } from "vue";
 import DoneTaskStatusEdit from '@/Components/Admin/DoneTaskStatusEdit.vue';
+import axiosClient from '@/axios';
 const statuses = ref(['pending', 'confirmed', 'declined']);
 const props = defineProps({
     tasks: Array
@@ -65,13 +65,56 @@ function getSeverity(status) {
         return 'danger'
     }
 }
+const selectedTasks = ref([])
+const selectedTasksIds = computed(()=>{
+    return selectedTasks.value?.map(task=> task.id)
+})
+const clearFilter = async () => {
+    try {
+        let response = await axiosClient.post('/admin/done_tasks/delete',{
+            tasks: selectedTasksIds.value
+        });
+        if (response.status == 200) {
+            selectedTasks.value = [];
+        }else if(response.status == 201){
+            console.log('NO tasks to delete');
+        }else{
+         console.log('Error :'+response.data);
+         
+        }
+        
+    } catch (error) {
+        console.log(error);
+
+    }
+    
+};
+const tasks = ref(props.tasks);
+const confirmFilter = async () => {
+    try {
+        let response = await axiosClient.post('/admin/done_tasks/confirm');
+        if (response.status == 200) {
+            tasks.value.map(task => task.status = 'confirmed')
+        }else if(response.status == 201){
+            console.log('Error confirming tasks');
+        }else{
+         console.log('Error :'+response.data);
+         
+        }
+        
+    } catch (error) {
+        console.log(error);
+
+    }
+    
+};
 
 </script>
 
 <template>
     <AdminLayout>
         <div class="p-10 pt-32 w-full flex flex-col justify-center items-center">
-            <DataTable v-model:filters="filters" class="w-[100%]" :value="props.tasks" paginator :rows="10" dataKey="id"
+            <DataTable v-model:filters="filters" v-model:selection="selectedTasks" class="w-[100%]" :value="tasks" paginator :rows="10" dataKey="id"
                 filterDisplay="menu" :globalFilterFields="[
                     'user.email',
                     'task.name',
@@ -80,7 +123,11 @@ function getSeverity(status) {
                     'created_at'
                 ]">
                 <template #header>
-                    <div class="flex justify-end">
+                    <div class="flex justify-between">
+                        <div class="flex justify-start space-x-3">
+                            <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="clearFilter()" />
+                            <Button type="button" icon="pi pi-filter-slash" label="Confirm" severity="info" outlined @click="confirmFilter()" />
+                        </div>
                         <IconField>
                             <InputIcon>
                                 <i class="pi pi-search" />
@@ -90,6 +137,7 @@ function getSeverity(status) {
                     </div>
                 </template>
                 <template #empty> No customers found. </template>
+                <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
                 <Column field="created_at" header="Date" sortable >
                     <template #body="{ data }">
                         {{ extractDate(data.created_at) }}

@@ -4,7 +4,7 @@
             <div class="w-full flex my-10 justify-center items-center">
                 <AddTask  @addtask="AddNewTask" />
             </div>
-            <DataTable v-model:filters="filters" class="w-[100%]" v-model:selection="selectedTasks" :value="tasks" paginator :rows="10"
+            <DataTable v-model:filters="filters" class="w-[100%]"  v-model:selection="selectedTasks" :value="tasks" paginator :rows="10"
                 dataKey="id" filterDisplay="menu" :globalFilterFields="[
                     'name',
                     'type',
@@ -81,12 +81,13 @@
                 </Column>
 
             </DataTable>
+            {{ selectedTasksIds }}
         </div>
     </AdminLayout>
 </template>
 <script setup>
 import { FilterMatchMode, FilterOperator } from "@primevue/core/api";
-import { DataTable } from "primevue";
+import { DataTable, ProgressSpinnerStyle } from "primevue";
 import { IconField } from "primevue";
 import { InputIcon } from "primevue";
 import { Button } from "primevue";
@@ -94,11 +95,11 @@ import { Column } from "primevue";
 import { InputText } from "primevue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import AddTask from "@/Components/Admin/AddTask.vue";
 import axiosClient from "@/axios";
 const tasks = ref([]);
-const selectedTasks = ref([]);
+const selectedTasks = ref();
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     name: {
@@ -138,7 +139,9 @@ const filters = ref({
 function AddNewTask(task){
     tasks.value.push(task);
 }
-
+const selectedTasksIds = computed(()=>{
+    return selectedTasks.value?.map(task=> task.id)
+})
 function extractDate(datetime) {
     const date = new Date(datetime);
     return date.toISOString().split('T')[0];
@@ -154,10 +157,26 @@ onMounted(async () => {
 });
 
 
-const clearFilter = () => {
-    initFilters();
-};
+const clearFilter = async () => {
+    try {
+        let response = await axiosClient.post('/admin/tasks/delete',{
+            tasks: selectedTasksIds.value
+        });
+        if (response.status == 200) {
+            tasks.value = tasks.value.filter(task => !selectedTasksIds.value.includes(task.id));
+            selectedTasks.value = [];
+        }else if(response.status == 201){
+            console.log('NO tasks to delete');
+        }else{
+         console.log('Error :'+response.data);
+         
+        }
+        
+    } catch (error) {
+        console.log(error);
 
+    }
+};
 const initFilters = () => {
     filters.value = {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },

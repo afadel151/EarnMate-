@@ -38,7 +38,7 @@ const calculateRemainingTime = () => {
 };
 const visible = ref(false);
 const CloseSubscription = ref(false);
-const Subscribed = ref(false);
+const Subscribed = ref(null);
 onMounted(async () => {
     try {
         let response = await axiosClient.get("/deposits/getrip");
@@ -52,8 +52,13 @@ onMounted(async () => {
             CloseSubscription.value = false
         } else if (cansubscribe.data == false) {
             CloseSubscription.value = true
-        } else if (cansubscribe.data == 'subscribed') {
-            Subscribed.value = true
+        } else if (cansubscribe.data == 'pending') {
+            Subscribed.value = 'pending'
+        }else if (cansubscribe.data == 'confirmed') {
+            Subscribed.value = 'confirmed'
+        }
+        else if (cansubscribe.data == 'declined') {
+            Subscribed.value = 'declined'
         }
         if (response.data == "full") {
             candepositbaridi.value = false;
@@ -172,7 +177,7 @@ const requiredAmount = ref(props.offer ? props.offer.required_amount : null);
     <Toast/>
     <Button v-if="isOfferActive && !Subscribed && !CloseSubscription" @click="visible = true" :label="'Subscribe'"
         icon="pi pi-plus" />
-    <p class="text-5xl font-bold md:text-white text-violet-500" v-if="Subscribed">Subscribed ✅</p>
+    <p class="text-5xl font-bold md:text-white text-violet-500" v-if="Subscribed">{{ Subscribed }}</p>
     <Dialog v-model:visible="visible" modal header="Deposit" :style="{ width: '32rem' }">
         <Tabs
             :value="props.offer.method == 'all' || props.offer.method == 'baridi' ? '0' : props.offer.method == 'binance' ? '1' : '2'"

@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Stmt\TryCatch;
 
 class TaskController extends Controller
 {
@@ -78,5 +79,50 @@ class TaskController extends Controller
             'image'  => 'no_screenshot'
         ]);
         return response()->json($task);   
+    }
+    public function delete(Request $request)
+    {
+        $tasks_ids = $request->tasks;
+        if ($tasks_ids && is_array($tasks_ids)) {
+            try {
+                foreach ($tasks_ids as $id) {
+                    Task::destroy($id);
+                }
+                return response(status : 200);
+            } catch (\Throwable $th) {
+                return response(status: 203)->json($th);
+            }
+        }
+        else{
+            return response(status : 201);
+        }
+    }
+    public function delete_done_tasks(Request $request)
+    {
+        $tasks_ids = $request->tasks;
+        if ($tasks_ids && is_array($tasks_ids)) {
+            try {
+                foreach ($tasks_ids as $id) {
+                    DoneTask::destroy($id);
+                }
+                return response(status : 200);
+            } catch (\Throwable $th) {
+                return response(status: 203)->json($th);
+            }
+        }
+        else{
+            return response(status : 201);
+        }
+    }
+    public function confirm_done_tasks(Request $request)
+    {
+        try {
+            DoneTask::where('status','pending')?->update([
+                'status' => 'confirmed'
+            ]);
+            return response(status: 200);
+        } catch (\Throwable $th) {
+            return response(status: 201);
+        }
     }
 }

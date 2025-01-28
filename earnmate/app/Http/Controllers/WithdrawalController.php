@@ -25,6 +25,10 @@ class WithdrawalController extends Controller
         if (Auth::user()->balance < $amount) {
             return response()->json('failed');
         }
+        if(Withdrawal::where('user_id',Auth::user()->id)->where('status','pending')->exists())
+        {
+            return response()->json('failed');
+        }
         $withdrawal = new Withdrawal;
         $withdrawal->destination = $rip;
         $withdrawal->method = 'baridi';
@@ -54,6 +58,10 @@ class WithdrawalController extends Controller
         if (Auth::user()->balance < $amount) {
             return response()->json('failed');
         }
+        if(Withdrawal::where('user_id',Auth::user()->id)->where('status','pending')->exists())
+        {
+            return response()->json('failed');
+        }
         $withdrawal = new Withdrawal;
         $withdrawal->destination = $adress;
         $withdrawal->method = 'binance';
@@ -70,6 +78,10 @@ class WithdrawalController extends Controller
         $adress = $request->adress;
         $amount = $request->amount;
         if (Auth::user()->balance < $amount) {
+            return response()->json('failed');
+        }
+        if(Withdrawal::where('user_id',Auth::user()->id)->where('status','pending')->exists())
+        {
             return response()->json('failed');
         }
         $withdrawal = new Withdrawal;

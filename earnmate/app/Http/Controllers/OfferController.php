@@ -32,7 +32,7 @@ class OfferController extends Controller
         
         $offer_id = $request->get('offer_id');
         if (OfferSubscription::where('user_id',Auth::user()->id)->where('offer_id',$offer_id)->exists()) {
-            return response()->json('subscribed');
+            return response()->json(OfferSubscription::where('user_id',Auth::user()->id)->where('offer_id',$offer_id)->first()->status);
         }
         $subscribers = OfferSubscription::where('offer_id',$offer_id)->count();
         if ($subscribers < Offer::find($offer_id)->real_max_users) {

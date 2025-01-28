@@ -7,7 +7,9 @@ const props = defineProps({
     bonus: Number,
     user: Object,
     offer: Object,
-    level: Object
+    level: Object,
+    invite_offer: Object,
+    invited:Number
 });
 
 onMounted(() => {
@@ -135,13 +137,13 @@ const priceStore = usePriceStore();
     <MyLayout>
         <div class="md:grid grid-cols-4 grid-rows-[1.5fr_1.2fr_1fr_1fr_1fr_1fr] md:gap-4  px-5 flex flex-col space-y-5  md:py-10 md:px-[12rem] ">
             <div class="col-span-4 flex flex-col space-y-6 md:block " :class="props.offer ? 'h-72' : ''">
-                <div v-if="!props.offer"
+                <div v-if="!props.offer && !props.invite_offer"
                     class="w-full backdrop-blur-md bg-white/80 shadow-md flex justify-center items-center rounded-md h-full">
                     <p class="text-xl text-gray-500">
                         No offer for today 
                     </p>
                 </div>
-                <div v-else
+                <div v-else-if="props.offer"
                     class="w-full backdrop-blur-md  justify-between bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg md:p-8 px-1 flex  items-center rounded-lg md:space-x-8 h-full">
                     <!-- Left Image Section -->
 
@@ -162,7 +164,7 @@ const priceStore = usePriceStore();
                             </span>
                         </p>
                     </div>
-                    <div class="md:flex hidden flex-col justify-center items-center space-y-6">
+                    <div  class="md:flex hidden flex-col justify-center items-center space-y-6">
                         <div v-if="remainingTime" class="text-center">
                             <p class="text-4xl font-bold">⏳ Starts In:</p>
                             <p class="text-3xl font-mono">
@@ -174,6 +176,19 @@ const priceStore = usePriceStore();
                     </div>
  
                 </div>
+                <div v v-if="props.invite_offer"  class="w-full backdrop-blur-md  justify-between bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg md:p-8 px-1 md:py-0 py-4 flex  items-center rounded-lg md:space-x-8 h-full">
+                    <div class="space-y-4">
+                        <p class="md:text-5xl text-2xl font-bold">
+                            🎉 Invitation Offer
+                        </p>
+                        <p class="md:text-3xl text-2xl">
+                            Invite <span class="font-semibold">{{ props.invite_offer.invite }}</span> active Persons , You are currently inviting {{ props.invited }} 
+                        </p>
+                        <p class="md:text-2xl text-xl">
+                            Get : <span class="font-semibold"> ${{ props.invite_offer.invite }}</span> 💵
+                        </p>
+                    </div>
+                </div>
                 <div class="flex md:hidden flex-col justify-center items-center space-y-6">
                         <div v-if="remainingTime" class="text-center">
                             <p class="text-4xl font-bold">⏳ Starts In:</p>
@@ -182,10 +197,10 @@ const priceStore = usePriceStore();
                                 {{ remainingTime.minutes }}m {{ remainingTime.seconds }}s
                             </p>
                         </div>
-                        <OfferSubscribe :offer="props.offer" />
-                    </div>
+                        <OfferSubscribe v-if="props.offer" :offer="props.offer" />
+                </div>
             </div>
-           
+            
             <div class="row-start-2">
                 <div
                     class="rounded-md relative md:py-5  md:pr-0 p-5 md:pl-5 backdrop-blur-sm h-full bg-white/80 md:space-y-2  space-y-3 shadow-md flex flex-col justify-between items-start">

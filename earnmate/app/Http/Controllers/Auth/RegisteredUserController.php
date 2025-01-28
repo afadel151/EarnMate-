@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\InviteOffer;
 use App\Models\Reference;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
@@ -70,10 +72,19 @@ class RegisteredUserController extends Controller
         $user->createToken('auth_token')->plainTextToken;
         if ($request->code != '') {
             $referer_id = User::where('code',$request->code)->first()->id;
-            Reference::create([
-                'referrer_id'=>$referer_id,
-                'referenced_id' => $user->id
-            ]);
+            $offer = InviteOffer::where('closed',false)->first();
+            if ($offer != null) {
+                DB::table('invitation_offers_users')->insert([
+                    'invitation_offer_id' => $offer->id,
+                    'user_id' => $referer_id,
+                    'invited_id' => $user->id
+                ]);
+            } else{
+                Reference::create([
+                    'referrer_id'=>$referer_id,
+                    'referenced_id' => $user->id
+                ]);
+            }
         };
         event(new Registered($user));
 

@@ -25,6 +25,7 @@ import { usePage } from "@inertiajs/vue3";
             <SidebarButton :href="'admin.admins'" :label="'Admins'" :icon="'cog'" />
             <SidebarButton :href="'admin.users'" :label="'Users'" :icon="'users'" />
             <SidebarButton :href="'admin.offers'" :label="'Offers'" :icon="'gift'" />
+            <SidebarButton :href="'admin.invitation_offers'" :label="'Invite Offers'" :icon="'gift'" />
             <SidebarButton :href="'admin.offer_subscribers'" :label="'Offer Subs'" :icon="'gift'" />
             <SidebarButton :href="'admin.messages'" :label="'Messages'" :icon="'envelope'" />
             <SidebarButton :href="'admin.config'" :label="'Config'" :icon="'cog'" />
@@ -42,6 +43,7 @@ import { usePage } from "@inertiajs/vue3";
                 <SidebarButton :href="'admin.admins'" :label="'Admins'" :icon="'cog'" />
                 <SidebarButton :href="'admin.users'" :label="'Users'" :icon="'users'" />
                 <SidebarButton :href="'admin.offers'" :label="'Offers'" :icon="'gift'" />
+                <SidebarButton :href="'admin.invitation_offers'" :label="'Invite Offers'" :icon="'gift'" />
                 <SidebarButton :href="'admin.offer_subscribers'" :label="'Offer Subs'" :icon="'gift'" />
                 <SidebarButton :href="'admin.messages'" :label="'Messages'" :icon="'envelope'" />
                 <SidebarButton :href="'admin.config'" :label="'Config'" :icon="'cog'" />

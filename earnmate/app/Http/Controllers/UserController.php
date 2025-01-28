@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Config;
 use App\Models\DoneTask;
+use App\Models\InviteOffer;
 use App\Models\Offer;
 use App\Models\Subscription;
 use App\Models\Task;
@@ -14,6 +15,7 @@ use Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -28,7 +30,16 @@ class UserController extends Controller
 
         $subscriptions = Subscription::all()->pluck('user_id')->toArray();
         $invitedFriends = Auth::user()->friends->whereIn('referenced_id',$subscriptions)->count();
-        
+        $invitation_offer = InviteOffer::where('closed',false)->whereDate('created_at','>=',Carbon::today()->subDays( 7))->first();
+        $invited = 0;
+        if ($invitation_offer) {
+            $invited_ids = DB::table('invitation_offers_users')
+                            ->select('*')
+                            ->where('invitation_offer_id',isset($invitation_offer) ? $invitation_offer->id : 1)
+                            ->where('user_id',$user->id)
+                            ->pluck('invited_id')->toArray();
+            $invited = Subscription::whereIn('user_id',$invited_ids)->groupBy('user_id')->count();
+        }
         $bonus = $user->bonuses()->sum('amount');
         $donetasks = Auth::user()->tasks()->pluck('task_id')->toArray();
         $remainedtasks = Task::whereNotIn('id',$donetasks)->whereDate('created_at',Carbon::today())->get();
@@ -42,6 +53,8 @@ class UserController extends Controller
             'user' => $user,
             'bonus' => $bonus,
             'offer' => $offer,
+            'invite_offer' => $invitation_offer,
+            'invited'=> $invited,
             'level' => $level
         ]);
     }

@@ -34,7 +34,7 @@ async function SchduleSubs()
     try {
         let response = await axiosClient.get('/admin/schedule/subscriptions')
         if (response.status == 200) {
-            toast.add({ severity: 'success', summary: 'Error', detail: `${response.data} Level subscribtions handled successfully`, life: 3000 });
+            toast.add({ severity: 'success', summary: 'Success', detail: `${response.data} Level subscribtions handled successfully`, life: 3000 });
         }
     } catch (error) {
         toast.add({ severity: 'error', summary: 'Error', detail: error , life: 3000 });

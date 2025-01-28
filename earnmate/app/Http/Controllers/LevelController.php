@@ -21,7 +21,7 @@ class LevelController extends Controller
         $infos->level = $level;
         $infos->next = $next;
         $subscriptions = Subscription::all()->pluck('user_id')->toArray();
-        $invitedFriends = Auth::user()->friends->whereIn('referenced_id',$subscriptions)->count();
+        $invitedFriends = Auth::user()->friends()?->whereIn('referenced_id',$subscriptions)->count();
         $infos->active_friends = $invitedFriends;
         return response()->json($infos);
     }

@@ -4,6 +4,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\DepositController;
+use App\Http\Controllers\InviteOfferController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\OfferController;
@@ -60,7 +61,12 @@ Route::prefix('/api')->group(function (){
         Route::prefix('/tasks')->group(function(){
             Route::get('/', [TaskController::class, 'gettasks']);
             Route::post('/add', [TaskController::class, 'add']);
+            Route::post('/delete', [TaskController::class, 'delete']);
             Route::post('/edit_status',[TaskController::class,'edit_status']);
+        });
+        Route::prefix('/done_tasks')->group(function(){
+            Route::post('/delete', [TaskController::class, 'delete_done_tasks']);
+            Route::post('/confirm', [TaskController::class, 'confirm_done_tasks']);
         });
         Route::post('/messages/add', [MessageController::class, 'add_admin']);
         Route::get('/messages/convs', [MessageController::class, 'get_conversations']);
@@ -79,8 +85,10 @@ Route::prefix('/api')->group(function (){
         Route::prefix('/offers')->group(function(){
             Route::post('/add', [OfferController::class, 'add']);
             Route::post('/edit_status', [OfferController::class, 'edit_status']);
-            
-            
+        });
+        Route::prefix('/invite_offers')->group(function(){
+            Route::post('/create', [InviteOfferController::class, 'create']);
+            Route::post('/close', [InviteOfferController::class, 'close']);
         });
         Route::prefix('/admins')->group(function (){
             Route::post('/add', [AdminController::class, 'add'])->name('admims.add');

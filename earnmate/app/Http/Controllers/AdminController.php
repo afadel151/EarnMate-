@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Deposit;
 use App\Models\DoneTask;
+use App\Models\InviteOffer;
 use App\Models\Level;
 use App\Models\Offer;
 use App\Models\OfferSubscription;
 use App\Models\Reference;
 use App\Models\Subscription;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\Withdrawal;
 use Carbon\Carbon;
@@ -78,27 +80,28 @@ class AdminController extends Controller
     public function schedule_subs(Request $request)
      {
         $subscriptions = Subscription::where('completed', false)
-        ->whereDate('created_at', Carbon::now()->subDays(5))
+        ->whereDate('created_at', Carbon::now()->subDays(\App\Models\Config::find(1)->level_days))
         ->get();
         foreach ($subscriptions as $subscription) {
-            $startDate = Carbon::now()->subDays(5);
-            $userTasks = DoneTask::where('user_id',$subscription->user_id)->where(function ($query) use ($startDate){
-                $query->whereDate('created_at','>=',$startDate)
-                        ->whereDate('created_at','<=',Carbon::today());
-            })->get();
-            $activeTasks = $userTasks->count() - $userTasks->where('status','confirmed')->count();
-            if ($activeTasks < 5) {
-                $subscription->update([
-                    'completed' => true
-                ]);
-                $user = $subscription->user;
-                $user->update([
-                    'balance' => $user->balance + $subscription->level->reward + ($subscription->method == 'regular' ? $subscription->level->deposit_required : Level::find($subscription->level_id + 1)->deposit_required),                 ]);
-            }else {
-                $subscription->update([
-                    'completed' => true
-                ]);
-            }
+            
+            // $tasks = Task::whereDate('created_at', '>=', $subscription->created_at)->get();
+            // $userTasks = DoneTask::where('user_id',$subscription->user_id)->where(function ($query) use ($subscription){
+            //     $query->whereDate('created_at','>=',$subscription->created_at)
+            //             ->whereDate('created_at','<=',Carbon::today());
+            // })->get();
+            // $activeTasks = $tasks->count() - $userTasks->count();
+            // if ($activeTasks < 5) {
+            $subscription->update([
+                'completed' => true
+            ]);
+            $user = $subscription->user;
+            $user->update([
+                'balance' => $user->balance + $subscription->level->reward + ($subscription->method == 'regular' ? $subscription->level->deposit_required : Level::find($subscription->level_id + 1)->deposit_required),                 ]);
+            // }else {
+            //     $subscription->update([
+            //         'completed' => true
+            //     ]);
+            // }
         }
         return response()->json( $subscriptions->count());
     }
@@ -139,6 +142,14 @@ class AdminController extends Controller
 
     }
 
+    public function invitation_offers()
+    {
+        $offers = InviteOffer::all();
+        return Inertia::render('Admin/InviteOffers', [
+            'offers' => $offers,
+        ]);
+
+    }
     public function messages()
     {
         
