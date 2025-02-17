@@ -41,7 +41,7 @@ const getSeverity = (product) => {
 
 </script>
 <template>
-    <DataTable   paginator :rows="5"   :rowsPerPageOptions="[5, 10, 20, 50]" :value="props.tasks" >
+    <DataTable class="mt-5"   paginator :rows="5"   :rowsPerPageOptions="[5, 10, 20, 50]" :value="props.tasks" >
         <template #header>
             <div class="flex flex-wrap items-center justify-between gap-2">
                 <span class="text-xl font-bold">History</span>

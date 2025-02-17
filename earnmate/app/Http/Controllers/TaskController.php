@@ -118,7 +118,8 @@ class TaskController extends Controller
     {
         try {
             DoneTask::where('status','pending')?->update([
-                'status' => 'confirmed'
+                'status' => 'confirmed',
+                'image' => 'no_screenshot'
             ]);
             return response(status: 200);
         } catch (\Throwable $th) {

@@ -46,23 +46,23 @@ const daysAgo = computed(() => {
 
 <template>
     <div
-        class=" md:p-7 p-5 flex flex-col shadow-md space-y-6 items-start  backdrop-blur-md bg-white/90 rounded-lg md:col-span-2 md:row-span-2 ">
+        class=" md:p-7 p-5 flex flex-col shadow-md space-y-6 items-start dark:bg-slate-700/70  backdrop-blur-md bg-white/90 rounded-lg md:col-span-2 md:row-span-2 ">
         
             <div class="flex items-center w-full space-x-4">
-            <span class="  w-16 h-16 flex justify-center items-center bg-blue-50">
+            <span class="  w-16 h-16 flex justify-center items-center bg-blue-50 dark:bg-slate-700/70">
                 <box-icon type="solid" name="user-circle" color="#02bee8" size="lg"></box-icon>
             </span>
             <div>
-                <p class="text-2xl font-bold text-gray-600">User</p>
+                <p class="text-2xl font-bold text-gray-600 dark:text-gray-300">User</p>
                 <p class="text-lg text-gray-500">Joined {{ daysAgo }} days ago</p>
             </div>
         </div>
-        <p class="text-4xl font-extrabold text-gray-800 tracking-tight">{{ user.name }}</p>
+        <p class="text-4xl font-extrabold text-gray-800 tracking-tight dark:text-gray-300">{{ user.name }}</p>
         <div class="w-full">
-            <p class="text-xl font-medium text-gray-700">Current Level:</p>
+            <p class="text-xl font-medium text-gray-700 dark:text-gray-400">Current Level:</p>
             <p v-if="currentLevel == 'No_subscription'" class="text-2xl font-bold text-indigo-600">Not subscribed yet
             </p>
-            <p v-else class="text-2xl font-bold text-indigo-600">Level {{ currentLevel.level.level_number }}</p>
+            <p v-else class="text-2xl font-bold text-indigo-400">Level {{ currentLevel.level.level_number }}</p>
         </div>
         <div class="w-full space-y-2">
             <p v-if="currentLevel != 'No_subscription'" class="text-gray-500 font-medium text-sm">

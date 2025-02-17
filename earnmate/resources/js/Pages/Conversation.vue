@@ -29,8 +29,8 @@ const refMessages = ref(props.messages);
 
 <template>
     <Messages>
-            <div class="h-full w-full flex pb-5 px-5 space-y-2 flex-col-reverse overflow-y-scroll">
-                <div class="w-full  h-20 bg-white rounded-md space-x-3 px-4 mt-4 flex justify-between items-center">
+            <div class="h-full dark:bg-gray-600 rounded-lg w-full flex pb-5 px-5 space-y-2 flex-col-reverse overflow-y-scroll">
+                <div class="w-full  h-20 bg-white dark:bg-transparent rounded-md space-x-3 px-4 mt-4 flex justify-between items-center">
                     <InputText v-model="textMessage" class="w-full" placeholder="Write a message here..." />
                     <Button label="Send" icon="pi pi-send" @click="sendMessage" severity="info" />
                 </div>

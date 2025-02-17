@@ -19,9 +19,11 @@ import { usePage } from "@inertiajs/vue3";
         <div id="menu" class="w-full hidden mb-5 px-20 md:hidden flex flex-col justify-start h-fit">
             <SidebarButton :href="'admin.dashboard'" :label="'Dashboard'" :icon="'home'" />
             <SidebarButton :href="'admin.tasks'" :label="'Tasks'" :icon="'credit-card'" />
+            <SidebarButton :href="'admin.primary_tasks'" :label="'Primary tasks'" :icon="'credit-card'" />
             <SidebarButton :href="'admin.deposits'" :label="'Deposits'" :icon="'crown'" />
             <SidebarButton :href="'admin.withdrawals'" :label="'Withdrawals'" :icon="'cog'" />
             <SidebarButton :href="'admin.done_tasks'" :label="'Done tasks'" :icon="'cog'" />
+            <SidebarButton :href="'admin.dpt'" :label="'DPT'" :icon="'cog'" />
             <SidebarButton :href="'admin.admins'" :label="'Admins'" :icon="'cog'" />
             <SidebarButton :href="'admin.users'" :label="'Users'" :icon="'users'" />
             <SidebarButton :href="'admin.offers'" :label="'Offers'" :icon="'gift'" />
@@ -37,9 +39,13 @@ import { usePage } from "@inertiajs/vue3";
             <div class="flex-grow flex w-[80%]  flex-col items-stretch space-y-4">
                 <SidebarButton :href="'admin.dashboard'" :label="'Dashboard'" :icon="'home'" />
                 <SidebarButton :href="'admin.tasks'" :label="'Tasks'" :icon="'credit-card'" />
+            <SidebarButton :href="'admin.primary_tasks'" :label="'Primary tasks'" :icon="'credit-card'" />
+                
                 <SidebarButton :href="'admin.deposits'" :label="'Deposits'" :icon="'crown'" />
                 <SidebarButton :href="'admin.withdrawals'" :label="'Withdrawals'" :icon="'cog'" />
                 <SidebarButton :href="'admin.done_tasks'" :label="'Done tasks'" :icon="'cog'" />
+            <SidebarButton :href="'admin.dpt'" :label="'DPT'" :icon="'cog'" />
+
                 <SidebarButton :href="'admin.admins'" :label="'Admins'" :icon="'cog'" />
                 <SidebarButton :href="'admin.users'" :label="'Users'" :icon="'users'" />
                 <SidebarButton :href="'admin.offers'" :label="'Offers'" :icon="'gift'" />

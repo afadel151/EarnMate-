@@ -8,6 +8,7 @@ use App\Http\Controllers\InviteOfferController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\PrimaryTaskController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WithdrawalController;
@@ -36,6 +37,9 @@ Route::prefix('/api')->group(function (){
     Route::prefix('/tasks')->group(function(){
         Route::post('/confirm', [TaskController::class, 'confirm']);
     });
+    Route::prefix('/primary_tasks')->group(function (){
+        Route::post('/confirm',[PrimaryTaskController::class, 'confirm']);
+    });
     Route::prefix('offers')->group(function (){
         Route::get('/can', [OfferController::class, 'can']);
         Route::post('/baridi', [OfferController::class, 'baridi']);
@@ -63,6 +67,11 @@ Route::prefix('/api')->group(function (){
             Route::post('/add', [TaskController::class, 'add']);
             Route::post('/delete', [TaskController::class, 'delete']);
             Route::post('/edit_status',[TaskController::class,'edit_status']);
+        });
+        Route::prefix('/primary_tasks')->group(function(){
+            Route::post('/add', [PrimaryTaskController::class, 'add']);
+            Route::post('/delete', [PrimaryTaskController::class, 'delete']);
+            Route::post('/edit_status',[PrimaryTaskController::class,'edit_status']);
         });
         Route::prefix('/done_tasks')->group(function(){
             Route::post('/delete', [TaskController::class, 'delete_done_tasks']);

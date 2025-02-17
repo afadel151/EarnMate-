@@ -44,7 +44,7 @@ const refMessages = ref(props.messages);
                 </div>
                 <Button icon="pi pi-user" severity="info" rounded />
             </div>
-            <div class="h-[91%] w-full flex pb-5 px-5 space-y-2 flex-col-reverse overflow-y-scroll">
+            <div class="h-[91%] w-full  flex pb-5 px-5 space-y-2 flex-col-reverse overflow-y-scroll">
                 <div class="w-full h-20 bg-white rounded-md space-x-3 px-4 mt-4 flex justify-between items-center">
                     <InputText v-model="textMessage" class="w-full" placeholder="Write a message here..." />
                     <Button label="Send" icon="pi pi-send" @click="sendMessage" severity="info" />

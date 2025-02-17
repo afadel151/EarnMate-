@@ -4,18 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Deposit;
+use App\Models\DonePrimaryTask;
 use App\Models\DoneTask;
 use App\Models\InviteOffer;
 use App\Models\Level;
 use App\Models\Offer;
 use App\Models\OfferSubscription;
+use App\Models\PrimaryTask;
 use App\Models\Reference;
 use App\Models\Subscription;
-use App\Models\Task;
 use App\Models\User;
 use App\Models\Withdrawal;
 use Carbon\Carbon;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -142,6 +142,14 @@ class AdminController extends Controller
 
     }
 
+    public function primary_tasks()
+    {
+        $tasks = PrimaryTask::all();
+        return Inertia::render('Admin/PrimaryTasks',[
+            'tasks' => $tasks
+        ]);
+    }
+
     public function invitation_offers()
     {
         $offers = InviteOffer::all();
@@ -186,10 +194,17 @@ class AdminController extends Controller
     public function done_tasks()
     {
         $tasks = Auth::user()->admin->done_tasks->load(['task', 'user']);
+        
 
         return Inertia::render('Admin/DoneTasks', ['tasks' => $tasks]);
     }
-
+    public function done_primary_tasks(){
+        $primaryTasks = DonePrimaryTask::where('status','pending')->get();
+        $primaryTasks->load(['primary_task','user']);
+        return Inertia::render('Admin/DonePrimaryTasks',[
+            'dpt' => $primaryTasks
+        ]);
+    }
     public function add(Request $request)
     {
         $email = $request->email;

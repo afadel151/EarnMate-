@@ -6,6 +6,7 @@ use App\Models\Config;
 use App\Models\DoneTask;
 use App\Models\InviteOffer;
 use App\Models\Offer;
+use App\Models\PrimaryTask;
 use App\Models\Subscription;
 use App\Models\Task;
 use App\Models\User;
@@ -42,6 +43,9 @@ class UserController extends Controller
         }
         $bonus = $user->bonuses()->sum('amount');
         $donetasks = Auth::user()->tasks()->pluck('task_id')->toArray();
+        $donePrimaryTasks = Auth::user()->primary_tasks()->pluck('primary_task_id')->toArray();
+        $remainedPrimaryTasks = PrimaryTask::whereNotIn('id',$donePrimaryTasks)->whereDate('created_at',Carbon::today())->get();
+
         $remainedtasks = Task::whereNotIn('id',$donetasks)->whereDate('created_at',Carbon::today())->get();
         $offer = Offer::whereDate('start_date','>=',Carbon::today())->first();
         if ($user->admin()->exists()) {
@@ -50,6 +54,7 @@ class UserController extends Controller
         return Inertia::render('Dashboard2',[
             'friends' => $invitedFriends,
             'tasks' => $remainedtasks,
+            'primary_tasks' => $remainedPrimaryTasks,
             'user' => $user,
             'bonus' => $bonus,
             'offer' => $offer,

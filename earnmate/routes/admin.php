@@ -29,9 +29,16 @@ Route::middleware( [\App\Http\Middleware\AdminMiddleware::class,'auth:sanctum'])
         Route::get('/', [AdminController::class, 'tasks'])->name('admin.tasks');
 
     });
+    Route::prefix('/primary_tasks')->group(function () {
+        Route::get('/', [AdminController::class, 'primary_tasks'])->name('admin.primary_tasks');
+
+    });
     Route::prefix('/done_tasks')->group(function () {
         Route::get('/', [AdminController::class, 'done_tasks'])->name('admin.done_tasks');
 
+    });
+    Route::prefix('done_primary_tasks')->group(function(){
+        Route::get('/',[AdminController::class, 'done_primary_tasks'])->name('admin.dpt');
     });
     Route::prefix('/offers')->group(function () {
         Route::get('/', [AdminController::class, 'offers'])->name('admin.offers');

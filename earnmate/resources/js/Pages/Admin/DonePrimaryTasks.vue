@@ -12,11 +12,12 @@ import { InputText } from "primevue";
 import { computed, ref } from "vue";
 import DoneTaskStatusEdit from '@/Components/Admin/DoneTaskStatusEdit.vue';
 import axiosClient from '@/axios';
+import DonePrimaryTaskStatusEdit from '@/Components/Admin/DonePrimaryTaskStatusEdit.vue';
 const statuses = ref(['pending', 'confirmed', 'declined']);
 const props = defineProps({
-    tasks: Array,
-    primary_tasks:Array
+    dpt: Array,
 });
+
 function extractDate(datetime) {
     const date = new Date(datetime);
     return date.toISOString().split('T')[0];
@@ -90,10 +91,10 @@ const clearFilter = async () => {
     }
     
 };
-const tasks = ref(props.tasks);
+const tasks = ref(props.dpt);
 const confirmFilter = async () => {
     try {
-        let response = await axiosClient.post('/admin/done_tasks/confirm');
+        let response = await axiosClient.post('/admin/done_primary_tasks/confirm');
         if (response.status == 200) {
             tasks.value.map(task => task.status = 'confirmed')
         }else if(response.status == 201){
@@ -118,8 +119,7 @@ const confirmFilter = async () => {
             <DataTable v-model:filters="filters" v-model:selection="selectedTasks" class="w-[100%]" :value="tasks" paginator :rows="10" dataKey="id"
                 filterDisplay="menu" :globalFilterFields="[
                     'user.email',
-                    'task.name',
-                    'task.platform',
+                    'task.description',
                     'task.link',
                     'created_at'
                 ]">
@@ -159,19 +159,11 @@ const confirmFilter = async () => {
                 </Column>
 
 
-                <Column field="task.name" header="Name" sortable >
+                
+                <Column field="task.description" header="Description" sortable >
                     <template #body="{ data }">
 
-                        {{ data.task.name }}
-                    </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by Task" />
-                    </template>
-                </Column>
-                <Column field="task.platform" header="Platform" sortable >
-                    <template #body="{ data }">
-
-                        {{ data.task.platform }}
+                        {{ data.primary_task.description }}
                     </template>
                     <template #filter="{ filterModel }">
                         <InputText v-model="filterModel.value" type="text" placeholder="Search by Platform" />
@@ -180,7 +172,7 @@ const confirmFilter = async () => {
                 <Column field="task.link" header="Link" sortable >
                     <template #body="{ data }">
 
-                        <a :href="`${data.task.link}`">
+                        <a v-if="data.primary_task.link != null" :href="`${data.primary_task.link}`">
                             <Button label="Proceed" />
                         </a>
                     </template>
@@ -202,7 +194,7 @@ const confirmFilter = async () => {
                 <Column field="status" header="Status" sortable >
                     <template #body="{ data }">
 
-                        <DoneTaskStatusEdit :task="data" />
+                        <DonePrimaryTaskStatusEdit :task="data" />
                     </template>
                     
                     <template #filter="{ filterModel, filterCallback }">
